@@ -25,7 +25,6 @@ export const projectsItems: Projet[] = [
    {
       title: 'IOT Smart Campus',
       description: 'Création d\'un système d\'acquisition composé d\'un ESP32 relié à des capteurs de température, d\'humidité et de co2. Conception et développement du programme de récupération des données des capteurs et d’envoi de ces données à une API, en C++. Réalisation d\'une application web React servant d’outil diagnostique pour les capteurs de qualité de l’air, installés au sein de l’IUT de La Rochelle. L\'application permet aux utilisateurs de consulter les températures des salles et de recevoir un éco-conseil en fonction de la qualité de l\'air, mais aussi aux techniciens de configurer l\'acquisition et l\'envoi des données à partir d\'une interface. Optimisation de la consommation du système.',
-      link: 'https://makzime.itch.io/wild-hat-west',
       image_path: '/images/wip.jpg',
       tags: ['PHP', 'Symfony', 'Tailwind CSS', 'C++', 'Travail d’équipe', 'Méthodes agiles', 'Docker', 'SQL', 'PHPUnit', 'HTML', 'Git'],
    },
@@ -40,7 +39,6 @@ export const projectsItems: Projet[] = [
    {
       title: 'IUT FIGHTER',
       description: 'Conception et réalisation en équipe d\'un jeu inspiré du jeu Street Fighter 2, développé en C++ avec le framework graphique Qt. J\'ai, entre autres, conçu un système de hitbox et un système de personnalisation des touches..',
-      link: 'https://makzime.itch.io/wild-hat-west',
       image_path: '/images/wip.jpg',
       tags: ['Travail d’équipe', 'Conception de jeux', 'C++', 'Qt', 'POO', 'Gestion de projet', 'Git', 'Kanban'],
    },
