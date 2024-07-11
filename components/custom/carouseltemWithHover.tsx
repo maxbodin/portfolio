@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Experience } from '@/interfaces/experience'
 import { Projet } from '@/interfaces/projet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { getSkillColor, Skill } from '@/functions/getSkillColor'
 
 export const CarouselItemWithHover = ({ item }: { item: Projet | Experience }) => {
    const [hovered, setHovered] = useState<boolean>(false)
@@ -50,10 +51,11 @@ export const CarouselItemWithHover = ({ item }: { item: Projet | Experience }) =
                   </AccordionItem>
                </Accordion>
                <div className="flex flex-wrap mt-2 p-4">
-                  {item.tags.map((tag: string, index: number) => (
+                  {item.skills.map((skill: Skill, index: number) => (
                      <div className="p-1" key={index}>
-                        <Badge key={index} variant="outline" className="p-1 px-2 text-center">
-                           {tag}
+                        <Badge key={index} variant="outline" className="p-1 px-2 text-center"
+                               style={{ color: getSkillColor(skill) }}>
+                           {skill}
                         </Badge>
                      </div>
                   ))}

@@ -46,7 +46,7 @@ export const Whoami = (): React.JSX.Element => {
                   <Tooltip>
                      <TooltipTrigger>
                         <Button variant="outline" size="icon" asChild>
-                           <Link href="#">
+                           <Link href="https://www.linkedin.com/in/maxime-bodin-dev/">
                               <LinkedinIcon className="h-4 w-4 text-blue-800" />
                            </Link>
                         </Button>

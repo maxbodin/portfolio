@@ -31,3 +31,4 @@ export default function Home() {
 }
 
 // TODO Youtube part : gets videos from YouTube API
+// TODO Certification part : numérique responsable

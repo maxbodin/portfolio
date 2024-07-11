@@ -1,8 +1,10 @@
+import { Skill } from '@/functions/getSkillColor'
+
 export interface Experience {
-   title: string,
+   date: string,
    description: string,
-   link?: string,
    image_path: string,
-   tags: string[],
-   date: string
+   link?: string,
+   skills: Skill[],
+   title: string
 }
