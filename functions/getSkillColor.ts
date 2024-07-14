@@ -49,6 +49,8 @@ export enum Skill {
    TRAV_EQUIP = 'Travail d’équipe',
    TYPESCRIPT = 'TypeScript',
    UNITY = 'Unity',
+//   NODE = "Node JS",
+//   NGINX = "NGINX"
 }
 
 const colorMapping: { [key in Skill]: string } = {
