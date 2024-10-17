@@ -28,6 +28,7 @@ export const Whoami = (): React.JSX.Element => {
                domaines de l’informatique (intelligence artificielle, développement logiciel/web et 3D, ...). J’ai
                obtenu en 2024 mon Bachelor Universitaire de Technologie Informatique à l’IUT de La Rochelle, j’ai
                réalisé ma troisième année de BUT en alternance au sein de l’entreprise Enedis.
+               J’aime concevoir et réaliser des projets innovants et apprendre de nouvelles connaissances en les réalisant.
             </p>
             <div className="flex flex-row space-x-2">
                <TooltipProvider delayDuration={tooltipDelayDuration}>
