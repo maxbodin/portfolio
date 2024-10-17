@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
-import { CarouselItemWithHover } from '@/components/custom/carouseltemWithHover'
 import { projectsItems } from '@/data/projects'
 import { Projet } from '@/interfaces/projet'
+import CarouselItemWithHover from '@/components/custom/carouseltemWithHover'
 
 
-export const Projects = (): React.JSX.Element => {
+export default function Projects() {
    return (
       <section id="projects" className="pt-16">
          <h2 className="text-2xl pb-4">Projets 💡</h2>

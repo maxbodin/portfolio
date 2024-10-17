@@ -7,7 +7,7 @@ import {
    navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 
-export const NavBar = () => {
+export default function NavBar() {
    return (
       <div
          className="flex flex-col items-center md:flex-row md:items-start md:justify-between sticky top-0 md:right-0 md:w-auto md:fixed z-50 w-full sm:px-4">

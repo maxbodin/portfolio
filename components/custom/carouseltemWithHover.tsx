@@ -1,3 +1,4 @@
+'use client'
 import { Card, CardContent } from '@/components/ui/card'
 import * as React from 'react'
 import { useState } from 'react'
@@ -10,7 +11,7 @@ import { Projet } from '@/interfaces/projet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { getSkillColor, Skill } from '@/functions/getSkillColor'
 
-export const CarouselItemWithHover = ({ item }: { item: Projet | Experience }) => {
+export default function CarouselItemWithHover({ item }: { item: Projet | Experience }) {
    const [hovered, setHovered] = useState<boolean>(false)
 
    return (
@@ -21,6 +22,7 @@ export const CarouselItemWithHover = ({ item }: { item: Projet | Experience }) =
       >
          <Card className="w-full h-full rounded-xl overflow-hidden relative">
             <CardContent className="flex flex-col items-center justify-center w-full h-full p-0 relative">
+               {/* eslint-disable-next-line @next/next/no-img-element */}
                <img
                   src={item.image_path}
                   title={item.title}
@@ -37,7 +39,7 @@ export const CarouselItemWithHover = ({ item }: { item: Projet | Experience }) =
                      </Button>}
                   </div>
                )}
-               <Accordion type="single" collapsible className="px-8">
+               <Accordion type="single" collapsible className="px-8 w-full">
                   <AccordionItem value={item.title}>
                      <AccordionTrigger>
                         <div className="flex flex-col">

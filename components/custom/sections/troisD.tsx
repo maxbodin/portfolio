@@ -7,7 +7,7 @@ import { InstagramIcon } from 'lucide-react'
 import { troisDItems } from '@/data/troisD'
 
 
-export const TroisD = (): React.JSX.Element => {
+export default function TroisD() {
    return (
       <section id="3d">
          <h2 className="text-2xl pt-8 pb-4">3D 🎨</h2>

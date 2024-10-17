@@ -15,7 +15,7 @@ const tooltipDelayDuration: number = 100
 const words: string = 'Avide de connaissances et autodidacte, je suis passionné par de nombreux domaines de l’informatique (intelligence artificielle, développement logiciel/web et 3D, ...). J’ai obtenu en 2024 mon Bachelor Universitaire de Technologie Informatique à l’IUT de La Rochelle, j’ai réalisé ma troisième année de BUT en alternance au sein de l’entreprise Enedis. J’aime concevoir et réaliser des projets innovants et apprendre de nouvelles connaissances en les réalisant.'
 
 
-export const Whoami = (): React.JSX.Element => {
+export default function Whoami() {
    return (
       <section id="whoami" className="pt-8 flex flex-col lg:flex-row items-start space-x-4">
          <Avatar className="flex-shrink-0">

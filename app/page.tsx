@@ -1,13 +1,12 @@
-'use client'
 import * as React from 'react'
-import { ContactButton } from '@/components/custom/contactButton'
-import { Projects } from '@/components/custom/sections/projects'
-import { TroisD } from '@/components/custom/sections/troisD'
-import { Whoami } from '@/components/custom/sections/whoami'
-import { Experiences } from '@/components/custom/sections/experiences'
-import { Events } from '@/components/custom/sections/events'
-import { NavBar } from '@/components/custom/navBar'
-import { Footer } from '@/components/custom/footer'
+import NavBar from '@/components/custom/navBar'
+import Whoami from '@/components/custom/sections/whoami'
+import Experiences from '@/components/custom/sections/experiences'
+import Footer from '@/components/custom/footer'
+import Projects from '@/components/custom/sections/projects'
+import TroisD from '@/components/custom/sections/troisD'
+import Events from '@/components/custom/sections/events'
+import ContactButton from '@/components/custom/contactButton'
 
 
 export default function Home() {
@@ -21,9 +20,11 @@ export default function Home() {
                <Projects />
                <TroisD />
                <Events />
-               {/* TODO <Goals />*/}
                <ContactButton />
                <Footer />
+               {/*
+               TODO <Goals />
+               TODO <Certifications />*/}
             </div>
          </div>
       </main>
