@@ -7,6 +7,7 @@ import Projects from '@/components/custom/sections/projects'
 import TroisD from '@/components/custom/sections/troisD'
 import Events from '@/components/custom/sections/events'
 import ContactButton from '@/components/custom/contactButton'
+import Certifications from '@/components/custom/sections/certifications'
 
 
 export default function Home() {
@@ -20,11 +21,10 @@ export default function Home() {
                <Projects />
                <TroisD />
                <Events />
+               <Certifications />
                <ContactButton />
                <Footer />
-               {/*
-               TODO <Goals />
-               TODO <Certifications />*/}
+               {/* TODO <Goals /> */}
             </div>
          </div>
       </main>
@@ -32,4 +32,3 @@ export default function Home() {
 }
 
 // TODO Youtube part : gets videos from YouTube API
-// TODO Certification part : numérique responsable

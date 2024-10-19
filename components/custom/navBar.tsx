@@ -34,6 +34,10 @@ export default function NavBar() {
                   <NavigationMenuLink href="#events" className={navigationMenuTriggerStyle()}>Évènements 🏆
                   </NavigationMenuLink>
                </NavigationMenuItem>
+               <NavigationMenuItem>
+                  <NavigationMenuLink href="#certifications" className={navigationMenuTriggerStyle()}>Certifications 🎓
+                  </NavigationMenuLink>
+               </NavigationMenuItem>
                {/* TODO
           <NavigationMenuItem>
             <NavigationMenuLink href="#youtube" className={navigationMenuTriggerStyle()}>

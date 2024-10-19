@@ -10,8 +10,9 @@ import { Experience } from '@/interfaces/experience'
 import { Projet } from '@/interfaces/projet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { getSkillColor, Skill } from '@/functions/getSkillColor'
+import { Certification } from '@/interfaces/certification'
 
-export default function CarouselItemWithHover({ item }: { item: Projet | Experience }) {
+export default function CarouselItemWithHover({ item }: { item: Projet | Experience | Certification }) {
    const [hovered, setHovered] = useState<boolean>(false)
 
    return (
@@ -48,11 +49,11 @@ export default function CarouselItemWithHover({ item }: { item: Projet | Experie
                         </div>
                      </AccordionTrigger>
                      <AccordionContent>
-                        <p className="pb-2 text-justify md:text-sm text-xs">{item.description}</p>
+                        <p className="pb-2 text-justify md:text-sm text-xs whitespace-break-spaces">{item.description}</p>
                      </AccordionContent>
                   </AccordionItem>
                </Accordion>
-               <div className="flex flex-wrap mt-2 p-4">
+               {'skills' in item && item.skills && <div className="flex flex-wrap mt-2 p-4">
                   {item.skills.map((skill: Skill, index: number) => (
                      <div className="p-1" key={index}>
                         <Badge key={index} variant="outline" className="p-1 px-2 text-center"
@@ -61,7 +62,7 @@ export default function CarouselItemWithHover({ item }: { item: Projet | Experie
                         </Badge>
                      </div>
                   ))}
-               </div>
+               </div>}
             </CardContent>
          </Card>
       </div>
