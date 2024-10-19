@@ -4,7 +4,7 @@ import { Skill } from '@/functions/getSkillColor'
 export const projectsItems: Projet[] = [
    {
       title: 'Earth3D',
-      description: 'Earth3D est un outil de visualisation de la Terre et de données sur celle-ci, qui a pour objectif de remplacer Google Earth. Cet outil est encore en développement.',
+      description: 'Earth3D est un outil open-source de visualisation 3D de la Terre et de données sur celle-ci, qui a pour objectif de remplacer Google Earth. Cet outil est encore en développement.',
       link: 'https://earth3d.vercel.app/',
       github: 'https://github.com/maxbodin/earth3d',
       image_path: '/images/earth3D_001.webp',
