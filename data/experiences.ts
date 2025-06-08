@@ -4,6 +4,14 @@ import { Skill } from '@/functions/getSkillColor'
 
 export const experiencesItems: Experience[] = [
    {
+      title: 'Fullstack Developer Apprentice',
+      description: 'Maintien en condition opérationnelle d’applications internes.',
+      link: 'https://www.nextlane.com/fr/',
+      image_path: '/images/nextlane.webp',
+      skills: [Skill.PHP, Skill.JAVASCRIPT, Skill.SQL, Skill.AGILE, Skill.SDK_AWS, Skill.GESTION_PROJ, Skill.GITLAB],
+      date: '2024-2027',
+   },
+   {
       title: 'Alternant Développeur SI',
       description: 'Maintien en condition opérationnelle d’applications internes et développement d’outils pour répondre à des besoins métiers spécifiques (Application pour la centralisation de la veille, application d’aide à la décision, automatisation d’insertion d’un grand nombre de données, POC de chatbot IA RAG)',
       link: 'https://www.enedis.fr',
