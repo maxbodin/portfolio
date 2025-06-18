@@ -35,7 +35,7 @@ export default function NavBar() {
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
-                  <NavigationMenuLink href="#certifications" className={navigationMenuTriggerStyle()}>Certifications 🎓
+                  <NavigationMenuLink href="#formationsCertifications" className={navigationMenuTriggerStyle()}>Formations & Certifications 🎓
                   </NavigationMenuLink>
                </NavigationMenuItem>
                {/* TODO

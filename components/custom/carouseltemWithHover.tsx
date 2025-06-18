@@ -6,13 +6,11 @@ import { Button } from '@/components/ui/button'
 import { GithubIcon, SquareArrowOutUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
-import { Experience } from '@/interfaces/experience'
-import { Projet } from '@/interfaces/projet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { getSkillColor, Skill } from '@/functions/getSkillColor'
-import { Certification } from '@/interfaces/certification'
+import { WorkDetails } from '@/interfaces/workDetails'
 
-export default function CarouselItemWithHover({ item }: { item: Projet | Experience | Certification }) {
+export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
 
    return (
