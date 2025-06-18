@@ -1,77 +1,108 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { createWorkObject } from './Work'
 import { createOrbitControls } from './CameraAndControls'
 import { WorkDetails } from '@/interfaces/workDetails'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
-const works: WorkDetails[] = [
-  {
-    image_path: '/path/to/image1.jpg',
-    title: 'Work 1',
-    description: 'Description of Work 1',
-    date: '2025-06-18',
-    skills: []
-  },
-  {
-    image_path: '/path/to/image2.jpg',
-    title: 'Work 2',
-    description: 'Description of Work 2',
-    date: '2025-06-18',
-    skills: []
-  },
-  {
-    image_path: '/path/to/image3.jpg',
-    title: 'Work 3',
-    description: 'Description of Work 3',
-    date: '2025-06-18',
-    skills: []
-  },
-];
+// Import data
+import { projectsItems } from '@/data/projects'
+import { formationsCertificationsItems } from '@/data/formCertif'
+import { experiencesItems } from '@/data/experiences'
+import { eventsItems } from '@/data/events'
+import { troisDItems } from '@/data/troisD'
+
+// Filter out any items that have no image_path.
+// This prevents the "Error loading image" for items with empty paths.
+const worksWithImages = [
+  ...projectsItems, ...formationsCertificationsItems, ...experiencesItems, ...eventsItems, ...troisDItems
+].filter(work => work.image_path && work.image_path.trim() !== '');
 
 const WorkGallery: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isInitialized = useRef(false);
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedWork, setSelectedWork] = useState<WorkDetails | null>(null);
 
   useEffect(() => {
+    if (!containerRef.current || isInitialized.current) return;
+    isInitialized.current = true;
+
     const container = containerRef.current;
-    if (!container) return;
 
-    // 1. Scene, Camera, and Renderer Setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1a1a1a);
+    scene.background = new THREE.Color('rgb(233, 233, 233)');
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 3;
+    camera.position.z = 10;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
 
-    // 2. Controls
     const controls = createOrbitControls({ camera, domElement: renderer.domElement });
 
-    // 3. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
-    scene.add(ambientLight);
+    // This algorithm ensures objects are spaced out to prevent overlapping.
+    const workPositions: THREE.Vector3[] = [];
+    const minDistance = 4.0;                              // Minimum distance between the centers of two objects.
+    const placementArea = { x: 15, y: 10, z: 15 };        // The size of the random volume.
+    const maxAttempts = 50;                               // Max tries to find a valid spot for an object.
 
-    // 4. Create and Add Work Objects
-    const workMeshes = works.map((work, index) => {
-      // Center the works horizontally
-      const xPos = index * 2 - (works.length - 1);
-      const position: [number, number, number] = [xPos, 0, 0];
-      const workObject = createWorkObject({
-        position,
+    for (let i = 0; i < worksWithImages.length; i++) {
+      let positionIsValid = false;
+      let attempts = 0;
+      let candidatePos = new THREE.Vector3();
+
+      while (!positionIsValid && attempts < maxAttempts) {
+        attempts++;
+        candidatePos.set(
+           THREE.MathUtils.randFloatSpread(placementArea.x),
+           THREE.MathUtils.randFloatSpread(placementArea.y),
+           THREE.MathUtils.randFloatSpread(placementArea.z)
+        );
+
+        // Check distance to all previously placed objects.
+        let isTooClose = false;
+        for (const existingPos of workPositions) {
+          if (candidatePos.distanceTo(existingPos) < minDistance) {
+            isTooClose = true;
+            break;
+          }
+        }
+
+        if (!isTooClose) {
+          positionIsValid = true;
+        }
+      }
+
+      // Add the position (even if it failed to find a perfect spot after max attempts).
+      workPositions.push(candidatePos);
+    }
+
+    // Create objects using the filtered list and calculated positions.
+    const workMeshes: THREE.Mesh[] = [];
+    const meshPromises = worksWithImages.map((work, index) => {
+      const position = workPositions[index];
+      return createWorkObject({
+        position: [position.x, position.y, position.z],
         details: work,
         onClick: (details) => {
-          console.log('Clicked on:', details.title);
+          setSelectedWork(details);
+          setIsModalOpen(true);
         },
       });
-      scene.add(workObject);
-      return workObject;
     });
 
-    // 5. Click Handling with Raycaster
+    Promise.all(meshPromises)
+       .then((createdMeshes) => {
+         workMeshes.push(...createdMeshes);
+         createdMeshes.forEach((mesh) => scene.add(mesh));
+       })
+       .catch(console.error);
+
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -84,22 +115,20 @@ const WorkGallery: React.FC = () => {
       const intersects = raycaster.intersectObjects(workMeshes);
 
       if (intersects.length > 0) {
-        // Trigger the onClick function stored in the intersected object's userData
         intersects[0].object.userData.onClick?.();
       }
     };
     renderer.domElement.addEventListener('click', onCanvasClick);
 
-    // 6. Animation Loop
     let animationFrameId: number;
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-      controls.update(); // Necessary for OrbitControls damping
+      controls.update();
       renderer.render(scene, camera);
     };
     animate();
 
-    // 7. Handle Window Resizing
+    //  Handle Window Resizing.
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -107,32 +136,65 @@ const WorkGallery: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 8. Cleanup on component unmount
+    // Cleanup on component unmount.
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       renderer.domElement.removeEventListener('click', onCanvasClick);
-
       controls.dispose();
 
-      workMeshes.forEach(mesh => {
+      workMeshes.forEach((mesh) => {
         mesh.geometry.dispose();
+        mesh.userData.texture?.dispose();
+
+        if (mesh.userData.videoElement) {
+          const videoEl = mesh.userData.videoElement as HTMLVideoElement;
+          videoEl.pause();
+          videoEl.removeAttribute('src');
+          videoEl.load();
+          if (videoEl.parentElement === document.body) {
+            document.body.removeChild(videoEl);
+          }
+        }
+
         if (mesh.material instanceof THREE.Material) {
-          mesh.material?.dispose();
           mesh.material.dispose();
         }
       });
 
       scene.clear();
       renderer.dispose();
-
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
+      isInitialized.current = false;
     };
   }, []);
 
-  return <div ref={containerRef} className="w-screen h-screen bg-primary" />;
+  return (
+     <>
+       <div ref={containerRef} className="w-screen h-screen cursor-grab active:cursor-grabbing" />
+       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+         <DialogContent className="sm:max-w-[625px]">
+           {selectedWork && (
+              <>
+                <DialogHeader>
+                  <DialogTitle>{selectedWork.title}</DialogTitle>
+                  <DialogDescription className="pt-2">{selectedWork.description}</DialogDescription>
+                </DialogHeader>
+                <div className="py-4">
+                  {selectedWork.image_path.endsWith('.mp4') || selectedWork.image_path.endsWith('.webm') ? (
+                     <video src={selectedWork.image_path} controls autoPlay loop muted playsInline className="w-full rounded-md" />
+                  ) : (
+                     <img src={selectedWork.image_path} alt={selectedWork.title} className="w-full rounded-md" />
+                  )}
+                </div>
+              </>
+           )}
+         </DialogContent>
+       </Dialog>
+     </>
+  );
 };
 
 export default WorkGallery;
