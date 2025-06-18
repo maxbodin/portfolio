@@ -1,7 +1,7 @@
-import { Projet } from '@/interfaces/projet'
 import { Skill } from '@/functions/getSkillColor'
+import { WorkDetails } from '@/interfaces/workDetails'
 
-export const projectsItems: Projet[] = [
+export const projectsItems: WorkDetails[] = [
    {
       title: 'Earth3D',
       description: 'Earth3D est un outil open-source de visualisation 3D de la Terre et de données sur celle-ci, qui a pour objectif de remplacer Google Earth. Cet outil est encore en développement.',

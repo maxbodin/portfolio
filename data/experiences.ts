@@ -1,8 +1,7 @@
-import { Experience } from '@/interfaces/experience'
 import { Skill } from '@/functions/getSkillColor'
+import { WorkDetails } from '@/interfaces/workDetails'
 
-
-export const experiencesItems: Experience[] = [
+export const experiencesItems: WorkDetails[] = [
    {
       title: 'Fullstack Developer Apprentice',
       description: 'Maintien en condition opérationnelle d’applications internes.',

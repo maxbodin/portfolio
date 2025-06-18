@@ -1,7 +1,7 @@
-import { Event } from '@/interfaces/event'
 import { Skill } from '@/functions/getSkillColor'
+import { WorkDetails } from '@/interfaces/workDetails'
 
-export const eventsItems: Event[] = [
+export const eventsItems: WorkDetails[] = [
    {
       title: '24h de l\'Info 2024',
       description: 'Participation en équipe au #24hDeLinfo des IUT de France ! Concours composé de trois épreuves, chacune d’une durée de 8 heures. Nous avons fièrement terminé 8ème sur 34 équipes.',
