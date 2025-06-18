@@ -1,7 +1,8 @@
+/* eslint-disable max-len */
 import * as React from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { GithubIcon, LinkedinIcon, Search } from 'lucide-react'
+import { GithubIcon, LinkedinIcon, Rocket } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ItchIoIcon } from '@/components/custom/icons/ItchIoIcon'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
@@ -10,9 +11,22 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect'
 
 const tooltipDelayDuration: number = 100
 
+// const words: string = 'Avide de connaissances et autodidacte, je suis passionné par de nombreux domaines de l’informatique (intelligence artificielle, développement logiciel/web et 3D, ...). J’ai obtenu en 2024 mon Bachelor Universitaire de Technologie Informatique à l’IUT de La Rochelle, j’ai réalisé ma troisième année de BUT en alternance au sein de l’entreprise Enedis. '
 
-// eslint-disable-next-line max-len
-const words: string = 'Avide de connaissances et autodidacte, je suis passionné par de nombreux domaines de l’informatique (intelligence artificielle, développement logiciel/web et 3D, ...). J’ai obtenu en 2024 mon Bachelor Universitaire de Technologie Informatique à l’IUT de La Rochelle, j’ai réalisé ma troisième année de BUT en alternance au sein de l’entreprise Enedis. J’aime concevoir et réaliser des projets innovants et apprendre de nouvelles connaissances en les réalisant.'
+const wordsEn: string = `Passionate and self-taught in computer science, I am currently a FullStack Developer Apprentice at Nextlane, pursuing a Software Engineering degree at IMT Atlantique.
+
+Over the years, I have developed strong skills in application design, development, and validation, with experience in:
+
+- Web and mobile application development
+- 2D & 3D game development with Unity, Godot
+- Software development using Python & C++
+- Creative coding and generative art with Blender and Touchdesigner
+
+After completing a BUT in Computer Science at the IUT of La Rochelle and a successful apprenticeship at Enedis, I am now continuing my journey at Nextlane.
+I enjoy designing and creating innovative projects and learning new knowledge by bringing them to life.
+
+Motivated, versatile, and eager to take on new challenges, I would love to connect if you have an opportunity to innovate or collaborate on exciting projects! 🚀`
+
 
 
 export default function Whoami() {
@@ -24,13 +38,13 @@ export default function Whoami() {
          </Avatar>
          <div className="flex flex-col space-y-2 pt-4">
             <h1 className="text-5xl font-semibold">@MaxBodin</h1>
-            <Badge className="p-1 px-2 bg-green-100 w-fit hover:bg-green-400 hover:cursor-pointer">
+            <Badge className="p-1 px-2 bg-purple-100 w-fit hover:bg-purple-400 hover:cursor-pointer">
                <Link className="flex flex-row " href="mailto:maxbod.contact@gmail.com">
-                  <Search className="h-4 text-green-800" />
-                  <p className="px-1 text-green-700">En recherche d’Alternance !</p>
+                  <Rocket className="h-4 text-purple-800" />
+                  <p className="px-1 text-purple-700">Working at Nextlane !</p>
                </Link>
             </Badge>
-            <TextGenerateEffect duration={1} filter={false} words={words} />
+            <TextGenerateEffect duration={0.1} filter={true} words={wordsEn} />
             <div className="flex flex-row space-x-2 pt-4">
                <TooltipProvider delayDuration={tooltipDelayDuration}>
                   <Tooltip>

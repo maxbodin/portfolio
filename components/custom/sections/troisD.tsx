@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { InstagramIcon } from 'lucide-react'
 import { troisDItems } from '@/data/troisD'
+import { WorkDetails } from '@/interfaces/workDetails'
 
 
 export default function TroisD() {
@@ -18,14 +19,14 @@ export default function TroisD() {
             className="w-full max-w-full"
          >
             <CarouselContent>
-               {troisDItems.map((item, index: number) => (
+               {troisDItems.map((item: WorkDetails, index: number) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                      <div className="p-1">
                         <Card className="w-full h-full rounded-xl">
                            <CardContent className="flex items-center justify-center w-full h-full p-0">
                               <div className="w-full h-full rounded-xl overflow-hidden">
                                  <video
-                                    src={item.path}
+                                    src={item.image_path}
                                     title={item.title}
                                     autoPlay
                                     loop

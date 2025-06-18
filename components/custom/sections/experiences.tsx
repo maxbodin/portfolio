@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { experiencesItems } from '@/data/experiences'
-import { Experience } from '@/interfaces/experience'
 import CarouselItemWithHover from '@/components/custom/carouseltemWithHover'
+import { WorkDetails } from '@/interfaces/workDetails'
 
 
 export default function Experiences() {
@@ -16,7 +16,7 @@ export default function Experiences() {
             className="w-full max-w-full"
          >
             <CarouselContent>
-               {experiencesItems.map((experience: Experience, index: number) => (
+               {experiencesItems.map((experience: WorkDetails, index: number) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
                      <CarouselItemWithHover item={experience} />
                   </CarouselItem>

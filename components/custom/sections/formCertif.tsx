@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import CarouselItemWithHover from '@/components/custom/carouseltemWithHover'
-import { Certification } from '@/interfaces/certification'
-import { certificationsItems } from '@/data/certifications'
+import { formationsCertificationsItems } from '@/data/formCertif'
+import { WorkDetails } from '@/interfaces/workDetails'
 
-export default function Certifications() {
+export default function FormCertif() {
    return (
-      <section id="certifications" className="pt-16">
-         <h2 className="text-2xl pb-4">Certifications 🎓</h2>
+      <section id="formationsCertifications" className="pt-16">
+         <h2 className="text-2xl pb-4">Formations & Certifications 🎓</h2>
          <Carousel
             opts={{
                align: 'start',
@@ -15,9 +15,9 @@ export default function Certifications() {
             className="w-full max-w-full"
          >
             <CarouselContent>
-               {certificationsItems.map((certification: Certification, index: number) => (
+               {formationsCertificationsItems.map((formationsCertification: WorkDetails, index: number) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
-                     <CarouselItemWithHover item={certification} />
+                     <CarouselItemWithHover item={formationsCertification} />
                   </CarouselItem>
                ))}
             </CarouselContent>
