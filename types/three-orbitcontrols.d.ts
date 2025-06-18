@@ -11,6 +11,15 @@ declare module 'three/examples/jsm/controls/OrbitControls' {
     panSpeed: number;
     enableDamping: boolean;
     dampingFactor: number;
+    touches: {
+      ONE: THREE.TOUCH;
+      TWO: THREE.TOUCH;
+    };
+    mouseButtons: {
+      LEFT: THREE.MOUSE;
+      MIDDLE: THREE.MOUSE;
+      RIGHT: THREE.MOUSE;
+    };
 
     constructor(camera: THREE.Camera, domElement: HTMLElement);
 
