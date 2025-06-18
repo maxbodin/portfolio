@@ -24,8 +24,15 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "three/examples/jsm/controls/OrbitControls": [
+        "node_modules/three/examples/jsm/controls/OrbitControls.js"
       ]
-    }
+    },
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ]
   },
   "exclude": [
     "node_modules"
