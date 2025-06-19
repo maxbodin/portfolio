@@ -51,7 +51,7 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
                      </AccordionContent>
                   </AccordionItem>
                </Accordion>
-               {'skills' in item && item.skills && <div className="flex flex-wrap mt-2 p-4">
+               {'skills' in item && item.skills && item.skills.length > 0 && <div className="flex flex-wrap mt-2 p-4">
                   {item.skills.map((skill: Skill, index: number) => (
                      <div className="p-1" key={index}>
                         <Badge key={index} variant="outline" className="p-1 px-2 text-center"
