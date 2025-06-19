@@ -15,31 +15,31 @@ export function createOrbitControls({
                                        camera,
                                        domElement,
                                        minDistance = 1,
-                                       maxDistance = 20,
+                                       maxDistance = 30,
                                     }: CreateControlsParams): OrbitControls {
-   const controls = new OrbitControls(camera, domElement);
+   const controls = new OrbitControls(camera, domElement)
 
    // -- Mouse Controls for "Grabbing" --
-   controls.mouseButtons.LEFT = THREE.MOUSE.PAN;   // Left-click to pan/drag
-   controls.mouseButtons.MIDDLE = THREE.MOUSE.DOLLY; // Middle-click/scroll wheel to zoom
-   controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;  // Right-click also pans
+   controls.mouseButtons.LEFT = THREE.MOUSE.PAN   // Left-click to pan/drag
+   controls.mouseButtons.MIDDLE = THREE.MOUSE.DOLLY // Middle-click/scroll wheel to zoom
+   controls.mouseButtons.RIGHT = THREE.MOUSE.PAN  // Right-click also pans
 
    // -- Touch Controls --
-   controls.touches.ONE = THREE.TOUCH.PAN;
-   controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
+   controls.touches.ONE = THREE.TOUCH.PAN
+   controls.touches.TWO = THREE.TOUCH.DOLLY_PAN
 
    // -- General Settings --
-   controls.enablePan = true;
-   controls.enableZoom = true;
-   controls.enableRotate = false; // Rotation is disabled
+   controls.enablePan = true
+   controls.enableZoom = true
+   controls.enableRotate = false // Rotation is disabled
 
    // -- Physics & Feel --
-   controls.minDistance = minDistance;
-   controls.maxDistance = maxDistance;
-   controls.zoomSpeed = 0.7;
-   controls.panSpeed = 1;
-   controls.enableDamping = true;
-   controls.dampingFactor = 0.05;
+   controls.minDistance = minDistance
+   controls.maxDistance = maxDistance
+   controls.zoomSpeed = 0.7
+   controls.panSpeed = 1
+   controls.enableDamping = true
+   controls.dampingFactor = 0.05
 
-   return controls;
+   return controls
 }
