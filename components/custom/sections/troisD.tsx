@@ -9,6 +9,9 @@ import { WorkDetails } from '@/interfaces/workDetails'
 
 
 export default function TroisD() {
+   // Helper function to check for video extensions.
+   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm');
+
    return (
       <section id="3d">
          <h2 className="text-2xl pt-8 pb-4">3D 🎨</h2>
@@ -27,15 +30,24 @@ export default function TroisD() {
                            <Card className="w-full h-full rounded-xl">
                               <CardContent className="flex items-center justify-center w-full h-full p-0">
                                  <div className="w-full h-full rounded-xl overflow-hidden">
-                                    <video
-                                       src={item.image_path}
-                                       title={item.title}
-                                       autoPlay
-                                       loop
-                                       muted
-                                       playsInline
-                                       className="w-full h-full object-cover rounded-xl"
-                                    />
+                                    {/* Conditionally render video or image. */}
+                                    {isVideo(item.image_path) ? (
+                                       <video
+                                          src={item.image_path}
+                                          title={item.title}
+                                          autoPlay
+                                          loop
+                                          muted
+                                          playsInline
+                                          className="w-full h-full object-cover rounded-xl"
+                                       />
+                                    ) : (
+                                       <img
+                                          src={item.image_path}
+                                          alt={item.title}
+                                          className="w-full h-full object-cover rounded-xl"
+                                       />
+                                    )}
                                  </div>
                               </CardContent>
                            </Card>
