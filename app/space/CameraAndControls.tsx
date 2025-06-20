@@ -32,11 +32,12 @@ export function createOrbitControls({
    controls.enablePan = true
    controls.enableZoom = true
    controls.enableRotate = false // Rotation is disabled
+   controls.screenSpacePanning = true
 
    // -- Physics & Feel --
    controls.minDistance = minDistance
    controls.maxDistance = maxDistance
-   controls.zoomSpeed = 0.7
+   controls.zoomSpeed = 1.5
    controls.panSpeed = 1
    controls.enableDamping = true
    controls.dampingFactor = 0.05

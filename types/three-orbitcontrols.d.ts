@@ -1,5 +1,6 @@
 declare module 'three/examples/jsm/controls/OrbitControls' {
   import * as THREE from 'three'
+  import { Vector3Like } from 'three'
 
   export class OrbitControls {
     enablePan: boolean;
@@ -11,6 +12,7 @@ declare module 'three/examples/jsm/controls/OrbitControls' {
     panSpeed: number;
     enableDamping: boolean;
     dampingFactor: number;
+    screenSpacePanning: boolean;
     touches: {
       ONE: THREE.TOUCH;
       TWO: THREE.TOUCH;
@@ -20,6 +22,7 @@ declare module 'three/examples/jsm/controls/OrbitControls' {
       MIDDLE: THREE.MOUSE;
       RIGHT: THREE.MOUSE;
     };
+    target: Vector3Like
 
     constructor(camera: THREE.Camera, domElement: HTMLElement);
 

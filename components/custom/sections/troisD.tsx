@@ -23,7 +23,7 @@ export default function TroisD() {
          >
             <CarouselContent>
                {troisDItems
-                  .filter(item => !item.grid_only)
+                  .filter(item => !item.space_only)
                   .map((item: WorkDetails, index: number) => (
                      <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                         <div className="p-1">
