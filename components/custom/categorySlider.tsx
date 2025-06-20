@@ -32,7 +32,7 @@ const CategorySlider = React.forwardRef<
       <SliderPrimitive.Root
          ref={ref}
          className={cn(
-            "relative flex w-full touch-none select-none items-center mt-6",
+            "relative flex w-full touch-none select-none items-center mt-4",
             className
          )}
          {...props}
