@@ -44,6 +44,8 @@ const WorkGallery: React.FC = () => {
    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
    const controlsRef = useRef<OrbitControls | null>(null)
 
+   const currentlyHovered = useRef<THREE.Mesh | null>(null);
+
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
    const [selectedWork, setSelectedWork] = useState<(WorkDetails) | null>(null)
    const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0)
@@ -211,6 +213,7 @@ const WorkGallery: React.FC = () => {
 
       const raycaster = new THREE.Raycaster()
       const mouse = new THREE.Vector2()
+
       const onCanvasClick = (event: MouseEvent) => {
          const rect = renderer.domElement.getBoundingClientRect()
          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
@@ -220,10 +223,50 @@ const WorkGallery: React.FC = () => {
 
          // Click only if the object is full size, not allowing clicking on object not in selected category.
          if (intersects.length > 0 && intersects[0].object instanceof THREE.Mesh && intersects[0].object.scale.x > 0.5) {
-               intersects[0].object.userData.onClick?.()
+            intersects[0].object.userData.onClick?.()
          }
       }
       renderer.domElement.addEventListener('click', onCanvasClick)
+
+      // Hover effect logic.
+      const onMouseMove = (event: MouseEvent) => {
+         const rect = renderer.domElement.getBoundingClientRect();
+         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+         raycaster.setFromCamera(mouse, camera);
+         const intersects = raycaster.intersectObjects(workMeshesRef.current);
+
+         // If we are intersecting something.
+         if (intersects.length > 0) {
+            const firstIntersect = intersects[0].object as THREE.Mesh;
+
+            // If it's an active (not greyed out) item.
+            if (firstIntersect.scale.x > 0.5) {
+               // If it's a NEW item we are hovering.
+               if (currentlyHovered.current !== firstIntersect) {
+                  // Animate the PREVIOUS item back to normal, if there was one.
+                  if (currentlyHovered.current) {
+                     gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' });
+                  }
+
+                  // Set the new hovered item.
+                  currentlyHovered.current = firstIntersect;
+                  gsap.to(firstIntersect.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.1, ease: 'power2.out' });
+               }
+               // Change cursor to pointer.
+               renderer.domElement.style.cursor = 'pointer';
+            }
+         } else { // If we are not intersecting anything.
+            // Animate the previously hovered item back to normal.
+            if (currentlyHovered.current) {
+               gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' });
+               currentlyHovered.current = null;
+            }
+            // Reset cursor.
+            renderer.domElement.style.cursor = 'grab';
+         }
+      };
+      renderer.domElement.addEventListener('mousemove', onMouseMove);
 
       let animationFrameId: number
       const animate = () => {
@@ -245,6 +288,7 @@ const WorkGallery: React.FC = () => {
       return () => {
          cancelAnimationFrame(animationFrameId)
          window.removeEventListener('resize', handleResize)
+         renderer.domElement.removeEventListener('mousemove', onMouseMove);
          renderer.domElement.removeEventListener('click', onCanvasClick)
          controls.dispose()
 
