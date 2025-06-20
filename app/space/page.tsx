@@ -8,6 +8,10 @@ import { createOrbitControls } from './CameraAndControls'
 import { WorkDetails } from '@/interfaces/workDetails'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { CategorySlider } from '@/components/custom/categorySlider'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { Github, LinkIcon, LocateFixed } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { getSkillColor, Skill } from '@/functions/getSkillColor'
 
 // Import data
 import { projectsItems } from '@/data/projects'
@@ -15,6 +19,8 @@ import { formationsCertificationsItems } from '@/data/formCertif'
 import { experiencesItems } from '@/data/experiences'
 import { eventsItems } from '@/data/events'
 import { troisDItems } from '@/data/troisD'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3D']
 
@@ -34,23 +40,41 @@ const WorkGallery: React.FC = () => {
    const isInitialized = useRef(false)
    const workMeshesRef = useRef<THREE.Mesh[]>([])
 
+   // Refs for camera and controls to access them outside useEffect (flyto).
+   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
+   const controlsRef = useRef<OrbitControls | null>(null)
+
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-   const [selectedWork, setSelectedWork] = useState<WorkDetails | null>(null)
+   const [selectedWork, setSelectedWork] = useState<(WorkDetails) | null>(null)
    const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0)
 
-   // GSAP animation effect for filtering.
+   const [searchTerm, setSearchTerm] = useState('')
+
    useEffect(() => {
       const selectedCategory = categories[activeCategoryIndex]
-      const meshes = workMeshesRef.current
+      const lowerCaseSearchTerm = searchTerm.toLowerCase()
 
       const activeColor = new THREE.Color(0xffffff)
       const inactiveColor = new THREE.Color(0x666666)
 
-      meshes.forEach(mesh => {
-         const workCategory = mesh.userData.details.category
-         const isActive = (selectedCategory === 'All' || workCategory === selectedCategory)
+      workMeshesRef.current.forEach(mesh => {
+         const details = mesh.userData.details as WorkDetails
 
-         // Animate scale.
+         // Category must match.
+         const isCategoryMatch = (selectedCategory === 'All' || details.category === selectedCategory)
+
+         // Search term must match.
+         const isSearchMatch = lowerCaseSearchTerm === '' ||
+            details.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.description.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.image_path.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.link?.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.date?.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.github?.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.skills.some((skill: Skill) => skill.toLowerCase().includes(lowerCaseSearchTerm))
+
+         const isActive = isCategoryMatch && isSearchMatch
+
          gsap.to(mesh.scale, {
             x: isActive ? 1 : 0.2,
             y: isActive ? 1 : 0.2,
@@ -58,8 +82,6 @@ const WorkGallery: React.FC = () => {
             duration: 0.5,
             ease: 'power3.out',
          })
-
-         // Animate color.
          gsap.to((mesh.material as THREE.MeshBasicMaterial).color, {
             r: isActive ? activeColor.r : inactiveColor.r,
             g: isActive ? activeColor.g : inactiveColor.g,
@@ -68,7 +90,25 @@ const WorkGallery: React.FC = () => {
             ease: 'power3.out',
          })
       })
-   }, [activeCategoryIndex])
+   }, [activeCategoryIndex, searchTerm])
+
+   // Camera recenter function.
+   const handleRecenter = () => {
+      if (cameraRef.current && controlsRef.current) {
+         // Animate camera position.
+         gsap.to(cameraRef.current.position, {
+            x: 0, y: 0, z: 30,
+            duration: 1.5,
+            ease: 'power3.inOut',
+         })
+         // Animate OrbitControls target.
+         gsap.to(controlsRef.current.target, {
+            x: 0, y: 0, z: 0,
+            duration: 1.5,
+            ease: 'power3.inOut',
+         })
+      }
+   }
 
    useEffect(() => {
       if (!containerRef.current || isInitialized.current) return
@@ -80,6 +120,7 @@ const WorkGallery: React.FC = () => {
       scene.background = new THREE.Color(0xffffff)
 
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+      cameraRef.current = camera
       // Set initial camera position for zoom-out effect.
       camera.position.z = 5
 
@@ -89,23 +130,24 @@ const WorkGallery: React.FC = () => {
       container.appendChild(renderer.domElement)
 
       const controls = createOrbitControls({ camera, domElement: renderer.domElement })
+      controlsRef.current = controls
 
       // Animate Camera Zoom-out from z=5 to z=30.
       gsap.to(camera.position, {
          z: 30,
          duration: 2,
          ease: 'power3.inOut',
-      });
+      })
 
       // Animate Background Color from white to grey.
-      const targetBgColor = new THREE.Color('rgb(233, 233, 233)');
+      const targetBgColor = new THREE.Color('rgb(233, 233, 233)')
       gsap.to(scene.background, {
          r: targetBgColor.r,
          g: targetBgColor.g,
          b: targetBgColor.b,
          duration: 2.5,
          ease: 'power3.inOut',
-      });
+      })
 
       // This algorithm ensures objects are spaced out to prevent overlapping.
       const workPositions: THREE.Vector3[] = []
@@ -240,15 +282,30 @@ const WorkGallery: React.FC = () => {
    return (
       <div className="relative w-screen h-screen">
          <div ref={containerRef} className="absolute top-0 left-0 w-full h-full cursor-grab active:cursor-grabbing" />
-         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10">
-            <CategorySlider
-               labels={categories}
-               value={[activeCategoryIndex]}
-               onValueChange={(value) => setActiveCategoryIndex(value[0])}
-               max={categories.length - 1}
-               step={1}
-            />
+
+         <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+            <Button variant="outline" size="icon" onClick={handleRecenter}>
+               <LocateFixed className="h-4 w-4" />
+            </Button>
          </div>
+
+         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10">
+               <Input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+               />
+               <CategorySlider
+                  labels={categories}
+                  value={[activeCategoryIndex]}
+                  onValueChange={(value) => setActiveCategoryIndex(value[0])}
+                  max={categories.length - 1}
+                  step={1}
+               />
+         </div>
+
 
          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogContent className="sm:max-w-[625px]">
@@ -256,16 +313,50 @@ const WorkGallery: React.FC = () => {
                   <>
                      <DialogHeader>
                         <DialogTitle>{selectedWork.title}</DialogTitle>
-                        <DialogDescription className="pt-2">{selectedWork.description}</DialogDescription>
+                        <DialogDescription className="pt-2 text-xs sm:text-sm">{selectedWork.description}</DialogDescription>
                      </DialogHeader>
                      <div className="py-4">
                         {selectedWork.image_path.endsWith('.mp4') || selectedWork.image_path.endsWith('.webm') ? (
                            <video src={selectedWork.image_path} controls autoPlay loop muted playsInline
                                   className="w-full rounded-md" />
                         ) : (
-                           <img src={selectedWork.image_path} alt={selectedWork.title} className="w-full rounded-md" />
+                           <img src={selectedWork.image_path} alt={selectedWork.title}
+                                className="w-full rounded-md" />
                         )}
                      </div>
+
+                     {selectedWork.skills && selectedWork.skills.length > 0 && (
+                        <div className="flex flex-wrap gap-2 border-t pt-4">
+                           {selectedWork.skills.map((skill, index) => (
+                              <Badge className="p-1 px-2 text-center" key={index} variant="outline"
+                                     style={{ color: getSkillColor(skill as Skill) }}>
+                                 {skill}
+                              </Badge>
+                           ))}
+                        </div>
+                     )}
+
+                     {('date' in selectedWork || selectedWork.link || selectedWork.github) &&
+                        (<div
+                           className="flex items-center justify-between text-sm text-muted-foreground border-t pt-4">
+                           {'date' in selectedWork &&
+                              <p className="py-2 text-xs text-gray-600 text-justify">{selectedWork.date}</p>}
+                           <div className="flex items-center gap-4">
+                              {selectedWork.link && (
+                                 <a href={selectedWork.link} target="_blank" rel="noopener noreferrer"
+                                    className="hover:text-primary transition-colors flex items-center gap-1">
+                                    <LinkIcon className="h-4 w-4" /> Link
+                                 </a>
+                              )}
+                              {selectedWork.github && (
+                                 <a href={selectedWork.github} target="_blank" rel="noopener noreferrer"
+                                    className="hover:text-primary transition-colors flex items-center gap-1">
+                                    <Github className="h-4 w-4" /> GitHub
+                                 </a>
+                              )}
+                           </div>
+                        </div>)
+                     }
                   </>
                )}
             </DialogContent>
