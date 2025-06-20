@@ -15,7 +15,7 @@ export function createOrbitControls({
                                        camera,
                                        domElement,
                                        minDistance = 1,
-                                       maxDistance = 30,
+                                       maxDistance = 40,
                                     }: CreateControlsParams): OrbitControls {
    const controls = new OrbitControls(camera, domElement)
 

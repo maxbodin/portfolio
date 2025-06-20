@@ -78,7 +78,7 @@ const WorkGallery: React.FC = () => {
       const scene = new THREE.Scene()
       scene.background = new THREE.Color('rgb(233, 233, 233)')
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-      camera.position.z = 30
+      camera.position.z = 32
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
       renderer.setPixelRatio(window.devicePixelRatio)
@@ -90,7 +90,7 @@ const WorkGallery: React.FC = () => {
       // This algorithm ensures objects are spaced out to prevent overlapping.
       const workPositions: THREE.Vector3[] = []
       const minDistance = 5.0                        // Minimum distance between the centers of two objects.
-      const placementArea = { x: 25, y: 18, z: 25 }  // The size of the random volume.
+      const placementArea = { x: 35, y: 30, z: 25 }  // The size of the random volume.
 
       for (let i = 0; i < allWorks.length; i++) {
          let candidatePos = new THREE.Vector3()
