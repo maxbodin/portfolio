@@ -9,7 +9,7 @@ import { WorkDetails } from '@/interfaces/workDetails'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { CategorySlider } from '@/components/custom/categorySlider'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { Github, LinkIcon, LocateFixed } from 'lucide-react'
+import { Github, LinkIcon, Loader2, LocateFixed } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getSkillColor, Skill } from '@/functions/getSkillColor'
 
@@ -48,7 +48,8 @@ const WorkGallery: React.FC = () => {
    const [selectedWork, setSelectedWork] = useState<(WorkDetails) | null>(null)
    const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0)
 
-   const [searchTerm, setSearchTerm] = useState('')
+   const [searchTerm, setSearchTerm] = useState<string>('')
+   const [isRecenterAnimating, setIsRecenterAnimating] = useState<boolean>(false);
 
    useEffect(() => {
       const selectedCategory = categories[activeCategoryIndex]
@@ -94,21 +95,26 @@ const WorkGallery: React.FC = () => {
 
    // Camera recenter function.
    const handleRecenter = () => {
-      if (cameraRef.current && controlsRef.current) {
-         // Animate camera position.
+      if (cameraRef.current && controlsRef.current && !isRecenterAnimating) {
          gsap.to(cameraRef.current.position, {
             x: 0, y: 0, z: cameraRef.current.position.z,
             duration: 0.5,
             ease: 'power3.inOut',
-         })
-         // Animate OrbitControls target.
+            onStart: () => {
+               setIsRecenterAnimating(true); // Disable button on start.
+            },
+            onComplete: () => {
+               setIsRecenterAnimating(false); // Re-enable button on complete.
+            }
+         });
+
          gsap.to(controlsRef.current.target, {
             x: 0, y: 0, z: 0,
             duration: 0.5,
             ease: 'power3.inOut',
-         })
+         });
       }
-   }
+   };
 
    useEffect(() => {
       if (!containerRef.current || isInitialized.current) return
@@ -284,26 +290,30 @@ const WorkGallery: React.FC = () => {
          <div ref={containerRef} className="absolute top-0 left-0 w-full h-full cursor-grab active:cursor-grabbing" />
 
          <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
-            <Button variant="outline" size="icon" onClick={handleRecenter}>
-               <LocateFixed className="h-4 w-4" />
+            <Button variant="outline" size="icon" onClick={handleRecenter} disabled={isRecenterAnimating}>
+               {isRecenterAnimating ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+               ) : (
+                  <LocateFixed className="h-4 w-4" />
+               )}
             </Button>
          </div>
 
          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10">
-               <Input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-               />
-               <CategorySlider
-                  labels={categories}
-                  value={[activeCategoryIndex]}
-                  onValueChange={(value) => setActiveCategoryIndex(value[0])}
-                  max={categories.length - 1}
-                  step={1}
-               />
+            <Input
+               type="text"
+               placeholder="Search..."
+               className="w-full"
+               value={searchTerm}
+               onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <CategorySlider
+               labels={categories}
+               value={[activeCategoryIndex]}
+               onValueChange={(value) => setActiveCategoryIndex(value[0])}
+               max={categories.length - 1}
+               step={1}
+            />
          </div>
 
 
@@ -313,7 +323,8 @@ const WorkGallery: React.FC = () => {
                   <>
                      <DialogHeader>
                         <DialogTitle>{selectedWork.title}</DialogTitle>
-                        <DialogDescription className="pt-2 text-xs sm:text-sm">{selectedWork.description}</DialogDescription>
+                        <DialogDescription
+                           className="pt-2 text-xs sm:text-sm">{selectedWork.description}</DialogDescription>
                      </DialogHeader>
                      <div className="py-4">
                         {selectedWork.image_path.endsWith('.mp4') || selectedWork.image_path.endsWith('.webm') ? (
