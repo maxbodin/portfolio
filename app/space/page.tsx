@@ -76,9 +76,12 @@ const WorkGallery: React.FC = () => {
       const container = containerRef.current
 
       const scene = new THREE.Scene()
-      scene.background = new THREE.Color('rgb(233, 233, 233)')
+      // Set initial background color to white.
+      scene.background = new THREE.Color(0xffffff)
+
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-      camera.position.z = 32
+      // Set initial camera position for zoom-out effect.
+      camera.position.z = 5
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
       renderer.setPixelRatio(window.devicePixelRatio)
@@ -86,6 +89,23 @@ const WorkGallery: React.FC = () => {
       container.appendChild(renderer.domElement)
 
       const controls = createOrbitControls({ camera, domElement: renderer.domElement })
+
+      // Animate Camera Zoom-out from z=5 to z=30.
+      gsap.to(camera.position, {
+         z: 30,
+         duration: 2,
+         ease: 'power3.inOut',
+      });
+
+      // Animate Background Color from white to grey.
+      const targetBgColor = new THREE.Color('rgb(233, 233, 233)');
+      gsap.to(scene.background, {
+         r: targetBgColor.r,
+         g: targetBgColor.g,
+         b: targetBgColor.b,
+         duration: 2.5,
+         ease: 'power3.inOut',
+      });
 
       // This algorithm ensures objects are spaced out to prevent overlapping.
       const workPositions: THREE.Vector3[] = []
@@ -133,7 +153,7 @@ const WorkGallery: React.FC = () => {
 
             gsap.to(createdMeshes.map(m => m.scale), {
                x: 1, y: 1, z: 1,
-               duration: 0.8,
+               duration: 2,
                stagger: 0.03,
                ease: 'power3.out',
                delay: 0.2,
@@ -150,11 +170,9 @@ const WorkGallery: React.FC = () => {
          raycaster.setFromCamera(mouse, camera)
          const intersects = raycaster.intersectObjects(workMeshesRef.current)
 
-         if (intersects.length > 0 && intersects[0].object instanceof THREE.Mesh) {
-            // Click only if the object is full size, not allowing clicking on object not in selected category.
-            if (intersects[0].object.scale.x > 0.5) {
+         // Click only if the object is full size, not allowing clicking on object not in selected category.
+         if (intersects.length > 0 && intersects[0].object instanceof THREE.Mesh && intersects[0].object.scale.x > 0.5) {
                intersects[0].object.userData.onClick?.()
-            }
          }
       }
       renderer.domElement.addEventListener('click', onCanvasClick)
@@ -181,6 +199,10 @@ const WorkGallery: React.FC = () => {
          window.removeEventListener('resize', handleResize)
          renderer.domElement.removeEventListener('click', onCanvasClick)
          controls.dispose()
+
+         // Kill entry animations on cleanup.
+         gsap.killTweensOf(camera.position);
+         gsap.killTweensOf(scene.background);
 
          workMeshesRef.current.forEach((mesh) => {
             // Kill any active GSAP animations on this mesh.
