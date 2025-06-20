@@ -2,17 +2,16 @@ import { WorkDetails } from '@/interfaces/workDetails'
 
 export const formationsCertificationsItems: WorkDetails[] = [
    {
-      title: 'Diplôme d’ingénieur spécialité Informatique de l’Ecole nationale supérieure Mines-Télécom Atlantique',
-      link: 'https://www.imt-atlantique.fr/fr/formation/ingenieur-apprentissage/ingenierie-logicielle',
+      date: '2024-2027',
       description:
          'Activités et associations : Pôle communication BDA (Bureau Des Arts)',
       image_path: '/images/imt.png',
-      date: '2024-2027',
+      link: 'https://www.imt-atlantique.fr/fr/formation/ingenieur-apprentissage/ingenierie-logicielle',
       skills: [],
+      title: 'Diplôme d’ingénieur spécialité Informatique de l’Ecole nationale supérieure Mines-Télécom Atlantique',
    },
    {
-      title: 'Certification sur Les fondamentaux du NoSQL, ENI École Informatique',
-      link: 'https://www.eni-service.fr/formation/formation-les-fondamentaux-du-nosql/',
+      date: 'Avril 2025',
       description:
          'Objectifs de la formation\n' +
          '- Identifier les différences entre SGBD SQL et SGBD NoSQL\n' +
@@ -25,12 +24,12 @@ export const formationsCertificationsItems: WorkDetails[] = [
          '- Comprendre les enjeux métiers derrière les choix SQL, NoSQL et NewSQL\n' +
          '- Découvrir les nouvelles approches hybrides comme NewSQL et les architectures Big Data type Hadoop',
       image_path: '/images/eni.webp',
-      date: 'Avril 2025',
+      link: 'https://www.eni-service.fr/formation/formation-les-fondamentaux-du-nosql/',
       skills: [],
+      title: 'Certification sur Les fondamentaux du NoSQL, ENI École Informatique',
    },
    {
-      title: 'Certificat de Connaissance Numérique Responsable',
-      link: 'https://ecocertification.univ-lr.fr/',
+      date: '2024',
       description: 'La certification numérique responsable est sous la responsabilité de l\'Institut du Numérique Responsable (INR) et de l\'Université de La Rochelle afin de proposer une certification francophone autour de domaines de compétences suivants :\n' +
          '\n' +
          'D1 : Connaître les impacts des TIC et la législation associée\n' +
@@ -39,15 +38,16 @@ export const formationsCertificationsItems: WorkDetails[] = [
          'D4 : Connaître les solutions pour réduire les impacts de l’informatique\n' +
          'D5 : Connaître des méthodologies de travail pour la mise en place du numérique responsable',
       image_path: '/images/certificationNR.png',
-      date: '2024',
+      link: 'https://ecocertification.univ-lr.fr/',
       skills: [],
+      title: 'Certificat de Connaissance Numérique Responsable',
    },
    {
-      title: 'BUT Informatique, IUT de La Rochelle',
-      link: 'https://www.iut-larochelle.fr/formations/departement-informatique/parcours-a-realisation-dapplications-conception-developpement-validation/',
+      date: '2021-2024',
       description: 'Parcours « Réalisation d’applications : conception, développement, validation »',
       image_path: '/images/iut-but-info.webp',
-      date: '2021-2024',
+      link: 'https://www.iut-larochelle.fr/formations/departement-informatique/parcours-a-realisation-dapplications-conception-developpement-validation/',
       skills: [],
+      title: 'BUT Informatique, IUT de La Rochelle',
    },
 ]
