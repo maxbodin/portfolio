@@ -45,6 +45,7 @@ export default function TroisD() {
                                        <img
                                           src={item.image_path}
                                           alt={item.title}
+                                          title={item.title}
                                           className="w-full h-full object-cover rounded-xl"
                                        />
                                     )}

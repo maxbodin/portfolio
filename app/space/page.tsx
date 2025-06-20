@@ -27,7 +27,7 @@ const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3
 // Filter out any items that have no image_path.
 // This prevents the "Error loading image" for items with empty paths.
 // Sort items by categories.
-const allWorks: (WorkDetails & { category: string })[] = [
+const allWorks: (WorkDetails)[] = [
    ...projectsItems.map(item => ({ ...item, category: 'Projects' })),
    ...formationsCertificationsItems.map(item => ({ ...item, category: 'Formations' })),
    ...experiencesItems.map(item => ({ ...item, category: 'Experiences' })),
@@ -142,9 +142,10 @@ const WorkGallery: React.FC = () => {
 
       // Animate Camera Zoom-out from z=5 to z=30.
       gsap.to(camera.position, {
-         z: 30,
+         z: 40,
          duration: 2,
-         ease: 'power3.inOut',
+         ease: 'power2.inOut',
+         delay: 2
       })
 
       // Animate Background Color from white to grey.

@@ -13,6 +13,9 @@ import { WorkDetails } from '@/interfaces/workDetails'
 export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
 
+   // Helper function to check for video extensions.
+   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm');
+
    return (
       <div
          className="p-1 relative"
@@ -21,13 +24,25 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
       >
          <Card className="w-full h-full rounded-xl overflow-hidden relative">
             <CardContent className="flex flex-col items-center justify-center w-full h-full p-0 relative">
-               {/* eslint-disable-next-line @next/next/no-img-element */}
-               <img
-                  src={item.image_path}
-                  title={item.title}
-                  alt={item.title}
-                  className={`w-full h-full object-cover rounded-t-xl transition duration-300 ${hovered ? 'brightness-50' : ''}`}
-               />
+               {/* Conditionally render video or image. */}
+               {isVideo(item.image_path) ? (
+                  <video
+                     src={item.image_path}
+                     title={item.title}
+                     autoPlay
+                     loop
+                     muted
+                     playsInline
+                     className="w-full h-full object-cover rounded-xl"
+                  />
+               ) : (
+                  <img
+                     src={item.image_path}
+                     title={item.title}
+                     alt={item.title}
+                     className={`w-full h-full object-cover rounded-t-xl transition duration-300 ${hovered ? 'brightness-50' : ''}`}
+                  />
+               )}
                {hovered && (
                   <div className="absolute top-20 left-0 right-0 flex items-center justify-center space-x-4">
                      {'github' in item && item.github && <Button variant="outline" size="icon" asChild>

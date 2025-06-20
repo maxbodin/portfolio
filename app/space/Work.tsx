@@ -9,12 +9,11 @@ type CreateWorkObjectParams = {
 
 /**
  * Asynchronously creates a THREE.Mesh for a work item.
- * Supports images, videos, and GIFs.
+ * Supports images and videos.
  */
 export function createWorkObject({ position, details, onClick }: CreateWorkObjectParams): Promise<THREE.Mesh> {
    return new Promise((resolve, reject) => {
       const isVideo = details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm')
-      const isGif = details.image_path.endsWith('.gif')
       const baseSize = 3
 
       const createMesh = (texture: THREE.Texture, aspect: number, userDataExtensions: object = {}) => {
@@ -55,37 +54,6 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
             createMesh(videoTexture, aspect, { videoElement: video })
          }, { once: true })
          video.onerror = () => reject(`Error loading video: ${details.image_path}`)
-
-      } else if (isGif) {
-         const img = new Image()
-         img.crossOrigin = 'anonymous'
-         img.src = details.image_path
-
-         // Add the image to the DOM but keep it hidden to ensure browser processes animation.
-         img.style.position = 'fixed'
-         img.style.top = '-9999px'
-         img.style.left = '-9999px'
-         document.body.appendChild(img)
-
-         img.onload = () => {
-            const aspect = img.width / img.height
-            const canvas = document.createElement('canvas')
-            canvas.width = img.naturalWidth
-            canvas.height = img.naturalHeight
-            const ctx = canvas.getContext('2d')!
-
-            ctx.drawImage(img, 0, 0) // Initial draw.
-            const texture = new THREE.CanvasTexture(canvas)
-
-            const gifIntervalId = setInterval(() => {
-               ctx.drawImage(img, 0, 0)
-               texture.needsUpdate = true
-            }, 100)
-
-            // Pass both the interval and the image element for full cleanup.
-            createMesh(texture, aspect, { gifIntervalId, gifImageElement: img })
-         }
-         img.onerror = () => reject(`Error loading GIF: ${details.image_path}`)
 
       } else { // Static image.
          const loader = new THREE.TextureLoader()
