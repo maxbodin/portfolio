@@ -11,7 +11,7 @@ import NavBar from '@/components/custom/navBar'
 export default function Home() {
    return (
       <main className="flex min-h-screen flex-col items-center justify-between pt-20">
-         <div className="z-10 w-full max-w-7xl items-center justify-between font-mono text-sm lg:flex">
+         <div className="z-10 w-full max-w-7xl items-center justify-between lg:flex">
             <NavBar />
             <div className="flex flex-col w-full px-16 lg:px-20">
                <Whoami />
@@ -28,5 +28,3 @@ export default function Home() {
       </main>
    )
 }
-
-// TODO Youtube part : gets videos from YouTube API

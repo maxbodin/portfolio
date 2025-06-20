@@ -24,7 +24,7 @@ const CategorySlider = React.forwardRef<
                   transform: 'translateX(-50%)',
                }}
             >
-               <span className="text-xs text-neutral-600 whitespace-nowrap">{label}</span>
+               <span className="text-[10px] sm:text-xs text-neutral-600 whitespace-nowrap">{label}</span>
             </div>
          ))}
       </div>

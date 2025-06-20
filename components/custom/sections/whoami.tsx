@@ -44,7 +44,8 @@ export default function Whoami() {
                   <p className="px-1 text-purple-700">Working at Nextlane !</p>
                </Link>
             </Badge>
-            <TextGenerateEffect duration={0.1} filter={true} words={wordsEn} />
+            <TextGenerateEffect duration={0.1} filter={true} words={wordsEn}
+                                className="text-xs sm:text-sm"/>
             <div className="flex flex-row space-x-2 pt-4">
                <TooltipProvider delayDuration={tooltipDelayDuration}>
                   <Tooltip>
