@@ -97,14 +97,14 @@ const WorkGallery: React.FC = () => {
       if (cameraRef.current && controlsRef.current) {
          // Animate camera position.
          gsap.to(cameraRef.current.position, {
-            x: 0, y: 0, z: 30,
-            duration: 1.5,
+            x: 0, y: 0, z: cameraRef.current.position.z,
+            duration: 0.5,
             ease: 'power3.inOut',
          })
          // Animate OrbitControls target.
          gsap.to(controlsRef.current.target, {
             x: 0, y: 0, z: 0,
-            duration: 1.5,
+            duration: 0.5,
             ease: 'power3.inOut',
          })
       }
@@ -289,7 +289,7 @@ const WorkGallery: React.FC = () => {
             </Button>
          </div>
 
-         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10">
+         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10">
                <Input
                   type="text"
                   placeholder="Search..."
