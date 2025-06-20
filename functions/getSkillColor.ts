@@ -3,6 +3,7 @@ export enum Skill {
    ALGO_PROG = 'Algorithmique et Programmation',
    ANGULAR = 'Angular',
    API_PLATFORM = 'API Platform',
+   BLENDER = 'Blender',
    COM = 'Communication en équipe',
    CPP = 'C++',
    CSS = 'CSS',
@@ -20,6 +21,7 @@ export enum Skill {
    HTML = 'HTML',
    IA = 'IA',
    ISTANBUL = 'Istanbul',
+   JAVASCRIPT = 'JavaScript',
    JEST = 'Jest',
    KANBAN = 'Kanban',
    MOCHA = 'Mocha',
@@ -49,9 +51,6 @@ export enum Skill {
    TRAV_EQUIP = 'Travail d’équipe',
    TYPESCRIPT = 'TypeScript',
    UNITY = 'Unity',
-   JAVASCRIPT = 'JavaScript',
-//   NODE = "Node JS",
-//   NGINX = "NGINX"
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -59,6 +58,7 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.ALGO_PROG]: '#1b4f96',
    [Skill.ANGULAR]: '#dd1b16',
    [Skill.API_PLATFORM]: '#0099A1',
+   [Skill.BLENDER]: '#f5792a',
    [Skill.COM]: '#28a745',
    [Skill.CPP]: '#f34b7d',
    [Skill.CSS]: '#264EE4',
@@ -76,6 +76,7 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.HTML]: '#e34c26',
    [Skill.IA]: '#0099ff',
    [Skill.ISTANBUL]: '#f0ad4e',
+   [Skill.JAVASCRIPT]: '#f7df1e',
    [Skill.JEST]: '#99424f',
    [Skill.KANBAN]: '#29a329',
    [Skill.MOCHA]: '#8d6748',
@@ -105,7 +106,6 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.TRAV_EQUIP]: '#17a2b8',
    [Skill.TYPESCRIPT]: '#007acc',
    [Skill.UNITY]: '#000000',
-   [Skill.JAVASCRIPT]: '#f7df1e',
 }
 
 /**
