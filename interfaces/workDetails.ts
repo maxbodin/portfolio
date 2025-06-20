@@ -15,4 +15,6 @@ export type WorkDetails = {
    date?: string;
    link?: string;
    github?: string;
+
+   grid_only?: boolean;
 };
