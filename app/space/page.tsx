@@ -195,7 +195,6 @@ const WorkGallery: React.FC = () => {
             workMeshesRef.current = createdMeshes;
             // Add all meshes to the scene at once.
             createdMeshes.forEach(mesh => {
-               mesh.scale.set(0, 0, 0) // Start at scale 0.
                scene.add(mesh)
             })
 
@@ -208,8 +207,6 @@ const WorkGallery: React.FC = () => {
       const mouse = new THREE.Vector2()
 
       const onCanvasClick = (event: MouseEvent) => {
-         if (!isSceneReady) return;
-
          const rect = renderer.domElement.getBoundingClientRect()
          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
@@ -225,8 +222,6 @@ const WorkGallery: React.FC = () => {
 
       // Hover effect logic.
       const onMouseMove = (event: MouseEvent) => {
-         if (!isSceneReady) return;
-
          const rect = renderer.domElement.getBoundingClientRect()
          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
