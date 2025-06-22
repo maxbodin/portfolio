@@ -17,6 +17,6 @@ export type WorkDetails = {
    github?: string;
 
    space_only?: boolean;
-   
+
    category?: string
 };

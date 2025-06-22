@@ -7,7 +7,7 @@ import PageWrapper from '@/components/custom/pageWrapper'
 export const metadata: Metadata = {
    title: '@MaxBod',
    description: 'Portfolio de @MaxBod',
-};
+}
 
 export default function RootLayout({
                                       children,
@@ -16,12 +16,12 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="fr">
-         <body className={"font-mono"}>
-            <PageWrapper>
-               {children}
-            </PageWrapper>
-            <SpeedInsights />
-         </body>
+      <body className={'font-mono'}>
+      <PageWrapper>
+         {children}
+      </PageWrapper>
+      <SpeedInsights />
+      </body>
       </html>
-   );
+   )
 }

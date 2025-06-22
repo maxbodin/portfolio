@@ -28,7 +28,6 @@ I enjoy designing and creating innovative projects and learning new knowledge by
 Motivated, versatile, and eager to take on new challenges, I would love to connect if you have an opportunity to innovate or collaborate on exciting projects! 🚀`
 
 
-
 export default function Whoami() {
    return (
       <section id="whoami" className="pt-8 flex flex-col lg:flex-row items-start space-x-4">
@@ -45,7 +44,7 @@ export default function Whoami() {
                </Link>
             </Badge>
             <TextGenerateEffect duration={0.1} filter={true} words={wordsEn}
-                                className="text-xs sm:text-sm"/>
+                                className="text-xs sm:text-sm" />
             <div className="flex flex-row space-x-2 pt-4">
                <TooltipProvider delayDuration={tooltipDelayDuration}>
                   <Tooltip>

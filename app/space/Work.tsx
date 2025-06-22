@@ -64,7 +64,7 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
                createMesh(texture, aspect)
             },
             undefined,
-            (error) => reject(`Error loading image: ${details.image_path}`),
+            () => reject(`Error loading image: ${details.image_path}`),
          )
       }
    })

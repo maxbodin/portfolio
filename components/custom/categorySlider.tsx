@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import * as React from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
@@ -32,8 +32,8 @@ const CategorySlider = React.forwardRef<
       <SliderPrimitive.Root
          ref={ref}
          className={cn(
-            "relative flex w-full touch-none select-none items-center mt-4",
-            className
+            'relative flex w-full touch-none select-none items-center mt-4',
+            className,
          )}
          {...props}
       >
@@ -48,11 +48,14 @@ const CategorySlider = React.forwardRef<
             </div>
          </SliderPrimitive.Track>
 
-         <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+         <SliderPrimitive.Thumb
+            className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background
+             transition-colors focus-visible:outline-none focus-visible:ring-2
+              focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
       </SliderPrimitive.Root>
    </div>
-));
+))
 
-CategorySlider.displayName = "CategorySlider";
+CategorySlider.displayName = 'CategorySlider'
 
-export { CategorySlider };
+export { CategorySlider }

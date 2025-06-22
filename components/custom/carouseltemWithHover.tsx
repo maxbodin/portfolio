@@ -14,7 +14,7 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
 
    // Helper function to check for video extensions.
-   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm');
+   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm')
 
    return (
       <div

@@ -44,14 +44,14 @@ const WorkGallery: React.FC = () => {
    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
    const controlsRef = useRef<OrbitControls | null>(null)
 
-   const currentlyHovered = useRef<THREE.Mesh | null>(null);
+   const currentlyHovered = useRef<THREE.Mesh | null>(null)
 
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
    const [selectedWork, setSelectedWork] = useState<(WorkDetails) | null>(null)
    const [activeCategoryIndex, setActiveCategoryIndex] = useState<number>(0)
 
    const [searchTerm, setSearchTerm] = useState<string>('')
-   const [isRecenterAnimating, setIsRecenterAnimating] = useState<boolean>(false);
+   const [isRecenterAnimating, setIsRecenterAnimating] = useState<boolean>(false)
 
    useEffect(() => {
       const selectedCategory = categories[activeCategoryIndex]
@@ -103,20 +103,20 @@ const WorkGallery: React.FC = () => {
             duration: 0.5,
             ease: 'power3.inOut',
             onStart: () => {
-               setIsRecenterAnimating(true); // Disable button on start.
+               setIsRecenterAnimating(true) // Disable button on start.
             },
             onComplete: () => {
-               setIsRecenterAnimating(false); // Re-enable button on complete.
-            }
-         });
+               setIsRecenterAnimating(false) // Re-enable button on complete.
+            },
+         })
 
          gsap.to(controlsRef.current.target, {
             x: 0, y: 0, z: 0,
             duration: 0.5,
             ease: 'power3.inOut',
-         });
+         })
       }
-   };
+   }
 
    useEffect(() => {
       if (!containerRef.current || isInitialized.current) return
@@ -145,7 +145,7 @@ const WorkGallery: React.FC = () => {
          z: 40,
          duration: 2,
          ease: 'power2.inOut',
-         delay: 2
+         delay: 2,
       })
 
       // Animate Background Color from white to grey.
@@ -179,7 +179,7 @@ const WorkGallery: React.FC = () => {
          workPositions.push(candidatePos)
       }
 
-     // Create objects using the filtered list and calculated positions.
+      // Create objects using the filtered list and calculated positions.
       const meshPromises = allWorks.map((work, index) => {
          const position = workPositions[index]
          return createWorkObject({
@@ -223,7 +223,7 @@ const WorkGallery: React.FC = () => {
          const intersects = raycaster.intersectObjects(workMeshesRef.current)
 
          // Click only if the object is full size, not allowing clicking on object not in selected category.
-         if (intersects.length > 0 && intersects[0].object instanceof THREE.Mesh && intersects[0].object.scale.x > 0.5) {
+         if (intersects.length > 0 && intersects[0].object.scale.x > 0.5) {
             intersects[0].object.userData.onClick?.()
          }
       }
@@ -231,15 +231,15 @@ const WorkGallery: React.FC = () => {
 
       // Hover effect logic.
       const onMouseMove = (event: MouseEvent) => {
-         const rect = renderer.domElement.getBoundingClientRect();
-         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-         raycaster.setFromCamera(mouse, camera);
-         const intersects = raycaster.intersectObjects(workMeshesRef.current);
+         const rect = renderer.domElement.getBoundingClientRect()
+         mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
+         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
+         raycaster.setFromCamera(mouse, camera)
+         const intersects = raycaster.intersectObjects(workMeshesRef.current)
 
          // If we are intersecting something.
          if (intersects.length > 0) {
-            const firstIntersect = intersects[0].object as THREE.Mesh;
+            const firstIntersect = intersects[0].object as THREE.Mesh
 
             // If it's an active (not greyed out) item.
             if (firstIntersect.scale.x > 0.5) {
@@ -247,27 +247,27 @@ const WorkGallery: React.FC = () => {
                if (currentlyHovered.current !== firstIntersect) {
                   // Animate the PREVIOUS item back to normal, if there was one.
                   if (currentlyHovered.current) {
-                     gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' });
+                     gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' })
                   }
 
                   // Set the new hovered item.
-                  currentlyHovered.current = firstIntersect;
-                  gsap.to(firstIntersect.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.1, ease: 'power2.out' });
+                  currentlyHovered.current = firstIntersect
+                  gsap.to(firstIntersect.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.1, ease: 'power2.out' })
                }
                // Change cursor to pointer.
-               renderer.domElement.style.cursor = 'pointer';
+               renderer.domElement.style.cursor = 'pointer'
             }
          } else { // If we are not intersecting anything.
             // Animate the previously hovered item back to normal.
             if (currentlyHovered.current) {
-               gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' });
-               currentlyHovered.current = null;
+               gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' })
+               currentlyHovered.current = null
             }
             // Reset cursor.
-            renderer.domElement.style.cursor = 'grab';
+            renderer.domElement.style.cursor = 'grab'
          }
-      };
-      renderer.domElement.addEventListener('mousemove', onMouseMove);
+      }
+      renderer.domElement.addEventListener('mousemove', onMouseMove)
 
       let animationFrameId: number
       const animate = () => {
@@ -277,7 +277,7 @@ const WorkGallery: React.FC = () => {
       }
       animate()
 
-     //  Handle Window Resizing.
+      //  Handle Window Resizing.
       const handleResize = () => {
          camera.aspect = window.innerWidth / window.innerHeight
          camera.updateProjectionMatrix()
@@ -285,17 +285,17 @@ const WorkGallery: React.FC = () => {
       }
       window.addEventListener('resize', handleResize)
 
-     // Cleanup on component unmount.
+      // Cleanup on component unmount.
       return () => {
          cancelAnimationFrame(animationFrameId)
          window.removeEventListener('resize', handleResize)
-         renderer.domElement.removeEventListener('mousemove', onMouseMove);
+         renderer.domElement.removeEventListener('mousemove', onMouseMove)
          renderer.domElement.removeEventListener('click', onCanvasClick)
          controls.dispose()
 
          // Kill entry animations on cleanup.
-         gsap.killTweensOf(camera.position);
-         gsap.killTweensOf(scene.background);
+         gsap.killTweensOf(camera.position)
+         gsap.killTweensOf(scene.background)
 
          workMeshesRef.current.forEach((mesh) => {
             // Kill any active GSAP animations on this mesh.
@@ -323,8 +323,8 @@ const WorkGallery: React.FC = () => {
 
          workMeshesRef.current = []
 
-        scene.clear();
-        renderer.dispose();
+         scene.clear()
+         renderer.dispose()
          if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement)
          isInitialized.current = false
       }

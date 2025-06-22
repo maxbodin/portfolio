@@ -10,7 +10,7 @@ import { WorkDetails } from '@/interfaces/workDetails'
 
 export default function TroisD() {
    // Helper function to check for video extensions.
-   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm');
+   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm')
 
    return (
       <section id="3d">
@@ -42,6 +42,7 @@ export default function TroisD() {
                                           className="w-full h-full object-cover rounded-xl"
                                        />
                                     ) : (
+                                       // eslint-disable-next-line @next/next/no-img-element
                                        <img
                                           src={item.image_path}
                                           alt={item.title}
