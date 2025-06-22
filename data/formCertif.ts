@@ -37,7 +37,7 @@ export const formationsCertificationsItems: WorkDetails[] = [
          'D3 : Identifier les enjeux spécifiques à chaque grand domaine du numérique\n' +
          'D4 : Connaître les solutions pour réduire les impacts de l’informatique\n' +
          'D5 : Connaître des méthodologies de travail pour la mise en place du numérique responsable',
-      image_path: '/images/certificationNR.png',
+      image_path: '/images/certificationNR.webp',
       link: 'https://ecocertification.univ-lr.fr/',
       skills: [],
       title: 'Certificat de Connaissance Numérique Responsable',

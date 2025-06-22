@@ -4,7 +4,7 @@ import { WorkDetails } from '@/interfaces/workDetails'
 export const eventsItems: WorkDetails[] = [
    {
       description: 'Participation en équipe au #24hDeLinfo des IUT de France ! Concours composé de trois épreuves, chacune d’une durée de 8 heures. Nous avons fièrement terminé 8ème sur 34 équipes.',
-      image_path: '/images/logo2024.png',
+      image_path: '/images/logo2024.webp',
       link: 'https://24hinfo.iut.fr',
       skills: [Skill.ALGO_PROG, Skill.DEV_WEB, Skill.SEC],
       title: '24h de l\'Info 2024',

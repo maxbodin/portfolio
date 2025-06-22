@@ -32,7 +32,7 @@ export const projectsItems: WorkDetails[] = [
    {
       description: 'Conception et réalisation d\'un jeu vidéo 2D, en C# avec Unity.',
       github: 'https://github.com/maxkzime/WildHatWest',
-      image_path: '/images/wildhatwest.png',
+      image_path: '/images/wildhatwest.webp',
       link: 'https://makzime.itch.io/wild-hat-west',
       skills: [Skill.UNITY, Skill.C_SHARP, Skill.GAME_DESIGN, Skill.PLASTIC_SCM, Skill.RESOLUTION_PROB, Skill.GESTION_PROJ],
       title: 'Wild Hat West',

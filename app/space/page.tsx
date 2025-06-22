@@ -161,7 +161,7 @@ const WorkGallery: React.FC = () => {
       // This algorithm ensures objects are spaced out to prevent overlapping.
       const workPositions: THREE.Vector3[] = []
       const minDistance = 5.0                        // Minimum distance between the centers of two objects.
-      const placementArea = { x: 35, y: 30, z: 25 }  // The size of the random volume.
+      const placementArea = { x: 40, y: 30, z: 20 }  // The size of the random volume.
 
       for (let i = 0; i < allWorks.length; i++) {
          let candidatePos = new THREE.Vector3()
