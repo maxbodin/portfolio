@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use client'
 import { Card, CardContent } from '@/components/ui/card'
 import * as React from 'react'
@@ -36,6 +37,7 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
                      className="w-full h-full object-cover rounded-xl"
                   />
                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                      src={item.image_path}
                      title={item.title}
