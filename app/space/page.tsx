@@ -12,6 +12,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Github, LinkIcon, Loader2, LocateFixed } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getSkillColor, Skill } from '@/functions/getSkillColor'
+import { Progress } from '@/components/ui/progress'
 
 // Import data
 import { projectsItems } from '@/data/projects'
@@ -25,7 +26,6 @@ import { Input } from '@/components/ui/input'
 const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3D']
 
 // Filter out any items that have no image_path.
-// This prevents the "Error loading image" for items with empty paths.
 // Sort items by categories.
 const allWorks: (WorkDetails)[] = [
    ...projectsItems.map(item => ({ ...item, category: 'Projects' })),
@@ -43,6 +43,7 @@ const WorkGallery: React.FC = () => {
    // Refs for camera and controls to access them outside useEffect (flyto).
    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
    const controlsRef = useRef<OrbitControls | null>(null)
+   const sceneRef = useRef<THREE.Scene | null>(null)
 
    const currentlyHovered = useRef<THREE.Mesh | null>(null)
 
@@ -53,7 +54,13 @@ const WorkGallery: React.FC = () => {
    const [searchTerm, setSearchTerm] = useState<string>('')
    const [isRecenterAnimating, setIsRecenterAnimating] = useState<boolean>(false)
 
+   // State for loading progress and scene readiness
+   const [loadingProgress, setLoadingProgress] = useState<number>(0);
+   const [isSceneReady, setIsSceneReady] = useState<boolean>(false);
+
    useEffect(() => {
+      if (!isSceneReady) return; // Don't apply filters until the scene is ready.
+
       const selectedCategory = categories[activeCategoryIndex]
       const lowerCaseSearchTerm = searchTerm.toLowerCase()
 
@@ -93,7 +100,7 @@ const WorkGallery: React.FC = () => {
             ease: 'power3.out',
          })
       })
-   }, [activeCategoryIndex, searchTerm])
+   }, [activeCategoryIndex, searchTerm, isSceneReady])
 
    // Camera recenter function.
    const handleRecenter = () => {
@@ -118,12 +125,15 @@ const WorkGallery: React.FC = () => {
       }
    }
 
+   // Setting up the scene.
    useEffect(() => {
       if (!containerRef.current || isInitialized.current) return
       isInitialized.current = true
       const container = containerRef.current
 
       const scene = new THREE.Scene()
+      sceneRef.current = scene
+
       // Set initial background color to white.
       scene.background = new THREE.Color(0xffffff)
 
@@ -140,25 +150,6 @@ const WorkGallery: React.FC = () => {
       const controls = createOrbitControls({ camera, domElement: renderer.domElement })
       controlsRef.current = controls
 
-      // Animate Camera Zoom-out from z=5 to z=30.
-      gsap.to(camera.position, {
-         z: 40,
-         duration: 2,
-         ease: 'power2.inOut',
-         delay: 2,
-      })
-
-      // Animate Background Color from white to grey.
-      const targetBgColor = new THREE.Color('rgb(233, 233, 233)')
-      gsap.to(scene.background, {
-         r: targetBgColor.r,
-         g: targetBgColor.g,
-         b: targetBgColor.b,
-         duration: 2.5,
-         ease: 'power3.inOut',
-      })
-
-      // This algorithm ensures objects are spaced out to prevent overlapping.
       const workPositions: THREE.Vector3[] = []
       const minDistance = 5.0                        // Minimum distance between the centers of two objects.
       const placementArea = { x: 40, y: 30, z: 10 }  // The size of the random volume.
@@ -180,6 +171,7 @@ const WorkGallery: React.FC = () => {
       }
 
       // Create objects using the filtered list and calculated positions.
+      let loadedCount = 0;
       const meshPromises = allWorks.map((work, index) => {
          const position = workPositions[index]
          return createWorkObject({
@@ -189,33 +181,35 @@ const WorkGallery: React.FC = () => {
                setSelectedWork(details)
                setIsModalOpen(true)
             },
-         })
-      })
+         }).then(mesh => {
+            // Update progress after each item is processed.
+            loadedCount++;
+            const progress = (loadedCount / allWorks.length) * 100;
+            setLoadingProgress(progress);
+            return mesh;
+         });
+      });
 
       Promise.all(meshPromises)
          .then((createdMeshes) => {
-            workMeshesRef.current = createdMeshes
-
-            // Initial entrance animation.
+            workMeshesRef.current = createdMeshes;
+            // Add all meshes to the scene at once.
             createdMeshes.forEach(mesh => {
                mesh.scale.set(0, 0, 0) // Start at scale 0.
                scene.add(mesh)
             })
 
-            gsap.to(createdMeshes.map(m => m.scale), {
-               x: 1, y: 1, z: 1,
-               duration: 2,
-               stagger: 0.03,
-               ease: 'power3.out',
-               delay: 0.2,
-            })
+            // Signal that the scene is ready.
+            setIsSceneReady(true);
          })
-         .catch(console.error)
+         .catch(console.error);
 
       const raycaster = new THREE.Raycaster()
       const mouse = new THREE.Vector2()
 
       const onCanvasClick = (event: MouseEvent) => {
+         if (!isSceneReady) return;
+
          const rect = renderer.domElement.getBoundingClientRect()
          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
@@ -231,6 +225,8 @@ const WorkGallery: React.FC = () => {
 
       // Hover effect logic.
       const onMouseMove = (event: MouseEvent) => {
+         if (!isSceneReady) return;
+
          const rect = renderer.domElement.getBoundingClientRect()
          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1
          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1
@@ -291,12 +287,12 @@ const WorkGallery: React.FC = () => {
          window.removeEventListener('resize', handleResize)
          renderer.domElement.removeEventListener('mousemove', onMouseMove)
          renderer.domElement.removeEventListener('click', onCanvasClick)
-         controls.dispose()
+         if (controlsRef.current) controlsRef.current.dispose()
 
          // Kill entry animations on cleanup.
          gsap.killTweensOf(camera.position)
-         gsap.killTweensOf(scene.background)
 
+         if (scene.background) gsap.killTweensOf(scene.background)
          workMeshesRef.current.forEach((mesh) => {
             // Kill any active GSAP animations on this mesh.
             gsap.killTweensOf(mesh.scale)
@@ -311,30 +307,63 @@ const WorkGallery: React.FC = () => {
                v.load()
                if (v.parentElement) v.parentElement.removeChild(v)
             }
-            if (mesh.userData.gifImageElement) {
-               const i = mesh.userData.gifImageElement as HTMLImageElement
-               if (i.parentElement) i.parentElement.removeChild(i)
-            }
-            if (mesh.userData.gifIntervalId) {
-               clearInterval(mesh.userData.gifIntervalId)
-            }
             if (mesh.material instanceof THREE.Material) mesh.material.dispose()
          })
 
          workMeshesRef.current = []
-
-         scene.clear()
-         renderer.dispose()
-         if (container.contains(renderer.domElement)) container.removeChild(renderer.domElement)
+         if (sceneRef.current) sceneRef.current.clear()
+         if (renderer) renderer.dispose()
+         if (container && container.contains(renderer.domElement)) container.removeChild(renderer.domElement)
          isInitialized.current = false
       }
    }, [])
 
-   return (
-      <div className="relative w-screen h-screen">
-         <div ref={containerRef} className="absolute top-0 left-0 w-full h-full cursor-grab active:cursor-grabbing" />
+   // Effect for running animations AFTER the scene is ready.
+   useEffect(() => {
+      if (isSceneReady && cameraRef.current && sceneRef.current) {
+         // Animate Camera Zoom-out.
+         gsap.to(cameraRef.current.position, {
+            z: 40,
+            duration: 2.5,
+            ease: 'power3.inOut',
+         });
 
-         <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
+         // Animate Background Color.
+         const targetBgColor = new THREE.Color('rgb(233, 233, 233)');
+         gsap.to(sceneRef.current.background, {
+            r: targetBgColor.r,
+            g: targetBgColor.g,
+            b: targetBgColor.b,
+            duration: 2.5,
+            ease: 'power3.inOut',
+         });
+
+         // Animate Meshes into view.
+         workMeshesRef.current.forEach(mesh => mesh.scale.set(0, 0, 0));
+         gsap.to(workMeshesRef.current.map(m => m.scale), {
+            x: 1, y: 1, z: 1,
+            duration: 2,
+            stagger: 0.03,
+            ease: 'power3.out',
+            delay: 3,
+         });
+      }
+   }, [isSceneReady]);
+
+
+   return (
+      <div className="relative w-screen h-screen bg-white">
+         {!isSceneReady && (
+            <div className="absolute inset-0 z-50 flex flex-col justify-center items-center bg-white">
+               <p className="mb-4 text-lg text-gray-700">Loading Portfolio...</p>
+               <Progress value={loadingProgress} className="w-1/4" />
+            </div>
+         )}
+
+         <div ref={containerRef}
+              className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${isSceneReady ? 'opacity-100 cursor-grab active:cursor-grabbing' : 'opacity-0'}`} />
+         <div
+            className={`absolute top-4 right-4 z-10 flex items-center gap-2 transition-opacity duration-1000 ${isSceneReady ? 'opacity-100' : 'opacity-0'}`}>
             <Button variant="outline" size="icon" onClick={handleRecenter} disabled={isRecenterAnimating}>
                {isRecenterAnimating ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -344,7 +373,8 @@ const WorkGallery: React.FC = () => {
             </Button>
          </div>
 
-         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10">
+         <div
+            className={`absolute bottom-2 left-1/2 -translate-x-1/2 w-full max-w-lg lg:max-w-2xl px-8 z-10 transition-opacity duration-1000 ${isSceneReady ? 'opacity-100' : 'opacity-0'}`}>
             <Input
                type="text"
                placeholder="Search..."
@@ -378,7 +408,9 @@ const WorkGallery: React.FC = () => {
                         ) : (
                            // eslint-disable-next-line @next/next/no-img-element
                            <img src={selectedWork.image_path} alt={selectedWork.title}
-                                className="w-full rounded-md" />
+                                className="w-full rounded-md"
+                                onError={(e) => (e.currentTarget.src = '/images/wip.jpg')}
+                           />
                         )}
                      </div>
 
