@@ -376,6 +376,7 @@ const WorkGallery: React.FC = () => {
                            <video src={selectedWork.image_path} controls autoPlay loop muted playsInline
                                   className="w-full rounded-md" />
                         ) : (
+                           // eslint-disable-next-line @next/next/no-img-element
                            <img src={selectedWork.image_path} alt={selectedWork.title}
                                 className="w-full rounded-md" />
                         )}
