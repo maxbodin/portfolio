@@ -9,7 +9,7 @@ type CreateWorkObjectParams = {
 
 /**
  * Asynchronously creates a THREE.Mesh for a work item.
- * Supports images and videos.
+ * Supports images and videos. Fallback for loading errors.
  */
 export function createWorkObject({ position, details, onClick }: CreateWorkObjectParams): Promise<THREE.Mesh> {
    return new Promise((resolve, reject) => {
@@ -17,7 +17,9 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
       const baseSize = 3
 
       const createMesh = (texture: THREE.Texture, aspect: number, userDataExtensions: object = {}) => {
-         const geometry = new THREE.PlaneGeometry(baseSize * aspect, baseSize)
+         // If aspect is invalid, default to 1 to prevent errors.
+         const validAspect = (Number.isFinite(aspect) && aspect > 0) ? aspect : 1;
+         const geometry = new THREE.PlaneGeometry(baseSize * validAspect, baseSize)
          const material = new THREE.MeshBasicMaterial({ map: texture, toneMapped: false, transparent: true })
          const mesh = new THREE.Mesh(geometry, material)
          mesh.position.set(...position)
@@ -28,9 +30,25 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
             texture: texture,
             ...userDataExtensions,
          }
-
          resolve(mesh)
       }
+
+      // Fallback function to load a placeholder if the original media fails.
+      const loadFallback = () => {
+         console.warn(`Could not load ${details.image_path}. Loading fallback image.`);
+         const fallbackLoader = new THREE.TextureLoader();
+         fallbackLoader.load(
+            '/images/wip.jpg',
+            (fallbackTexture) => {
+               const aspect = fallbackTexture.image.width / fallbackTexture.image.height;
+               // Pass the original details so the modal shows correct info,
+               // even if the image inside the modal will also be broken.
+               createMesh(fallbackTexture, aspect);
+            },
+            undefined,
+            (error) => reject(`FATAL: Could not load even the fallback image. ${error}`)
+         );
+      };
 
       if (isVideo) {
          const video = document.createElement('video')
@@ -53,18 +71,20 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
             const aspect = video.videoWidth / video.videoHeight
             createMesh(videoTexture, aspect, { videoElement: video })
          }, { once: true })
-         video.onerror = () => reject(`Error loading video: ${details.image_path}`)
+         // If the video fails to load, use the fallback.
+         video.onerror = loadFallback;
 
       } else { // Static image.
          const loader = new THREE.TextureLoader()
          loader.load(
             details.image_path,
             (texture) => {
-               const aspect = texture.image.naturalWidth / texture.image.naturalHeight
+               const aspect = texture.image.width / texture.image.height;
                createMesh(texture, aspect)
             },
             undefined,
-            () => reject(`Error loading image: ${details.image_path}`),
+            // If the image fails to load, use the fallback.
+            loadFallback,
          )
       }
    })
