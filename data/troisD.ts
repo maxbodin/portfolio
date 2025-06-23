@@ -5,14 +5,14 @@ import { Skill } from '@/functions/getSkillColor'
 export const troisDItems: WorkDetails[] = [
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Cabaret Summer du BDA de l\'IMT Atlantique',
-      image_path: '/videos/3d/cabaret-summer-visuel.webm',
+      image_path: '/videos/3d/cabaret-summer-visuel-vp9.webm',
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Visuel Cabaret Summer',
    },
    {
       description: 'Visuel 3D réalisé avec Blender dans le cadre du Cabaret Summer du BDA de l\'IMT Atlantique',
-      image_path: '/videos/3d/cabaret-summer-borne-01.webm',
+      image_path: '/videos/3d/cabaret-summer-borne-vp9.webm',
       skills: [Skill.BLENDER],
       title: 'Visuel Borne Cabaret Summer',
    },
@@ -31,14 +31,14 @@ export const troisDItems: WorkDetails[] = [
    },
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
-      image_path: '/videos/3d/cabaret-moulin-rouge-visuel.webm',
+      image_path: '/videos/3d/cabaret-moulin-rouge-visuel-vp9.webm',
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Visuel Cabaret Moulin Rouge',
    },
    {
       description: 'Line-up réalisée avec Blender dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
-      image_path: '/videos/3d/cabaret-moulin-rouge-lineup1.webm',
+      image_path: '/videos/3d/cabaret-moulin-rouge-lineup-vp9.webm',
       skills: [Skill.BLENDER],
       title: 'Line-up Cabaret Moulin Rouge',
    },
