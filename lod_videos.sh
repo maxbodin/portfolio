@@ -29,7 +29,6 @@ echo "--------------------------------"
 
 # Use -maxdepth 1 to prevent searching in subdirectories.
 # Use -print0 and a while loop with read -d '' to handle filenames with spaces or special characters safely.
-# shellcheck disable=SC2095
 find "$SOURCE_DIR" -maxdepth 1 -type f \( -name "*.mp4" -o -name "*.webm" \) -print0 | while IFS= read -r -d '' filepath; do
 
   # Get filename without extension and directory.
@@ -38,7 +37,7 @@ find "$SOURCE_DIR" -maxdepth 1 -type f \( -name "*.mp4" -o -name "*.webm" \) -pr
   filename_noext="${filename%.*}"
   dir=$(dirname "$filepath")
 
-  # IMPROVEMENT: Skip files that are already thumbnails or low-res versions.
+  # Skip files that are already thumbnails or low-res versions.
   if [[ "$filename" == *"$LOW_RES_SUFFIX."* || "$filename" == *"$THUMB_SUFFIX."* ]]; then
     # echo "Skipping already processed file: ${filename}"
     continue
@@ -56,7 +55,7 @@ find "$SOURCE_DIR" -maxdepth 1 -type f \( -name "*.mp4" -o -name "*.webm" \) -pr
     echo " -> Low-res version already exists."
   else
     echo " -> Creating low-res video..."
-    ffmpeg -i "$filepath" -vf "$LOW_RES_SCALE" -c:v libx264 -preset fast -crf "$LOW_RES_CRF" -an -y "$low_res_output"
+    ffmpeg -nostdin -i "$filepath" -vf "$LOW_RES_SCALE" -c:v libx264 -preset fast -crf "$LOW_RES_CRF" -an -y "$low_res_output"
     # -vf "$LOW_RES_SCALE": Rescales the video.
     # -c:v libx264: Uses the x264 video codec.
     # -preset fast: Balances encoding speed and compression.
