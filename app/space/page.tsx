@@ -22,8 +22,9 @@ import { eventsItems } from '@/data/events'
 import { troisDItems } from '@/data/troisD'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { artDesignItems } from '@/data/art'
 
-const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3D']
+const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3D', 'Art/Design']
 
 // Filter out any items that have no image_path.
 // Sort items by categories.
@@ -33,6 +34,7 @@ const allWorks: (WorkDetails)[] = [
    ...experiencesItems.map(item => ({ ...item, category: 'Experiences' })),
    ...eventsItems.map(item => ({ ...item, category: 'Events' })),
    ...troisDItems.map(item => ({ ...item, category: '3D' })),
+   ...artDesignItems.map(item => ({ ...item, category: 'Art/Design' })),
 ].filter(work => work.image_path && work.image_path.trim() !== '')
 
 const WorkGallery: React.FC = () => {
@@ -350,7 +352,7 @@ const WorkGallery: React.FC = () => {
       <div className="relative w-screen h-screen bg-white">
          {!isSceneReady && (
             <div className="absolute inset-0 z-50 flex flex-col justify-center items-center bg-white">
-               <p className="mb-4 text-lg text-gray-700">Loading Portfolio...</p>
+               <p className="mb-4 text-lg text-gray-700">Loading Portfolio... {loadingProgress.toFixed(1)}%</p>
                <Progress value={loadingProgress} className="w-1/4" />
             </div>
          )}
