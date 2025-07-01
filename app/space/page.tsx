@@ -261,7 +261,6 @@ const WorkGallery: React.FC = () => {
 
          if (distance < LOD_CONFIG.HIGH_RES_DISTANCE) {
             targetState = 'high'
-            console.log('high')
          } else if (distance < LOD_CONFIG.LOW_RES_DISTANCE) {
             targetState = 'low'
          }
@@ -293,6 +292,7 @@ const WorkGallery: React.FC = () => {
       renderer.setPixelRatio(window.devicePixelRatio)
       renderer.setSize(window.innerWidth, window.innerHeight)
       container.appendChild(renderer.domElement)
+      rendererRef.current = renderer
 
       const controls = createOrbitControls({ camera, domElement: renderer.domElement })
       controlsRef.current = controls
@@ -405,19 +405,6 @@ const WorkGallery: React.FC = () => {
       }
       renderer.domElement.addEventListener('mousemove', onMouseMove)
 
-      let animationFrameId: number
-      const animate = () => {
-         animationFrameId = requestAnimationFrame(animate)
-         controls.update()
-
-         if (isSceneReady && cameraRef.current) {
-            updateLODs(cameraRef.current, workMeshesRef.current)
-         }
-
-         renderer.render(scene, camera)
-      }
-      animate()
-
       //  Handle Window Resizing.
       const handleResize = () => {
          if (!cameraRef.current || !rendererRef.current) return
@@ -430,7 +417,6 @@ const WorkGallery: React.FC = () => {
 
       // Cleanup on component unmount.
       return () => {
-         cancelAnimationFrame(animationFrameId)
          window.removeEventListener('resize', handleResize)
          renderer.domElement.removeEventListener('mousemove', onMouseMove)
          renderer.domElement.removeEventListener('click', onCanvasClick)
@@ -508,23 +494,33 @@ const WorkGallery: React.FC = () => {
 
    // Animation Loop.
    useEffect(() => {
-      if (!isSceneReady) return
+      if (!isSceneReady || !rendererRef.current || !sceneRef.current || !cameraRef.current || !controlsRef.current) {
+         return
+      }
 
-      const renderer = rendererRef.current!
-      const scene = sceneRef.current!
-      const camera = cameraRef.current!
-      const controls = controlsRef.current!
+      const renderer = rendererRef.current
+      const scene = sceneRef.current
+      const camera = cameraRef.current
+      const controls = controlsRef.current
 
       let animationFrameId: number
       const animate = () => {
          animationFrameId = requestAnimationFrame(animate)
+
+         // Update controls and LODs.
          controls.update()
          updateLODs(camera, workMeshesRef.current)
+
+         // Render the scene.
          renderer.render(scene, camera)
       }
+
       animate()
 
-      return () => cancelAnimationFrame(animationFrameId)
+      // Cancel the animation frame when the component unmounts.
+      return () => {
+         cancelAnimationFrame(animationFrameId)
+      }
    }, [isSceneReady, updateLODs])
 
    return (
