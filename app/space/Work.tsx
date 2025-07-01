@@ -7,85 +7,96 @@ type CreateWorkObjectParams = {
    onClick: (details: WorkDetails) => void;
 };
 
+const sharedTextureLoader = new THREE.TextureLoader()
+const fallbackTexturePath = '/images/wip.jpg'
+
 /**
- * Asynchronously creates a THREE.Mesh for a work item.
- * Supports images and videos. Fallback for loading errors.
+ * Determines the best initial static image path to load for an object.
+ */
+function getInitialTexturePath(details: WorkDetails): string {
+   // If a thumbnail exists, always use it for the fastest load.
+   if (details.thumbnail_path) {
+      return details.thumbnail_path
+   }
+
+   const isVideo = details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm')
+
+   // If it's a static image (not a video), use its main path for the initial texture.
+   if (!isVideo) {
+      return details.image_path
+   }
+
+   // If it's a video but has no thumbnail, use the static fallback.
+   // The LOD system will be responsible for loading the low resolution video later.
+   return fallbackTexturePath
+}
+
+/**
+ * Asynchronously creates a THREE.Mesh with an initial thumbnail texture.
+ * The mesh's userData is populated with all necessary info for the LOD system.
  */
 export function createWorkObject({ position, details, onClick }: CreateWorkObjectParams): Promise<THREE.Mesh> {
    return new Promise((resolve, reject) => {
       const isVideo = details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm')
       const baseSize = 3
 
-      const createMesh = (texture: THREE.Texture, aspect: number, userDataExtensions: object = {}) => {
-         // If aspect is invalid, default to 1 to prevent errors.
-         const validAspect = (Number.isFinite(aspect) && aspect > 0) ? aspect : 1;
-         const geometry = new THREE.PlaneGeometry(baseSize * validAspect, baseSize)
-         const material = new THREE.MeshBasicMaterial({ map: texture, toneMapped: false, transparent: true })
-         const mesh = new THREE.Mesh(geometry, material)
-         mesh.position.set(...position)
+      const initialTexturePath = getInitialTexturePath(details)
 
-         mesh.userData = {
-            onClick: () => onClick(details),
-            details: details,
-            texture: texture,
-            ...userDataExtensions,
-         }
-         resolve(mesh)
-      }
+      sharedTextureLoader.load(
+         initialTexturePath,
+         (texture) => {
+            const aspect = (texture.image.width / texture.image.height) || 1
+            const geometry = new THREE.PlaneGeometry(baseSize * aspect, baseSize)
+            const material = new THREE.MeshBasicMaterial({ map: texture, toneMapped: false, transparent: true })
+            const mesh = new THREE.Mesh(geometry, material)
 
-      // Fallback function to load a placeholder if the original media fails.
-      const loadFallback = () => {
-         console.warn(`Could not load ${details.image_path}. Loading fallback image.`);
-         const fallbackLoader = new THREE.TextureLoader();
-         fallbackLoader.load(
-            '/images/wip.jpg',
-            (fallbackTexture) => {
-               const aspect = fallbackTexture.image.width / fallbackTexture.image.height;
-               // Pass the original details so the modal shows correct info,
-               // even if the image inside the modal will also be broken.
-               createMesh(fallbackTexture, aspect);
-            },
-            undefined,
-            (error) => reject(`FATAL: Could not load even the fallback image. ${error}`)
-         );
-      };
+            mesh.position.set(...position)
 
-      if (isVideo) {
-         const video = document.createElement('video')
-         video.src = details.image_path
-         video.crossOrigin = 'anonymous'
-         video.loop = true
-         video.muted = true
-         video.playsInline = true
+            mesh.userData = {
+               onClick: () => onClick(details),
+               details: details,
 
-         // Add the video to the DOM but keep it hidden.
-         // This is a crucial step to help browsers with autoplay policies.
-         video.style.position = 'fixed'
-         video.style.top = '-9999px'
-         video.style.left = '-9999px'
-         document.body.appendChild(video)
+               // LOD system properties.
+               // A mesh is considered an "LOD Video" if its primary content is a video
+               // that should be loaded dynamically by the LOD system.
+               isLODVideo: isVideo,
+               lodState: 'thumbnail',     // Always start in a non-active state.
+               isLoading: false,          // Flag to prevent concurrent loading.
 
-         video.addEventListener('canplay', () => {
-            video.play().catch(e => console.error('Video play error:', e))
-            const videoTexture = new THREE.VideoTexture(video)
-            const aspect = video.videoWidth / video.videoHeight
-            createMesh(videoTexture, aspect, { videoElement: video })
-         }, { once: true })
-         // If the video fails to load, use the fallback.
-         video.onerror = loadFallback;
+               // Keep track of resources to dispose them later.
+               activeTexture: texture,
+               activeVideoElement: null,
+            }
+            resolve(mesh)
+         },
+         undefined,
+         (error) => {
+            // If the initial texture fails, create the mesh with a global fallback.
+            console.warn(`Could not load initial texture ${initialTexturePath}. Loading fallback.`)
+            sharedTextureLoader.load(fallbackTexturePath, (fallbackTexture) => {
+               const aspect = (fallbackTexture.image.width / fallbackTexture.image.height) || 1
+               const geometry = new THREE.PlaneGeometry(baseSize * aspect, baseSize)
+               const material = new THREE.MeshBasicMaterial({
+                  map: fallbackTexture,
+                  toneMapped: false,
+                  transparent: true,
+               })
+               const mesh = new THREE.Mesh(geometry, material)
 
-      } else { // Static image.
-         const loader = new THREE.TextureLoader()
-         loader.load(
-            details.image_path,
-            (texture) => {
-               const aspect = texture.image.width / texture.image.height;
-               createMesh(texture, aspect)
-            },
-            undefined,
-            // If the image fails to load, use the fallback.
-            loadFallback,
-         )
-      }
+               mesh.position.set(...position)
+
+               mesh.userData = {
+                  onClick: () => onClick(details),
+                  details: details,
+                  isLODVideo: isVideo,
+                  lodState: 'thumbnail',
+                  isLoading: false,
+                  activeTexture: fallbackTexture,
+                  activeVideoElement: null,
+               }
+               resolve(mesh)
+            }, undefined, () => reject(`FATAL: Could not load the fallback image. ${error}`))
+         },
+      )
    })
 }
