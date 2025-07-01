@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { createWorkObject } from './Work'
@@ -24,6 +24,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { artDesignItems } from '@/data/art'
 
+const LOD_CONFIG = {
+   HIGH_RES_DISTANCE: 15,  // Distance to load high-res video.
+   LOW_RES_DISTANCE: 50,   // Distance to load low-res video.
+}
+
 const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3D', 'Art/Design']
 
 // Filter out any items that have no image_path.
@@ -37,6 +42,9 @@ const allWorks: (WorkDetails)[] = [
    ...artDesignItems.map(item => ({ ...item, category: 'Art/Design' })),
 ].filter(work => work.image_path && work.image_path.trim() !== '')
 
+const textureLoader = new THREE.TextureLoader()
+const fallbackTexturePath = '/images/wip.jpg'
+
 const WorkGallery: React.FC = () => {
    const containerRef = useRef<HTMLDivElement>(null)
    const isInitialized = useRef(false)
@@ -46,8 +54,12 @@ const WorkGallery: React.FC = () => {
    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
    const controlsRef = useRef<OrbitControls | null>(null)
    const sceneRef = useRef<THREE.Scene | null>(null)
+   const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
 
    const currentlyHovered = useRef<THREE.Mesh | null>(null)
+
+   const videoManagerRef = useRef(new Map<string, HTMLVideoElement>())
+   const isLODEnabledRef = useRef<boolean>(false)
 
    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
    const [selectedWork, setSelectedWork] = useState<(WorkDetails) | null>(null)
@@ -56,12 +68,12 @@ const WorkGallery: React.FC = () => {
    const [searchTerm, setSearchTerm] = useState<string>('')
    const [isRecenterAnimating, setIsRecenterAnimating] = useState<boolean>(false)
 
-   // State for loading progress and scene readiness
-   const [loadingProgress, setLoadingProgress] = useState<number>(0);
-   const [isSceneReady, setIsSceneReady] = useState<boolean>(false);
+   // State for loading progress and scene readiness.
+   const [loadingProgress, setLoadingProgress] = useState<number>(0)
+   const [isSceneReady, setIsSceneReady] = useState<boolean>(false)
 
    useEffect(() => {
-      if (!isSceneReady) return; // Don't apply filters until the scene is ready.
+      if (!isSceneReady) return // Don't apply filters until the scene is ready.
 
       const selectedCategory = categories[activeCategoryIndex]
       const lowerCaseSearchTerm = searchTerm.toLowerCase()
@@ -127,6 +139,139 @@ const WorkGallery: React.FC = () => {
       }
    }
 
+   /**
+    *
+    */
+   const loadResourceForMesh = useCallback((mesh: THREE.Mesh, targetState: 'high' | 'low' | 'thumbnail') => {
+      const details = mesh.userData.details as WorkDetails
+
+      let path: string
+      let isVideo: boolean
+      let finalState: 'high' | 'low' | 'thumbnail'
+
+      if (targetState === 'high') {
+         path = details.image_path
+         isVideo = path.endsWith('.mp4') || path.endsWith('.webm')
+         finalState = 'high'
+      } else if (targetState === 'low') {
+         if (details.low_quality_path) {
+            path = details.low_quality_path
+            isVideo = true
+            finalState = 'low'
+         } else {
+            path = details.image_path
+            isVideo = path.endsWith('.mp4') || path.endsWith('.webm')
+            finalState = 'high'
+         }
+      } else { // thumbnail.
+         if (details.thumbnail_path) {
+            path = details.thumbnail_path
+         } else if (!(details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm'))) {
+            path = details.image_path
+         } else {
+            path = fallbackTexturePath
+         }
+         isVideo = false
+         finalState = 'thumbnail'
+      }
+
+      if (mesh.userData.lodState === finalState) {
+         return
+      }
+
+      mesh.userData.isLoading = true
+
+      const oldTexture = mesh.userData.activeTexture
+      const oldVideo = mesh.userData.activeVideoElement
+
+      const applyNewTexture = (newTexture: THREE.Texture, newVideo: HTMLVideoElement | null, loadedState: typeof finalState | 'failed') => {
+         if (!mesh.material) {
+            newTexture.dispose()
+            if (newVideo) newVideo.parentElement?.removeChild(newVideo)
+            return
+         }
+
+         (mesh.material as THREE.MeshBasicMaterial).map = newTexture;
+         (mesh.material as THREE.MeshBasicMaterial).needsUpdate = true
+
+         mesh.userData.activeTexture = newTexture
+         mesh.userData.activeVideoElement = newVideo
+         mesh.userData.lodState = loadedState
+         mesh.userData.isLoading = false
+
+         if (oldTexture && oldTexture.uuid !== newTexture.uuid) oldTexture.dispose()
+         if (oldVideo) {
+            oldVideo.pause()
+            oldVideo.src = ''
+            oldVideo.parentElement?.removeChild(oldVideo)
+            videoManagerRef.current.delete(mesh.uuid)
+         }
+      }
+
+      const onError = (e: any) => {
+         console.error(`Failed to load resource: ${path}`, e)
+         textureLoader.load(fallbackTexturePath, (fallbackTexture) => {
+            applyNewTexture(fallbackTexture, null, 'failed')
+         })
+      }
+
+      if (isVideo) {
+         const video = document.createElement('video')
+         video.src = path
+         video.crossOrigin = 'anonymous'
+         video.loop = true
+         video.muted = true
+         video.playsInline = true
+         video.style.position = 'fixed'
+         video.style.top = '-9999px'
+         document.body.appendChild(video)
+         videoManagerRef.current.set(mesh.uuid, video)
+
+         const videoTexture = new THREE.VideoTexture(video)
+         applyNewTexture(videoTexture, video, finalState)
+
+         video.preload = 'auto'
+         // Start loading and play.
+         video.load()
+         const playPromise = video.play()
+         if (playPromise !== undefined) {
+            playPromise.catch(error => {
+               console.error(`Error playing video ${path}:`, error)
+            })
+         }
+      } else {
+         textureLoader.load(path, (texture) => applyNewTexture(texture, null, finalState), undefined, onError)
+      }
+   }, [])
+
+   /**
+    *
+    */
+   const updateLODs = useCallback((camera: THREE.PerspectiveCamera, meshes: THREE.Mesh[]) => {
+      if (!isLODEnabledRef.current) return
+
+      const cameraPosition = camera.position
+      meshes.forEach(mesh => {
+         if (!mesh.userData.isLODVideo || mesh.userData.isLoading || mesh.userData.lodState === 'failed') {
+            return
+         }
+
+         const distance = mesh.position.distanceTo(cameraPosition)
+         let targetState: 'high' | 'low' | 'thumbnail' = 'thumbnail'
+
+         if (distance < LOD_CONFIG.HIGH_RES_DISTANCE) {
+            targetState = 'high'
+            console.log('high')
+         } else if (distance < LOD_CONFIG.LOW_RES_DISTANCE) {
+            targetState = 'low'
+         }
+
+         if (targetState !== mesh.userData.lodState) {
+            loadResourceForMesh(mesh, targetState)
+         }
+      })
+   }, [loadResourceForMesh])
+
    // Setting up the scene.
    useEffect(() => {
       if (!containerRef.current || isInitialized.current) return
@@ -154,7 +299,7 @@ const WorkGallery: React.FC = () => {
 
       const workPositions: THREE.Vector3[] = []
       const minDistance = 5.0                        // Minimum distance between the centers of two objects.
-      const placementArea = { x: 40, y: 30, z: 10 }  // The size of the random volume.
+      const placementArea = { x: 50, y: 30, z: 10 }  // The size of the random volume.
 
       for (let i = 0; i < allWorks.length; i++) {
          let candidatePos = new THREE.Vector3()
@@ -173,7 +318,7 @@ const WorkGallery: React.FC = () => {
       }
 
       // Create objects using the filtered list and calculated positions.
-      let loadedCount = 0;
+      let loadedCount = 0
       const meshPromises = allWorks.map((work, index) => {
          const position = workPositions[index]
          return createWorkObject({
@@ -185,12 +330,11 @@ const WorkGallery: React.FC = () => {
             },
          }).then(mesh => {
             // Update progress after each item is processed.
-            loadedCount++;
-            const progress = (loadedCount / allWorks.length) * 100;
-            setLoadingProgress(progress);
-            return mesh;
-         });
-      });
+            loadedCount++
+            setLoadingProgress((loadedCount / allWorks.length) * 100)
+            return mesh
+         })
+      })
 
       Promise.all(meshPromises)
          .then((createdMeshes) => {
@@ -231,33 +375,32 @@ const WorkGallery: React.FC = () => {
          const intersects = raycaster.intersectObjects(workMeshesRef.current)
 
          // If we are intersecting something.
-         if (intersects.length > 0) {
+         if (intersects.length > 0 && (intersects[0].object as THREE.Mesh).scale.x > 0.5) {
             const firstIntersect = intersects[0].object as THREE.Mesh
 
-            // If it's an active (not greyed out) item.
-            if (firstIntersect.scale.x > 0.5) {
-               // If it's a NEW item we are hovering.
-               if (currentlyHovered.current !== firstIntersect) {
-                  // Animate the PREVIOUS item back to normal, if there was one.
-                  if (currentlyHovered.current) {
-                     gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' })
-                  }
+            // Change cursor to pointer.
+            renderer.domElement.style.cursor = 'pointer'
 
-                  // Set the new hovered item.
-                  currentlyHovered.current = firstIntersect
-                  gsap.to(firstIntersect.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.1, ease: 'power2.out' })
+            // If it's a NEW item we are hovering.
+            if (currentlyHovered.current !== firstIntersect) {
+               // Animate the PREVIOUS item back to normal, if there was one.
+               if (currentlyHovered.current) {
+                  gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' })
                }
-               // Change cursor to pointer.
-               renderer.domElement.style.cursor = 'pointer'
+
+               // Set the new hovered item.
+               currentlyHovered.current = firstIntersect
+               gsap.to(firstIntersect.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.1, ease: 'power2.out' })
             }
          } else { // If we are not intersecting anything.
+            // Reset cursor.
+            renderer.domElement.style.cursor = 'grab'
+
             // Animate the previously hovered item back to normal.
             if (currentlyHovered.current) {
                gsap.to(currentlyHovered.current.scale, { x: 1, y: 1, z: 1, duration: 0.2, ease: 'power2.out' })
                currentlyHovered.current = null
             }
-            // Reset cursor.
-            renderer.domElement.style.cursor = 'grab'
          }
       }
       renderer.domElement.addEventListener('mousemove', onMouseMove)
@@ -266,15 +409,22 @@ const WorkGallery: React.FC = () => {
       const animate = () => {
          animationFrameId = requestAnimationFrame(animate)
          controls.update()
+
+         if (isSceneReady && cameraRef.current) {
+            updateLODs(cameraRef.current, workMeshesRef.current)
+         }
+
          renderer.render(scene, camera)
       }
       animate()
 
       //  Handle Window Resizing.
       const handleResize = () => {
-         camera.aspect = window.innerWidth / window.innerHeight
-         camera.updateProjectionMatrix()
-         renderer.setSize(window.innerWidth, window.innerHeight)
+         if (!cameraRef.current || !rendererRef.current) return
+
+         cameraRef.current.aspect = window.innerWidth / window.innerHeight
+         cameraRef.current.updateProjectionMatrix()
+         rendererRef.current.setSize(window.innerWidth, window.innerHeight)
       }
       window.addEventListener('resize', handleResize)
 
@@ -284,10 +434,20 @@ const WorkGallery: React.FC = () => {
          window.removeEventListener('resize', handleResize)
          renderer.domElement.removeEventListener('mousemove', onMouseMove)
          renderer.domElement.removeEventListener('click', onCanvasClick)
+
          if (controlsRef.current) controlsRef.current.dispose()
+         controls.dispose()
 
          // Kill entry animations on cleanup.
          gsap.killTweensOf(camera.position)
+         gsap.globalTimeline.clear()
+
+         videoManagerRef.current.forEach(video => {
+            video.pause()
+            video.removeAttribute('src')
+            video.parentElement?.removeChild(video)
+         })
+         videoManagerRef.current.clear()
 
          if (scene.background) gsap.killTweensOf(scene.background)
          workMeshesRef.current.forEach((mesh) => {
@@ -296,24 +456,22 @@ const WorkGallery: React.FC = () => {
             if (mesh.material) gsap.killTweensOf((mesh.material as THREE.MeshBasicMaterial).color)
 
             mesh.geometry.dispose()
-            mesh.userData.texture?.dispose()
-            if (mesh.userData.videoElement) {
-               const v = mesh.userData.videoElement as HTMLVideoElement
-               v.pause()
-               v.removeAttribute('src')
-               v.load()
-               if (v.parentElement) v.parentElement.removeChild(v)
-            }
+            if (mesh.userData.activeTexture) mesh.userData.activeTexture.dispose()
             if (mesh.material instanceof THREE.Material) mesh.material.dispose()
          })
 
          workMeshesRef.current = []
+
          if (sceneRef.current) sceneRef.current.clear()
-         if (renderer) renderer.dispose()
+         scene.clear()
+
+         if (rendererRef.current) rendererRef.current.dispose()
+         renderer.dispose()
+
          if (container && container.contains(renderer.domElement)) container.removeChild(renderer.domElement)
          isInitialized.current = false
       }
-   }, [])
+   }, [updateLODs])
 
    // Effect for running animations AFTER the scene is ready.
    useEffect(() => {
@@ -323,30 +481,51 @@ const WorkGallery: React.FC = () => {
             z: 40,
             duration: 2.5,
             ease: 'power3.inOut',
-         });
+            onComplete: () => {
+               isLODEnabledRef.current = true
+            },
+         })
 
          // Animate Background Color.
-         const targetBgColor = new THREE.Color('rgb(233, 233, 233)');
+         const targetBgColor = new THREE.Color('rgb(233, 233, 233)')
          gsap.to(sceneRef.current.background, {
-            r: targetBgColor.r,
-            g: targetBgColor.g,
-            b: targetBgColor.b,
+            r: targetBgColor.r, g: targetBgColor.g, b: targetBgColor.b,
             duration: 2.5,
             ease: 'power3.inOut',
-         });
+         })
 
          // Animate Meshes into view.
-         workMeshesRef.current.forEach(mesh => mesh.scale.set(0, 0, 0));
+         workMeshesRef.current.forEach(mesh => mesh.scale.set(0, 0, 0))
          gsap.to(workMeshesRef.current.map(m => m.scale), {
             x: 1, y: 1, z: 1,
             duration: 2,
             stagger: 0.03,
             ease: 'power3.out',
             delay: 3,
-         });
+         })
       }
-   }, [isSceneReady]);
+   }, [isSceneReady])
 
+   // Animation Loop.
+   useEffect(() => {
+      if (!isSceneReady) return
+
+      const renderer = rendererRef.current!
+      const scene = sceneRef.current!
+      const camera = cameraRef.current!
+      const controls = controlsRef.current!
+
+      let animationFrameId: number
+      const animate = () => {
+         animationFrameId = requestAnimationFrame(animate)
+         controls.update()
+         updateLODs(camera, workMeshesRef.current)
+         renderer.render(scene, camera)
+      }
+      animate()
+
+      return () => cancelAnimationFrame(animationFrameId)
+   }, [isSceneReady, updateLODs])
 
    return (
       <div className="relative w-screen h-screen bg-white">
@@ -422,10 +601,9 @@ const WorkGallery: React.FC = () => {
                         </div>
                      )}
 
-                     {('date' in selectedWork || selectedWork.link || selectedWork.github) &&
-                        (<div
-                           className="flex items-center justify-between text-sm text-muted-foreground border-t pt-4">
-                           {'date' in selectedWork &&
+                     {(selectedWork.date || selectedWork.link || selectedWork.github) && (
+                        <div className="flex items-center justify-between text-sm text-muted-foreground border-t pt-4">
+                           {selectedWork.date &&
                               <p className="py-2 text-xs text-gray-600 text-justify">{selectedWork.date}</p>}
                            <div className="flex items-center gap-4">
                               {selectedWork.link && (
