@@ -2,4 +2,4 @@
 
 Mon portfolio 🤓✨
 
-© 2024 @MaxBod, Tous droits réservés.
+© 2025 @MaxBod, Tous droits réservés.
