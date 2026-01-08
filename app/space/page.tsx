@@ -25,7 +25,7 @@ import { Input } from '@/components/ui/input'
 import { artDesignItems } from '@/data/art'
 
 const LOD_CONFIG = {
-   HIGH_RES_DISTANCE: 15,  // Distance to load high-res video.
+   HIGH_RES_DISTANCE: 10,  // Distance to load high-res video.
    LOW_RES_DISTANCE: 50,   // Distance to load low-res video.
 }
 
@@ -338,16 +338,16 @@ const WorkGallery: React.FC = () => {
 
       Promise.all(meshPromises)
          .then((createdMeshes) => {
-            workMeshesRef.current = createdMeshes;
+            workMeshesRef.current = createdMeshes
             // Add all meshes to the scene at once.
             createdMeshes.forEach(mesh => {
                scene.add(mesh)
             })
 
             // Signal that the scene is ready.
-            setIsSceneReady(true);
+            setIsSceneReady(true)
          })
-         .catch(console.error);
+         .catch(console.error)
 
       const raycaster = new THREE.Raycaster()
       const mouse = new THREE.Vector2()

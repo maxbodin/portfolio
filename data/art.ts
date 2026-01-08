@@ -10,7 +10,7 @@ export const artDesignItems: WorkDetails[] = [
       title: 'Sticker Ligne Verte - Cathédrale',
    },
    {
-      description: "Sticker pour la Ligne Verte représentant Le Grand Éléphant des Machines de l'île de Nantes",
+      description: 'Sticker pour la Ligne Verte représentant Le Grand Éléphant des Machines de l\'île de Nantes',
       image_path: '/images/art/ligne-verte-elephant-bordered.png',
       skills: [],
       space_only: true,

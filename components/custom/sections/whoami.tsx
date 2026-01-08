@@ -11,19 +11,19 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect'
 
 const tooltipDelayDuration: number = 100
 
-// const words: string = 'Avide de connaissances et autodidacte, je suis passionné par de nombreux domaines de l’informatique (intelligence artificielle, développement logiciel/web et 3D, ...). J’ai obtenu en 2024 mon Bachelor Universitaire de Technologie Informatique à l’IUT de La Rochelle, j’ai réalisé ma troisième année de BUT en alternance au sein de l’entreprise Enedis. '
-
 const wordsEn: string = `Passionate and self-taught in computer science, I am currently a FullStack Developer Apprentice at Nextlane, pursuing a Software Engineering degree at IMT Atlantique.
 
-Over the years, I have developed strong skills in application design, development, and validation, with experience in:
+Over the years, I have developed strong skills in software design, development, and validation, with experience in:
 
 - Web and mobile application development
-- 2D & 3D game development with Unity, Godot
 - Software development using Python & C++
+- 2D & 3D game development with Unity, Godot
 - Creative coding and generative art with Blender and Touchdesigner
 
 After completing a BUT in Computer Science at the IUT of La Rochelle and a successful apprenticeship at Enedis, I am now continuing my journey at Nextlane.
 I enjoy designing and creating innovative projects and learning new knowledge by bringing them to life.
+
+Interested in machine learning, information retrieval, natural language processing, mobile development, distributed and parallel systems, networking and developing large software systems.
 
 Motivated, versatile, and eager to take on new challenges, I would love to connect if you have an opportunity to innovate or collaborate on exciting projects! 🚀`
 
@@ -43,6 +43,7 @@ export default function Whoami() {
                   <p className="px-1 text-purple-700">Working at Nextlane !</p>
                </Link>
             </Badge>
+            <h2><b>Seeking for a 12-week international internship (May – Sept 2026).</b></h2>
             <TextGenerateEffect duration={0.1} filter={true} words={wordsEn}
                                 className="text-xs sm:text-sm" />
             <div className="flex flex-row space-x-2 pt-4">
