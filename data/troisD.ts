@@ -4,6 +4,15 @@ import { Skill } from '@/functions/getSkillColor'
 
 export const troisDItems: WorkDetails[] = [
    {
+      description: 'Mandelbulb generated with GLSL in real-time inside TouchDesigner. Interactive exploration powered by MediaPipe hand tracking (made by @blankensmithing and @domscott.art).',
+      image_path: '/videos/3d/mandel-hdr.mp4',
+      low_quality_path: '/videos/3d/mandel-hdr_low.mp4',
+      thumbnail_path: '/videos/3d/mandel-hdr_thumb.jpg',
+      skills: [Skill.TOUCHDESIGNER, Skill.GLSL],
+      space_only: false,
+      title: 'Mandelbulb generated with GLSL',
+   },
+   {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Cabaret Summer du BDA de l\'IMT Atlantique',
       image_path: '/videos/3d/cabaret-summer-visuel-vp9.webm',
       low_quality_path: '/videos/3d/cabaret-summer-visuel-vp9_low.mp4',

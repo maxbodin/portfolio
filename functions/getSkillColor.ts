@@ -51,6 +51,8 @@ export enum Skill {
    TRAV_EQUIP = 'Travail d’équipe',
    TYPESCRIPT = 'TypeScript',
    UNITY = 'Unity',
+   TOUCHDESIGNER = 'TouchDesigner',
+   GLSL = 'GLSL',
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -106,6 +108,8 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.TRAV_EQUIP]: '#17a2b8',
    [Skill.TYPESCRIPT]: '#007acc',
    [Skill.UNITY]: '#000000',
+   [Skill.TOUCHDESIGNER]: '#9F49F5',
+   [Skill.GLSL]: '#5586A4'
 }
 
 /**
