@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { InstagramIcon } from 'lucide-react'
 import { troisDItems } from '@/data/troisD'
 import { WorkDetails } from '@/interfaces/workDetails'
 
@@ -14,7 +11,7 @@ export default function TroisD() {
 
    return (
       <section id="3d">
-         <h2 className="text-2xl pt-8 pb-4">3D 🎨</h2>
+         <h2 className="text-2xl pt-8 pb-4">3D and creative coding 🎨</h2>
          <Carousel
             opts={{
                align: 'start',
@@ -60,14 +57,6 @@ export default function TroisD() {
             <CarouselPrevious />
             <CarouselNext />
          </Carousel>
-
-         <div className="pt-4">
-            <Button variant="outline" asChild>
-               <Link href="https://www.instagram.com/maximejustevie/">
-                  <InstagramIcon className="mr-2 h-4 w-4 text-[#E1306C]" /> Voir sur Instagram
-               </Link>
-            </Button>
-         </div>
       </section>
    )
 }
