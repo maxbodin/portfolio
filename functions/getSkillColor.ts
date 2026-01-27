@@ -109,7 +109,7 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.TYPESCRIPT]: '#007acc',
    [Skill.UNITY]: '#000000',
    [Skill.TOUCHDESIGNER]: '#9F49F5',
-   [Skill.GLSL]: '#5586A4'
+   [Skill.GLSL]: '#5586A4',
 }
 
 /**

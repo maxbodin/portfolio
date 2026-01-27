@@ -1,8 +1,8 @@
 declare module 'three/examples/jsm/controls/OrbitControls' {
-  import * as THREE from 'three'
-  import { Vector3Like } from 'three'
+   import * as THREE from 'three'
+   import { Vector3Like } from 'three'
 
-  export class OrbitControls {
+   export class OrbitControls {
       enablePan: boolean
       enableZoom: boolean
       enableRotate: boolean

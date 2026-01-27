@@ -43,7 +43,7 @@ export default function Whoami() {
                   <p className="px-1 text-purple-700">Working at Nextlane !</p>
                </Link>
             </Badge>
-            <h2><b>Seeking a 12-week international internship (May – Sept 2026).</b></h2>
+            <h2><b>Seeking a 12 to 19 week internship (May – Sept 2026).</b></h2>
             <TextGenerateEffect duration={0.1} filter={true} words={wordsEn}
                                 className="text-xs sm:text-sm" />
             <div className="flex flex-row space-x-2 pt-4">
