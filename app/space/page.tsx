@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import gsap from 'gsap'
-import { createWorkObject } from './Work'
+import { createWorkObject, isVideo } from './Work'
 import { createOrbitControls } from './CameraAndControls'
 import { WorkDetails } from '@/interfaces/workDetails'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -16,31 +16,31 @@ import { Progress } from '@/components/ui/progress'
 
 // Import data
 import { projectsItems } from '@/data/projects'
-import { formationsCertificationsItems } from '@/data/formCertif'
 import { experiencesItems } from '@/data/experiences'
 import { eventsItems } from '@/data/events'
 import { troisDItems } from '@/data/troisD'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { artDesignItems } from '@/data/art'
+import { educationItems } from '@/data/education'
+import { certificationsItems } from '@/data/certifications'
 
 const LOD_CONFIG = {
    HIGH_RES_DISTANCE: 10,  // Distance to load high-res video.
    LOW_RES_DISTANCE: 50,   // Distance to load low-res video.
 }
 
-const categories = ['All', 'Projects', 'Formations', 'Experiences', 'Events', '3D', 'Art/Design']
+const categories = ['All', 'Projects', 'Education', 'Certifications', 'Experiences', 'Events', '3D', 'Art/Design']
 
-// Filter out any items that have no image_path.
+// Filter out any items that have no main_image_path or no images in images_path.
 // Sort items by categories.
 const allWorks: (WorkDetails)[] = [
    ...projectsItems.map(item => ({ ...item, category: 'Projects' })),
-   ...formationsCertificationsItems.map(item => ({ ...item, category: 'Formations' })),
+   ...educationItems.map(item => ({ ...item, category: 'Education' })),
+   ...certificationsItems.map(item => ({ ...item, category: 'Certifications' })),
    ...experiencesItems.map(item => ({ ...item, category: 'Experiences' })),
    ...eventsItems.map(item => ({ ...item, category: 'Events' })),
    ...troisDItems.map(item => ({ ...item, category: '3D' })),
-   ...artDesignItems.map(item => ({ ...item, category: 'Art/Design' })),
-].filter(work => work.image_path && work.image_path.trim() !== '')
+].filter(work => work.main_image_path && work.main_image_path.trim() !== '' || (work.images_path && work.images_path?.length > 0))
 
 const textureLoader = new THREE.TextureLoader()
 const fallbackTexturePath = '/images/wip.jpg'
@@ -91,7 +91,7 @@ const WorkGallery: React.FC = () => {
          const isSearchMatch = lowerCaseSearchTerm === '' ||
             details.title.toLowerCase().includes(lowerCaseSearchTerm) ||
             details.description.toLowerCase().includes(lowerCaseSearchTerm) ||
-            details.image_path.toLowerCase().includes(lowerCaseSearchTerm) ||
+            details.main_image_path?.toLowerCase().includes(lowerCaseSearchTerm) ||
             details.link?.toLowerCase().includes(lowerCaseSearchTerm) ||
             details.date?.toLowerCase().includes(lowerCaseSearchTerm) ||
             details.github?.toLowerCase().includes(lowerCaseSearchTerm) ||
@@ -146,32 +146,35 @@ const WorkGallery: React.FC = () => {
       const details = mesh.userData.details as WorkDetails
 
       let path: string
-      let isVideo: boolean
+      let isPathVideo: boolean
       let finalState: 'high' | 'low' | 'thumbnail'
 
+      // TODO : Fix by implementing images_path [] exploitation.
+      if (!details.main_image_path) return
+
       if (targetState === 'high') {
-         path = details.image_path
-         isVideo = path.endsWith('.mp4') || path.endsWith('.webm')
+         path = details.main_image_path
+         isPathVideo = isVideo(path)
          finalState = 'high'
       } else if (targetState === 'low') {
          if (details.low_quality_path) {
             path = details.low_quality_path
-            isVideo = true
+            isPathVideo = true
             finalState = 'low'
          } else {
-            path = details.image_path
-            isVideo = path.endsWith('.mp4') || path.endsWith('.webm')
+            path = details.main_image_path
+            isPathVideo = isVideo(path)
             finalState = 'high'
          }
       } else { // thumbnail.
          if (details.thumbnail_path) {
             path = details.thumbnail_path
-         } else if (!(details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm'))) {
-            path = details.image_path
+         } else if (!isVideo(details.main_image_path)) {
+            path = details.main_image_path
          } else {
             path = fallbackTexturePath
          }
-         isVideo = false
+         isPathVideo = false
          finalState = 'thumbnail'
       }
 
@@ -215,7 +218,7 @@ const WorkGallery: React.FC = () => {
          })
       }
 
-      if (isVideo) {
+      if (isPathVideo) {
          const video = document.createElement('video')
          video.src = path
          video.crossOrigin = 'anonymous'
@@ -574,12 +577,12 @@ const WorkGallery: React.FC = () => {
                            className="pt-2 text-xs sm:text-sm">{selectedWork.description}</DialogDescription>
                      </DialogHeader>
                      <div className="py-4">
-                        {selectedWork.image_path.endsWith('.mp4') || selectedWork.image_path.endsWith('.webm') ? (
-                           <video src={selectedWork.image_path} controls autoPlay loop muted playsInline
+                        {selectedWork.main_image_path && isVideo(selectedWork.main_image_path) ? (
+                           <video src={selectedWork.main_image_path} controls autoPlay loop muted playsInline
                                   className="w-full rounded-md" />
                         ) : (
                            // eslint-disable-next-line @next/next/no-img-element
-                           <img src={selectedWork.image_path} alt={selectedWork.title}
+                           <img src={selectedWork.main_image_path} alt={selectedWork.title}
                                 className="w-full rounded-md"
                                 onError={(e) => (e.currentTarget.src = '/images/wip.jpg')}
                            />

@@ -19,11 +19,9 @@ function getInitialTexturePath(details: WorkDetails): string {
       return details.thumbnail_path
    }
 
-   const isVideo = details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm')
-
    // If it's a static image (not a video), use its main path for the initial texture.
-   if (!isVideo) {
-      return details.image_path
+   if (details.main_image_path && !isVideo(details.main_image_path)) {
+      return details.main_image_path
    }
 
    // If it's a video but has no thumbnail, use the static fallback.
@@ -37,7 +35,7 @@ function getInitialTexturePath(details: WorkDetails): string {
  */
 export function createWorkObject({ position, details, onClick }: CreateWorkObjectParams): Promise<THREE.Mesh> {
    return new Promise((resolve, reject) => {
-      const isVideo = details.image_path.endsWith('.mp4') || details.image_path.endsWith('.webm')
+      const isMainImageVideo = details.main_image_path && isVideo(details.main_image_path)
       const baseSize = 3
 
       const initialTexturePath = getInitialTexturePath(details)
@@ -59,7 +57,7 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
                // LOD system properties.
                // A mesh is considered an "LOD Video" if its primary content is a video
                // that should be loaded dynamically by the LOD system.
-               isLODVideo: isVideo,
+               isLODVideo: isMainImageVideo,
                lodState: 'thumbnail',     // Always start in a non-active state.
                isLoading: false,          // Flag to prevent concurrent loading.
 
@@ -88,7 +86,7 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
                mesh.userData = {
                   onClick: () => onClick(details),
                   details: details,
-                  isLODVideo: isVideo,
+                  isLODVideo: isMainImageVideo,
                   lodState: 'thumbnail',
                   isLoading: false,
                   activeTexture: fallbackTexture,
@@ -99,4 +97,9 @@ export function createWorkObject({ position, details, onClick }: CreateWorkObjec
          },
       )
    })
+}
+
+
+export function isVideo(path: string): boolean {
+   return (path != null && path.trim() != '' && (path.endsWith('.mp4') || path.endsWith('.webm')))
 }
