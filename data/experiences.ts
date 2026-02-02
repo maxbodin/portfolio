@@ -12,7 +12,7 @@ export const experiencesItems: WorkDetails[] = [
       main_image_path: '/images/nextlane.webp',
       link: 'https://www.nextlane.com/fr/',
       skills: [Skill.PHP, Skill.JAVASCRIPT, Skill.SQL, Skill.AGILE, Skill.SDK_AWS, Skill.GESTION_PROJ, Skill.GITLAB],
-      title: 'Fullstack Developer Apprentice',
+      title: 'Full-Stack Developer Apprentice',
    },
    {
       date: '2023-2024',
@@ -23,7 +23,7 @@ export const experiencesItems: WorkDetails[] = [
       main_image_path: '/images/enedis-logo.webp',
       link: 'https://www.enedis.fr',
       skills: [Skill.ANGULAR, Skill.TYPESCRIPT, Skill.EXPRESS, Skill.SQL, Skill.SDK_AWS, Skill.PYTHON, Skill.SELENIUM, Skill.IA, Skill.RAG, Skill.REL_CLIENT, Skill.GESTION_PROJ, Skill.GITLAB],
-      title: 'Alternant Développeur SI',
+      title: 'Full-Stack Developer Apprentice',
    },
    {
       date: '2023',
@@ -31,6 +31,6 @@ export const experiencesItems: WorkDetails[] = [
       main_image_path: '/images/enedis-logo.webp',
       link: 'https://www.enedis.fr',
       skills: [Skill.ANGULAR, Skill.TYPESCRIPT, Skill.EXPRESS, Skill.SQL, Skill.AGILE, Skill.TDD, Skill.JEST, Skill.MOCHA, Skill.ISTANBUL],
-      title: 'Stagiaire Développeur Web',
+      title: 'Web Developer Intern',
    },
 ]

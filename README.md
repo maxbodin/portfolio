@@ -1,5 +1,5 @@
 # portfolio
 
-Mon portfolio 🤓✨
+Portfolio 🤓✨
 
-© 2025 @MaxBod, Tous droits réservés.
+© 2026 @MaxBod, All rights reserved.

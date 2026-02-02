@@ -10,12 +10,14 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect'
 
 const tooltipDelayDuration: number = 100
 
-const wordsEn: string = `Passionate and self-taught in computer science, I’m a Full-Stack Developer Apprentice at Nextlane and a Software Engineering student at IMT Atlantique.
+const wordsEn: string = `Passionate and self-taught in computer science, I’m a Full-Stack developer apprentice at Nextlane and a Software Engineering student at IMT Atlantique.
+
 I work across web and mobile development, game development, and creative coding with Blender and TouchDesigner.
 
-After a BUT in Computer Science at IUT La Rochelle and a successful apprenticeship at Enedis, I now focus on building innovative software at Nextlane.
+After a BUT in computer science at IUT La Rochelle and a successful apprenticeship at Enedis, I now focus on building innovative software at Nextlane.
 
 Interested in machine learning, distributed systems, and large-scale software engineering.
+
 Motivated, versatile, and always open to collaborating on impactful projects. 🚀`
 
 

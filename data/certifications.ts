@@ -2,35 +2,35 @@ import { WorkDetails } from '@/interfaces/workDetails'
 
 export const certificationsItems: WorkDetails[] = [
    {
-      date: 'Avril 2025',
+      date: 'April 2025',
       description:
-         'Objectifs de la formation\n' +
-         '- Identifier les différences entre SGBD SQL et SGBD NoSQL\n' +
-         '- Évaluer les apports et les inconvénients inhérents aux technologies NoSQL\n' +
-         '- Identifier les principaux acteurs et solutions du marché pour chaque modèle de données\n' +
-         '- Appréhender les champs d\'application des SGBD NoSQL en opérationnel et en analytique\n' +
-         '- Appréhender les différentes architectures, modèles de données et implémentations techniques\n' +
-         '- Choisir la bonne technologie en fonction des besoins métiers : scalabilité, agilité, volume ou rapidité\n' +
-         '- Intégrer les bases NoSQL dans un projet : modélisation, mise en œuvre et exploitation\n' +
-         '- Comprendre les enjeux métiers derrière les choix SQL, NoSQL et NewSQL\n' +
-         '- Découvrir les nouvelles approches hybrides comme NewSQL et les architectures Big Data type Hadoop',
+         'Course objectives\n' +
+         '- Identify the differences between SQL DBMS and NoSQL DBMS\n' +
+         '- Evaluate the benefits and drawbacks inherent to NoSQL technologies\n' +
+         '- Identify the main market players and solutions for each data model\n' +
+         '- Understand the application areas of NoSQL DBMS in operational and analytical contexts\n' +
+         '- Understand the different architectures, data models, and technical implementations\n' +
+         '- Choose the right technology based on business needs: scalability, agility, volume, or speed\n' +
+         '- Integrate NoSQL databases into a project: modeling, implementation, and operation\n' +
+         '- Understand the business implications behind the choices of SQL, NoSQL, and NewSQL\n' +
+         '- Discover new hybrid approaches like NewSQL and Hadoop-type Big Data architectures',
       main_image_path: '/images/eni.webp',
       link: 'https://www.eni-service.fr/formation/formation-les-fondamentaux-du-nosql/',
       skills: [],
-      title: 'Certification sur Les fondamentaux du NoSQL, ENI École Informatique',
+      title: 'Certification in NoSQL Fundamentals, ENI IT School',
    },
    {
       date: '2024',
-      description: 'La certification numérique responsable est sous la responsabilité de l\'Institut du Numérique Responsable (INR) et de l\'Université de La Rochelle afin de proposer une certification francophone autour de domaines de compétences suivants :\n' +
+      description: 'The Responsible Digital certification is managed by the Responsible Digital Institute (INR) and the University of La Rochelle to offer a French-language certification covering the following areas of expertise:\n' +
          '\n' +
-         'D1 : Connaître les impacts des TIC et la législation associée\n' +
-         'D2 : Maîtriser le cycle de vie et les leviers du numérique responsable (enjeux et constats globaux)\n' +
-         'D3 : Identifier les enjeux spécifiques à chaque grand domaine du numérique\n' +
-         'D4 : Connaître les solutions pour réduire les impacts de l’informatique\n' +
-         'D5 : Connaître des méthodologies de travail pour la mise en place du numérique responsable',
+         'D1: Understand the impacts of ICT and associated legislation\n' +
+         'D2: Master the lifecycle and levers of responsible digital practices (global challenges and findings)\n' +
+         'D3: Identify the specific challenges in each major digital field\n' +
+         'D4: Know the solutions to reduce the impacts of IT\n' +
+         'D5: Know working methodologies for implementing responsible digital practices',
       main_image_path: '/images/certificationNR.webp',
       link: 'https://ecocertification.univ-lr.fr/',
       skills: [],
-      title: 'Certificat de Connaissance Numérique Responsable',
+      title: 'Responsible Digital Knowledge Certificate',
    },
 ]
