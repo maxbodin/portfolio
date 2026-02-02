@@ -10,21 +10,13 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect'
 
 const tooltipDelayDuration: number = 100
 
-const wordsEn: string = `Passionate and self-taught in computer science, I am currently a FullStack Developer Apprentice at Nextlane, pursuing a Software Engineering degree at IMT Atlantique.
+const wordsEn: string = `Passionate and self-taught in computer science, I’m a Full-Stack Developer Apprentice at Nextlane and a Software Engineering student at IMT Atlantique.
+I work across web and mobile development, game development, and creative coding with Blender and TouchDesigner.
 
-Over the years, I have developed strong skills in software design, development, and validation, with experience in:
+After a BUT in Computer Science at IUT La Rochelle and a successful apprenticeship at Enedis, I now focus on building innovative software at Nextlane.
 
-- Web and mobile application development
-- Software development using Python & C++
-- 2D & 3D game development with Unity, Godot
-- Creative coding and generative art with Blender and Touchdesigner
-
-After completing a BUT in Computer Science at the IUT of La Rochelle and a successful apprenticeship at Enedis, I am now continuing my journey at Nextlane.
-I enjoy designing and creating innovative projects and learning new knowledge by bringing them to life.
-
-Interested in machine learning, information retrieval, natural language processing, mobile development, distributed and parallel systems, networking and developing large software systems.
-
-Motivated, versatile, and eager to take on new challenges, I would love to connect if you have an opportunity to innovate or collaborate on exciting projects! 🚀`
+Interested in machine learning, distributed systems, and large-scale software engineering.
+Motivated, versatile, and always open to collaborating on impactful projects. 🚀`
 
 
 export default function Whoami() {
@@ -42,7 +34,7 @@ export default function Whoami() {
                   <p className="px-1 text-purple-700">Working at Nextlane !</p>
                </Link>
             </Badge>
-            <h2><b>Seeking a 12 to 19 week internship (May – Sept 2026).</b></h2>
+            <h2 className="p-2"><b>Seeking a 12 to 19 week internship (May-Sept 2026).</b></h2>
             <TextGenerateEffect duration={0.1} filter={true} words={wordsEn}
                                 className="text-xs sm:text-sm" />
             <div className="flex flex-row space-x-2 pt-4">
