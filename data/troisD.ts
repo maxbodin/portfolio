@@ -10,7 +10,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.TOUCHDESIGNER, Skill.GLSL],
       space_only: false,
       title: 'Mandelbulb generated with GLSL',
-      date:"2026",
+      date: '2026',
    },
    {
       description: 'Visuel 3D réalisé avec Blender',
@@ -20,7 +20,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: false,
       title: 'Visuel Blackholes',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender et Touchdesigner qui réagit aux sons (non inclus pour droits de copyright) et aux mouvements de ma main pour peindre sur l\'écran',
@@ -30,7 +30,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER, Skill.TOUCHDESIGNER],
       space_only: false,
       title: 'Visuel Space Launches',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Cabaret Summer du BDA de l\'IMT Atlantique',
@@ -40,7 +40,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Visuel Cabaret Summer',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender dans le cadre du Cabaret Summer du BDA de l\'IMT Atlantique',
@@ -49,7 +49,7 @@ export const troisDItems: WorkDetails[] = [
       thumbnail_path: '/videos/3d/cabaret-summer-borne-h265_thumb.jpg',
       skills: [Skill.BLENDER],
       title: 'Visuel Borne Cabaret Summer',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Affiche réalisée avec Blender et affichée dans la maison des élèves dans le cadre du Cabaret Summer du BDA de l\'IMT Atlantique',
@@ -57,14 +57,14 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Affiche Cabaret Summer',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Affiche réalisée avec Blender et affichée dans la maison des élèves dans le cadre du Cabaret Abyss du BDA de l\'IMT Atlantique',
       main_image_path: '/images/cabaret-abyss.png',
       skills: [Skill.BLENDER],
       title: 'Affiche Cabaret Abyss',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
@@ -74,7 +74,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Visuel Cabaret Moulin Rouge',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Line-up réalisée avec Blender dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
@@ -83,7 +83,7 @@ export const troisDItems: WorkDetails[] = [
       thumbnail_path: '/videos/3d/cabaret-moulin-rouge-lineup-h265_thumb.jpg',
       skills: [Skill.BLENDER],
       title: 'Line-up Cabaret Moulin Rouge',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Affiche réalisée avec Blender et affichée dans la maison des élèves dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
@@ -91,7 +91,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Affiche Cabaret Moulin Rouge',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Logo réalisé pour la playlist des sorties semaine 12 pour Kulturap, l\'association Rap et culture urbaine de l\'IMT Atlantique',
@@ -99,7 +99,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Kulturap S12',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Logo réalisé pour la playlist des sorties semaine 11 pour Kulturap, l\'association Rap et culture urbaine de l\'IMT Atlantique',
@@ -107,7 +107,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Kulturap S11',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Logo réalisé pour Kulturap, l\'association Rap et culture urbaine de l\'IMT Atlantique',
@@ -115,7 +115,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Kulturap Logo',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Tonus Alerte Brigade du BDA de l\'IMT Atlantique',
@@ -125,7 +125,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Tonus Alerte Brigade - Visuel Médaillons',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Tonus Alerte Brigade du BDA de l\'IMT Atlantique',
@@ -135,7 +135,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Tonus Alerte Brigade - Visuel Médaillon',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Tonus Alerte Brigade du BDA de l\'IMT Atlantique',
@@ -145,7 +145,7 @@ export const troisDItems: WorkDetails[] = [
       skills: [Skill.BLENDER],
       space_only: true,
       title: 'Tonus Alerte Brigade - Visuel Titre',
-      date:"2025",
+      date: '2025',
    },
    {
       description: 'Expérimentation avec Blender',
@@ -154,7 +154,7 @@ export const troisDItems: WorkDetails[] = [
       thumbnail_path: '/videos/3d/compressed_space_medres_full_0001-1097_thumb.jpg',
       skills: [Skill.BLENDER],
       title: 'Space Fluid',
-      date:"2024",
+      date: '2024',
    },
    {
       description: 'Expérimentation avec Blender',
@@ -163,7 +163,7 @@ export const troisDItems: WorkDetails[] = [
       thumbnail_path: '/videos/3d/compressed_swampGirl_oneShot_thumb.jpg',
       skills: [Skill.BLENDER],
       title: 'Swamp Woman',
-      date:"2024",
+      date: '2024',
    },
    {
       description: 'Expérimentation avec Blender',
@@ -172,6 +172,6 @@ export const troisDItems: WorkDetails[] = [
       thumbnail_path: '/videos/3d/compressed_AlienAnimation_0001-0140_thumb.jpg',
       skills: [Skill.BLENDER],
       title: 'Alien Ball',
-      date:"2024",
+      date: '2024',
    },
 ]
