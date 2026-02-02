@@ -8,7 +8,7 @@ import { WorkDetails } from '@/interfaces/workDetails'
 export default function Experiences() {
    return (
       <section id="experiences" className="pt-16">
-         <h2 className="text-2xl pb-4">Expériences 🛠️</h2>
+         <h2 className="text-2xl pb-4">Experiences 🛠️</h2>
          <Carousel
             opts={{
                align: 'start',

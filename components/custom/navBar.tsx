@@ -19,11 +19,11 @@ export default function NavBar() {
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
-                  <NavigationMenuLink href="#experiences" className={navigationMenuTriggerStyle()}>Expériences 🛠
+                  <NavigationMenuLink href="#experiences" className={navigationMenuTriggerStyle()}>Experiences 🛠
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
-                  <NavigationMenuLink href="#projects" className={navigationMenuTriggerStyle()}>Projets 💡
+                  <NavigationMenuLink href="#projects" className={navigationMenuTriggerStyle()}>Projects 💡
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
@@ -31,7 +31,7 @@ export default function NavBar() {
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
-                  <NavigationMenuLink href="#events" className={navigationMenuTriggerStyle()}>Évènements 🏆
+                  <NavigationMenuLink href="#events" className={navigationMenuTriggerStyle()}>Events 🏆
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
