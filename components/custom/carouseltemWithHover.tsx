@@ -8,11 +8,10 @@ import Link from 'next/link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { WorkDetails } from '@/interfaces/workDetails'
 import SkillsBadgeList from '@/components/custom/skillsBadgeList'
+import { isVideo } from '@/app/space/Work'
 
 export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
-
-   const isVideo = (path?: string) => path && (path.endsWith('.mp4') || path.endsWith('.webm'))
 
    return (
       <div

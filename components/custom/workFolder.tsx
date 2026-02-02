@@ -8,8 +8,7 @@ import { WorkDetails } from '@/interfaces/workDetails'
 import { GithubIcon, SquareArrowOutUpRight } from 'lucide-react'
 import SkillsBadgeList from '@/components/custom/skillsBadgeList'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
-
-const isVideo = (path?: string) => path && (path.endsWith('.mp4') || path.endsWith('.webm'))
+import { isVideo } from '@/app/space/Work'
 
 export default function WorkFolder({ item }: { item: WorkDetails }) {
    const hasGallery = item.images_path && item.images_path.length > 0

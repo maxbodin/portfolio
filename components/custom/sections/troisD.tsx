@@ -3,11 +3,10 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent } from '@/components/ui/card'
 import { troisDItems } from '@/data/troisD'
 import { WorkDetails } from '@/interfaces/workDetails'
+import { isVideo } from '@/app/space/Work'
 
 
 export default function TroisD() {
-   const isVideo = (path?: string) => path && (path.endsWith('.mp4') || path.endsWith('.webm'))
-
    return (
       <section id="3d">
          <h2 className="text-2xl pt-8 pb-4">3D and creative coding 🎨</h2>
@@ -27,7 +26,7 @@ export default function TroisD() {
                               <CardContent className="flex items-center justify-center w-full h-full p-0">
                                  <div className="w-full h-full rounded-xl overflow-hidden">
                                     {/* Conditionally render video or image. */}
-                                    {isVideo(item.main_image_path) ? (
+                                    {item.main_image_path && isVideo(item.main_image_path) ? (
                                        <video
                                           src={item.main_image_path}
                                           title={item.title}
