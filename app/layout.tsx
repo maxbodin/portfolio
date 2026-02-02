@@ -3,7 +3,7 @@ import './globals.css'
 import React from 'react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import PageWrapper from '@/components/custom/pageWrapper'
-// import { Libre_Barcode_39 } from 'next/font/google'
+import { Libre_Barcode_39 } from 'next/font/google'
 import localFont from 'next/font/local'
 
 export const metadata: Metadata = {
@@ -14,23 +14,17 @@ export const metadata: Metadata = {
 
 const fontSans = localFont({
    src: [
-      {
-         path: './fonts/Satoshi-Regular.woff2',
-         weight: '400',
-         style: 'normal',
-      },
-      {
-         path: './fonts/Satoshi-Medium.woff2',
-         weight: '500',
-         style: 'normal',
-      },
-      {
-         path: './fonts/Satoshi-Bold.woff2',
-         weight: '700',
-         style: 'normal',
-      },
+      { path: './fonts/Satoshi-Regular.woff2', weight: '400', style: 'normal' },
+      { path: './fonts/Satoshi-Medium.woff2', weight: '500', style: 'normal' },
+      { path: './fonts/Satoshi-Bold.woff2', weight: '700', style: 'normal' },
    ],
    variable: '--font-sans',
+})
+
+const fontBarcode = Libre_Barcode_39({
+   weight: '400',
+   subsets: ['latin'],
+   variable: '--font-barcode',
 })
 
 export default function RootLayout({
@@ -40,7 +34,7 @@ export default function RootLayout({
 }>) {
    return (
       <html lang="en">
-      <body className={`${fontSans.variable} font-sans`}>
+      <body className={`${fontSans.variable} ${fontBarcode.variable} font-sans`}>
       <PageWrapper>
          {children}
       </PageWrapper>

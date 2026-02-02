@@ -7,8 +7,9 @@ import { ItchIoIcon } from '@/components/custom/icons/ItchIoIcon'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Badge } from '@/components/ui/badge'
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect'
+import FontToggleButton from '@/components/custom/fontToggleButton'
 
-const tooltipDelayDuration: number = 100
+export const tooltipDelayDuration: number = 100
 
 const wordsEn: string = `Passionate and self-taught in computer science, I’m a Full-Stack developer apprentice at Nextlane and a Software Engineering student at IMT Atlantique.
 
@@ -88,10 +89,12 @@ export default function Whoami() {
                         </Button>
                      </TooltipTrigger>
                      <TooltipContent side="bottom" className="bg-gray-300">
-                        Ancien Github
+                        Old Github
                      </TooltipContent>
                   </Tooltip>
                </TooltipProvider>
+
+               <FontToggleButton />
             </div>
          </div>
       </section>

@@ -26,6 +26,7 @@ const config = {
       extend: {
          fontFamily: {
             sans: ['var(--font-sans)', ...require('tailwindcss/defaultTheme').fontFamily.sans],
+            barcode: ['var(--font-barcode)', ...require('tailwindcss/defaultTheme').fontFamily.mono],
          },
          colors: {
             border: 'hsl(var(--border))',
