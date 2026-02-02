@@ -8,15 +8,17 @@ export type WorkDetails = {
    // Common properties required by all projects.
    title: string;
    description: string;
+   date: string;
 
-   image_path: string;           // Path to the high-res media.
+   main_image_path?: string;     // Path to the high-res media.
    low_quality_path?: string;    // Path to the low-res media.
    thumbnail_path?: string;      // Path to the thumbnail image.
+
+   images_path?: string[];       // Work with multiple images.
 
    skills: Skill[];
 
    // Optional properties.
-   date?: string;
    link?: string;
    github?: string;
 
