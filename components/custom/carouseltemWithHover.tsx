@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 'use client'
 import { Card, CardContent } from '@/components/ui/card'
 import * as React from 'react'
@@ -6,10 +5,9 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { GithubIcon, SquareArrowOutUpRight } from 'lucide-react'
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { getSkillColor, Skill } from '@/functions/getSkillColor'
 import { WorkDetails } from '@/interfaces/workDetails'
+import SkillsBadgeList from '@/components/custom/skillsBadgeList'
 
 export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
@@ -68,16 +66,9 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
                      </AccordionContent>
                   </AccordionItem>
                </Accordion>
-               {'skills' in item && item.skills && item.skills.length > 0 && <div className="flex flex-wrap mt-2 p-4">
-                  {item.skills.map((skill: Skill, index: number) => (
-                     <div className="p-1" key={index}>
-                        <Badge key={index} variant="outline" className="p-1 px-2 text-center"
-                               style={{ color: getSkillColor(skill) }}>
-                           {skill}
-                        </Badge>
-                     </div>
-                  ))}
-               </div>}
+               {'skills' in item && item.skills && item.skills.length > 0 &&
+                  <SkillsBadgeList skills={item.skills} />
+               }
             </CardContent>
          </Card>
       </div>
