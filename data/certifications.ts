@@ -14,7 +14,7 @@ export const certificationsItems: WorkDetails[] = [
          '- Intégrer les bases NoSQL dans un projet : modélisation, mise en œuvre et exploitation\n' +
          '- Comprendre les enjeux métiers derrière les choix SQL, NoSQL et NewSQL\n' +
          '- Découvrir les nouvelles approches hybrides comme NewSQL et les architectures Big Data type Hadoop',
-      image_path: '/images/eni.webp',
+      main_image_path: '/images/eni.webp',
       link: 'https://www.eni-service.fr/formation/formation-les-fondamentaux-du-nosql/',
       skills: [],
       title: 'Certification sur Les fondamentaux du NoSQL, ENI École Informatique',
@@ -28,7 +28,7 @@ export const certificationsItems: WorkDetails[] = [
          'D3 : Identifier les enjeux spécifiques à chaque grand domaine du numérique\n' +
          'D4 : Connaître les solutions pour réduire les impacts de l’informatique\n' +
          'D5 : Connaître des méthodologies de travail pour la mise en place du numérique responsable',
-      image_path: '/images/certificationNR.webp',
+      main_image_path: '/images/certificationNR.webp',
       link: 'https://ecocertification.univ-lr.fr/',
       skills: [],
       title: 'Certificat de Connaissance Numérique Responsable',
