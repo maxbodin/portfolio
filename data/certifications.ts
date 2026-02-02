@@ -1,16 +1,6 @@
-/* eslint-disable max-len */
 import { WorkDetails } from '@/interfaces/workDetails'
 
-export const formationsCertificationsItems: WorkDetails[] = [
-   {
-      date: '2024-2027',
-      description:
-         'Activités et associations : Pôle communication BDA (Bureau Des Arts)',
-      image_path: '/images/imt.png',
-      link: 'https://www.imt-atlantique.fr/fr/formation/ingenieur-apprentissage/ingenierie-logicielle',
-      skills: [],
-      title: 'Diplôme d’ingénieur spécialité Informatique de l’Ecole nationale supérieure Mines-Télécom Atlantique',
-   },
+export const certificationsItems: WorkDetails[] = [
    {
       date: 'Avril 2025',
       description:
@@ -42,13 +32,5 @@ export const formationsCertificationsItems: WorkDetails[] = [
       link: 'https://ecocertification.univ-lr.fr/',
       skills: [],
       title: 'Certificat de Connaissance Numérique Responsable',
-   },
-   {
-      date: '2021-2024',
-      description: 'Parcours « Réalisation d’applications : conception, développement, validation »',
-      image_path: '/images/iut-but-info.webp',
-      link: 'https://www.iut-larochelle.fr/formations/departement-informatique/parcours-a-realisation-dapplications-conception-developpement-validation/',
-      skills: [],
-      title: 'BUT Informatique, IUT de La Rochelle',
    },
 ]
