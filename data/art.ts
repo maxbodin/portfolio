@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { WorkDetails } from '@/interfaces/workDetails'
 
 export const artDesignItems: WorkDetails[] = [

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Skill } from '@/functions/getSkillColor'
 import { WorkDetails } from '@/interfaces/workDetails'
 
