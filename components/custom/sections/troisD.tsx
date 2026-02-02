@@ -6,8 +6,7 @@ import { WorkDetails } from '@/interfaces/workDetails'
 
 
 export default function TroisD() {
-   // Helper function to check for video extensions.
-   const isVideo = (path: string) => path.endsWith('.mp4') || path.endsWith('.webm')
+   const isVideo = (path?: string) => path && (path.endsWith('.mp4') || path.endsWith('.webm'))
 
    return (
       <section id="3d">
@@ -28,9 +27,9 @@ export default function TroisD() {
                               <CardContent className="flex items-center justify-center w-full h-full p-0">
                                  <div className="w-full h-full rounded-xl overflow-hidden">
                                     {/* Conditionally render video or image. */}
-                                    {isVideo(item.image_path) ? (
+                                    {isVideo(item.main_image_path) ? (
                                        <video
-                                          src={item.image_path}
+                                          src={item.main_image_path}
                                           title={item.title}
                                           autoPlay
                                           loop
@@ -41,7 +40,7 @@ export default function TroisD() {
                                     ) : (
                                        // eslint-disable-next-line @next/next/no-img-element
                                        <img
-                                          src={item.image_path}
+                                          src={item.main_image_path}
                                           alt={item.title}
                                           title={item.title}
                                           className="w-full h-full object-cover rounded-xl"
