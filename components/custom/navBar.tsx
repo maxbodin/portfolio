@@ -35,22 +35,9 @@ export default function NavBar() {
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
-                  <NavigationMenuLink href="#formationsCertifications" className={navigationMenuTriggerStyle()}>Formations
-                     & Certifications 🎓
+                  <NavigationMenuLink href="#education" className={navigationMenuTriggerStyle()}>Education 🎓
                   </NavigationMenuLink>
                </NavigationMenuItem>
-               {/* TODO
-          <NavigationMenuItem>
-            <NavigationMenuLink href="#youtube" className={navigationMenuTriggerStyle()}>
-              Youtube 🎬
-            </NavigationMenuLink>
-          </NavigationMenuItem>*/}
-               {/* TODO
-          <NavigationMenuItem>
-            <NavigationMenuLink href="#goals" className={navigationMenuTriggerStyle()}>
-              Objectifs 🎯
-            </NavigationMenuLink>
-          </NavigationMenuItem>*/}
             </NavigationMenuList>
          </NavigationMenu>
       </div>
