@@ -1,7 +1,6 @@
 import Whoami from '@/components/custom/sections/whoami'
 import Experiences from '@/components/custom/sections/experiences'
 import Footer from '@/components/custom/footer'
-import Projects from '@/components/custom/sections/projects'
 import TroisD from '@/components/custom/sections/troisD'
 import ContactButton from '@/components/custom/contactButton'
 import NavBar from '@/components/custom/navBar'
@@ -9,6 +8,7 @@ import YearlyWorksFolders from '@/components/custom/yearlyWorksFolders'
 import { educationItems } from '@/data/education'
 import { eventsItems } from '@/data/events'
 import { certificationsItems } from '@/data/certifications'
+import { projectsItems } from '@/data/projects'
 
 export default function Home() {
    return (
@@ -19,7 +19,7 @@ export default function Home() {
                <Whoami />
                <Experiences />
                <YearlyWorksFolders items={educationItems} title={'Education 🎓'} anchor={'education'} />
-               <Projects />
+               <YearlyWorksFolders items={projectsItems} title={'Projects 💡'} anchor={'projects'} />
                <TroisD />
                <YearlyWorksFolders items={eventsItems} title={'Events 🏆'} anchor={'events'} />
                <YearlyWorksFolders items={certificationsItems} title={'Certifications 📜'} anchor={'certifications'} />
