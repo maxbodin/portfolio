@@ -25,4 +25,6 @@ export type WorkDetails = {
    space_only?: boolean;
 
    category?: string
+
+   related_works?: WorkDetails[];
 };

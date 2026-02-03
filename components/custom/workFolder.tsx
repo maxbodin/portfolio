@@ -102,6 +102,21 @@ export default function WorkFolder({ item }: { item: WorkDetails }) {
                      </div>
                   </div>
                )}
+               {
+                  item.related_works && item.related_works?.length > 0 &&
+                  (
+                     <div className="pl-8">
+                        <h3 className="text-lg">
+                           Related works:
+                        </h3>
+                        <div className="space-y-4">
+                           {item.related_works.map((item: WorkDetails, index: number) => (
+                              <WorkFolder key={`${item.title}-${index}`} item={item} />
+                           ))}
+                        </div>
+                     </div>
+                  )
+               }
             </AccordionContent>
          </AccordionItem>
       </Accordion>
