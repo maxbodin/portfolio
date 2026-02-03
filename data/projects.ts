@@ -34,7 +34,7 @@ export const projectsItems: WorkDetails[] = [
       skills: [],
    },
    {
-      description: 'Earth3D is an open-source 3D visualization tool for the Earth and its data, which aims to replace Google Earth. This tool is still under development.',
+      description: 'Earth3D is an open-source 3D data visualization tool designed to display any type of geospatial data on a virtual globe, with the long-term goal of serving as an open alternative to Google Earth. The project is still under development.',
       github: 'https://github.com/maxbodin/earth3d',
       main_image_path: '/images/earth3D_001.webp',
       link: 'https://earth3d.vercel.app/',
@@ -47,6 +47,16 @@ export const projectsItems: WorkDetails[] = [
       main_image_path: '/videos/visite_patrimoine.webm',
       skills: [Skill.FLUTTER, Skill.SYMFONY, Skill.API_PLATFORM, Skill.REST, Skill.ORS, Skill.GESTION_PROJ],
       title: 'Visite Patrimoine',
+      date: '2024',
+   },
+   {
+      description: 'Proof of concept for a Retrieval-Augmented Generation (RAG) chatbot designed to retrieve and answer questions related to electrical safety and quality standards defined by the SéQuélec specifications ⚡️.\n' +
+         'The project could not be released publicly due to the proprietary copyright of the SéQuélec documents. However, the POC was functional and began evolving toward a more generic RAG system capable of ingesting and querying user-provided documents in real time.\n' +
+         'The project would benefit from a full cleanup and modernization using current RAG and LLM tooling.',
+      main_image_path: '',
+      github: 'https://github.com/maxbodin/ragelec',
+      skills: [Skill.IA, Skill.NEXT_JS],
+      title: 'RagÉlec ⚡',
       date: '2024',
    },
    {
