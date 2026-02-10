@@ -12,6 +12,16 @@ export const educationItems: WorkDetails[] = [
       title: 'Engineering Degree in Computer Science from École Nationale Supérieure Mines-Télécom Atlantique (IMT Atlantique)',
       related_works: [
          {
+            title: 'IMT-FIL-A2-Renardo-Rscan',
+            description: 'This project was carried out for the startup Renardo. Working as part of a team, we designed and developed a mobile application for real-time visualization of electromagnetic fields captured by a proprietary electromagnetic imaging sensor intended for industrial non-destructive inspection. The application connects to the sensor via USB, performs signal pre-processing, interpolates sensor data, and fuses the resulting electromagnetic field visualization with the smartphone camera feed. The app supports photo capture and real-time visualization. The project will be showcased at VivaTech 2026.',
+            date: '2026',
+            skills: [
+               Skill.KOTLIN,
+               Skill.TRAV_EQUIP,
+            ],
+            main_image_path: '/images/opti/IMT-FIL-A2-Renardo-Rscan.webp',
+         },
+         {
             title: 'IMT-FIL-A2-KOTLIN-MEALAPP',
             github: 'https://github.com/maxbodin/IMT-FIL-A2-KOTLIN-MEALAPP',
             description: 'Technical lab assignment at IMT Atlantique demonstrating modern Android development practices. The project uses Clean Architecture, MVI (Model-View-Intent), and Jetpack Compose to fetch and display meal categories and meals from a REST API, ensuring scalability and unidirectional data flow.',
@@ -43,6 +53,13 @@ export const educationItems: WorkDetails[] = [
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-type_filter_results.webp?raw=true',
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-type_filters.webp?raw=true',
             ],
+         },
+         {
+            title: 'IMT-FIL-A1-Graphe_FISA',
+            github: 'https://github.com/maxbodin/IMT-FIL-A1-Graphe_FISA/tree/main',
+            description: 'Lab assignment at IMT Atlantique involving the implementation of graph data structures and classical graph algorithms, including Dijkstra’s shortest path algorithm and Prim’s minimum spanning tree algorithm.',
+            date: '2025',
+            skills: [Skill.JAVA, Skill.ALGO_PROG],
          },
       ],
    },
