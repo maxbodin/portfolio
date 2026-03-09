@@ -5,11 +5,25 @@ export const projectsItems: WorkDetails[] = [
    {
       description: 'BookHive makes it easy to organize your books, set reading goals, and track your reading activity in one place.',
       github: 'https://github.com/maxbodin/bookhive',
-      main_image_path: '/images/bookhive.png',
+      main_image_path: '/images/opti/projects/bookhive.webp',
       link: 'https://bookhive.maximebodin.com/',
       skills: [Skill.NEXT_JS, Skill.TAILWIND, Skill.SHADCN_UI],
       title: 'BookHive',
       date: '2026',
+   },
+   {
+      title: "Magic Eraser AI",
+      description:
+         "Full-stack AI-powered object removal tool.\nDraw a mask over any object in a photo and the tool generates 15 variations using Stable Diffusion inpainting across different strength and guidance parameters. " +
+         "\n\nThe API is a Cloudflare Worker built with Hono and chanfana (OpenAPI 3.1), processing images with Jimp (resize, composite, and base64 encoding.)" +
+         "\nTo bypass Cloudflare's 100s response timeout, jobs are submitted asynchronously via waitUntil(), stored in KV as pending/done/error, and polled by the frontend." +
+         "\nThe frontend is a Vue 3 + TypeScript SPA with a canvas-based masking editor, a results grid showing all 15 variations, and progressive loading as results arrive. " +
+         "\n\nDeployed entirely on Cloudflare's free tier.",
+      date: "2026",
+      skills: [ Skill.VUE, Skill.TYPESCRIPT, Skill.VITE, Skill.TAILWIND, Skill.CLOUDFLARE_WORKERS, Skill.CLOUDFLARE_AI, Skill.CLOUDFLARE_KV, Skill.STABLE_DIFF, Skill.HONO, Skill.OPEN_API, Skill.ZOD, Skill.JIMP, Skill.REST_API],
+      main_image_path : "/images/opti/projects/magic-eraser.webp",
+      link : "https://magic-eraser.maximebodin.com",
+      github : "https://github.com/maxbodin/magic-eraser-ui",
    },
    {
       description: 'Minimalist gallery for my film photography. Built with Next.js and Vercel Blob.',
@@ -45,7 +59,7 @@ export const projectsItems: WorkDetails[] = [
    {
       description: 'Team project carried out as part of my 3rd year of a BUT in Computer Science at the IUT of La Rochelle. Design and implementation of an innovative application to help visit the heritage of La Rochelle. As the team\'s lead developer, I had the opportunity to guide my colleagues in adopting good development practices, thus contributing to the production of a robust and sustainable application.',
       main_image_path: '/videos/visite_patrimoine.webm',
-      skills: [Skill.FLUTTER, Skill.SYMFONY, Skill.API_PLATFORM, Skill.REST, Skill.ORS, Skill.GESTION_PROJ],
+      skills: [Skill.FLUTTER, Skill.SYMFONY, Skill.API_PLATFORM, Skill.REST_API, Skill.ORS, Skill.GESTION_PROJ],
       title: 'Visite Patrimoine',
       date: '2024',
    },

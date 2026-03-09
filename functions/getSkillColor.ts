@@ -41,7 +41,7 @@ export enum Skill {
    REACT = 'React',
    REL_CLIENT = 'Customer Relationship',
    RESOLUTION_PROB = 'Problem Solving',
-   REST = 'REST',
+   REST_API = "REST API",
    RUST = 'Rust',
    SDK_AWS = 'AWS SDK',
    SCALA = 'Scala',
@@ -61,6 +61,16 @@ export enum Skill {
    TOUCHDESIGNER = 'TouchDesigner',
    GRPC = 'gRPC',
    GLSL = 'GLSL',
+   VUE = "Vue.js",
+   HONO = "Hono",
+   CLOUDFLARE_WORKERS = "Cloudflare Workers",
+   CLOUDFLARE_AI = "Cloudflare AI",
+   CLOUDFLARE_KV = "Cloudflare KV",
+   STABLE_DIFF = "Stable Diffusion",
+   JIMP = "Jimp",
+   ZOD = "Zod",
+   OPEN_API = "OpenAPI",
+   VITE = "Vite",
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -106,7 +116,7 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.REACT]: '#61dafb',
    [Skill.REL_CLIENT]: '#ff4500',
    [Skill.RESOLUTION_PROB]: '#6c757d',
-   [Skill.REST]: '#563d7c',
+   [Skill.REST_API]: '#563d7c',
    [Skill.RUST]: '#dea584',
    [Skill.SDK_AWS]: '#ff9900',
    [Skill.SCALA]: '#dc322f',
@@ -126,6 +136,16 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.TOUCHDESIGNER]: '#9F49F5',
    [Skill.GRPC]: '#2da9c3',
    [Skill.GLSL]: '#5586A4',
+   [Skill.VUE]: "#42b883",
+   [Skill.HONO]: "#E36002",
+   [Skill.CLOUDFLARE_WORKERS]: "#F48120",
+   [Skill.CLOUDFLARE_AI]: "#FBAD41",
+   [Skill.CLOUDFLARE_KV]: "#F6821F",
+   [Skill.STABLE_DIFF]: "#9B59B6",
+   [Skill.JIMP]: "#4A90D9",
+   [Skill.ZOD]: "#3E67B1",
+   [Skill.OPEN_API]: "#85EA2D",
+   [Skill.VITE]: "#646CFF",
 }
 
 /**
