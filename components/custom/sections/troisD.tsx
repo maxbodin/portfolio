@@ -4,6 +4,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { troisDItems } from '@/data/troisD'
 import { WorkDetails } from '@/interfaces/workDetails'
 import { isVideo } from '@/app/space/Work'
+import ImageWithFallback from '@/components/custom/imageWithFallback'
+import Video from '@/components/custom/video'
 
 
 export default function TroisD() {
@@ -24,28 +26,24 @@ export default function TroisD() {
                         <div className="p-1">
                            <Card className="w-full h-full rounded-xl">
                               <CardContent className="flex items-center justify-center w-full h-full p-0">
+                                 {item.main_image_path &&
                                  <div className="w-full h-full rounded-xl overflow-hidden">
                                     {/* Conditionally render video or image. */}
-                                    {item.main_image_path && isVideo(item.main_image_path) ? (
-                                       <video
-                                          src={item.main_image_path}
-                                          title={item.title}
-                                          autoPlay
-                                          loop
-                                          muted
-                                          playsInline
-                                          className="w-full h-full object-cover rounded-xl"
-                                       />
+                                    { isVideo(item.main_image_path) ? (
+                                       <Video src={item.main_image_path}
+                                              title={item.title}
+                                              className="w-full h-full object-cover rounded-xl"/>
                                     ) : (
-                                       // eslint-disable-next-line @next/next/no-img-element
-                                       <img
+                                       <ImageWithFallback
+                                          width={400}
+                                          height={300}
                                           src={item.main_image_path}
                                           alt={item.title}
                                           title={item.title}
                                           className="w-full h-full object-cover rounded-xl"
                                        />
                                     )}
-                                 </div>
+                                 </div>}
                               </CardContent>
                            </Card>
                         </div>

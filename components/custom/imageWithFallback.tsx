@@ -1,3 +1,5 @@
+'use client'
+
 import NextImage, { ImageProps } from 'next/image'
 import React from 'react'
 
@@ -20,9 +22,7 @@ const UNOPTIMIZED_EXTENSIONS = new Set(['.svg', '.gif', '.webp']);
 const shouldSkipOptimization = (src: ImageProps['src']): boolean => {
    if (typeof src !== 'string') return false;
    const lower = src.toLowerCase().split('?')[0];
-   return UNOPTIMIZED_EXTENSIONS.has(
-      '.' + lower.split('.').pop()
-   );
+   return UNOPTIMIZED_EXTENSIONS.has('.' + lower.split('.').pop());
 };
 
 /**
@@ -38,9 +38,9 @@ const createFallbackHandler =
       };
 
 /**
- * Drop-in replacement for Next.js <Image />.
- * Falls back to a plain <img> load when the optimized request fails
- * (e.g. quota exceeded, 503 from /_next/image).
+ * Drop-in replacement for Next.js <Image /> that:
+ *    Automatically skips optimization for SVG / GIF / already-WebP sources.
+ *    Falls back to the raw image URL if the optimized request fails.
  */
 const ImageWithFallback = ({
                               src,

@@ -13,6 +13,8 @@ import { Github, LinkIcon, Loader2, LocateFixed } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getSkillColor, Skill } from '@/functions/getSkillColor'
 import { Progress } from '@/components/ui/progress'
+import ImageWithFallback from '@/components/custom/imageWithFallback'
+import Video from '@/components/custom/video'
 
 // Import data
 import { projectsItems } from '@/data/projects'
@@ -578,13 +580,18 @@ const WorkGallery: React.FC = () => {
                      </DialogHeader>
                      <div className="py-4">
                         {selectedWork.main_image_path && isVideo(selectedWork.main_image_path) ? (
-                           <video src={selectedWork.main_image_path} controls autoPlay loop muted playsInline
-                                  className="w-full rounded-md" />
+                           <Video
+                              src={selectedWork.main_image_path}
+                              autoPlay
+                              controls
+                              className="w-full rounded-md" />
                         ) : (
-                           // eslint-disable-next-line @next/next/no-img-element
-                           <img src={selectedWork.main_image_path} alt={selectedWork.title}
-                                className="w-full rounded-md"
-                                onError={(e) => (e.currentTarget.src = '/images/wip.jpg')}
+                           <ImageWithFallback
+                              width={400}
+                              height={300}
+                              src={selectedWork.main_image_path ?? '/images/wip.jpg'}
+                              alt={selectedWork.title}
+                              className="w-full rounded-md"
                            />
                         )}
                      </div>

@@ -9,6 +9,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { WorkDetails } from '@/interfaces/workDetails'
 import SkillsBadgeList from '@/components/custom/skillsBadgeList'
 import { isVideo } from '@/app/space/Work'
+import Video from '@/components/custom/video'
+import ImageWithFallback from '@/components/custom/imageWithFallback'
 
 export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
@@ -24,17 +26,15 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
                {/* Conditionally render video or image. */}
                {item.main_image_path && (<>
                      {isVideo(item.main_image_path) ? (
-                        <video
+                        <Video
                            src={item.main_image_path}
                            title={item.title}
-                           autoPlay
-                           loop
-                           muted
-                           playsInline
                            className="w-full h-full object-cover rounded-xl"
                         />
                      ) : (
-                        <img
+                        <ImageWithFallback
+                           width={400}
+                           height={300}
                            src={item.main_image_path}
                            title={item.title}
                            alt={item.title}

@@ -9,6 +9,7 @@ import SkillsBadgeList from '@/components/custom/skillsBadgeList'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { isVideo } from '@/app/space/Work'
 import ImageWithFallback from '@/components/custom/imageWithFallback'
+import Video from '@/components/custom/video'
 
 export default function WorkFolder({ item }: { item: WorkDetails }) {
    const hasGallery = item.images_path && item.images_path.length > 0
@@ -72,13 +73,9 @@ export default function WorkFolder({ item }: { item: WorkDetails }) {
                      {item.main_image_path && (
                         <div className="w-full md:w-1/4 flex-shrink-0">
                            {isVideo(item.main_image_path) ? (
-                              <video
+                              <Video
                                  src={item.main_image_path}
                                  title={item.title}
-                                 autoPlay
-                                 loop
-                                 muted
-                                 playsInline
                                  className="w-full h-auto object-cover rounded-md"
                               />
                            ) : (
