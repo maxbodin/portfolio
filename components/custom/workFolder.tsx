@@ -1,7 +1,6 @@
 'use client'
 import * as React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { WorkDetails } from '@/interfaces/workDetails'
@@ -9,6 +8,7 @@ import { GithubIcon, SquareArrowOutUpRight } from 'lucide-react'
 import SkillsBadgeList from '@/components/custom/skillsBadgeList'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { isVideo } from '@/app/space/Work'
+import ImageWithFallback from '@/components/custom/imageWithFallback'
 
 export default function WorkFolder({ item }: { item: WorkDetails }) {
    const hasGallery = item.images_path && item.images_path.length > 0
@@ -46,7 +46,7 @@ export default function WorkFolder({ item }: { item: WorkDetails }) {
                         <CarouselContent>
                            {item.images_path?.map((imageSrc, index) => (
                               <CarouselItem key={index} className="basis-1/2 md:basis-1/4">
-                                 <Image
+                                 <ImageWithFallback
                                     width={200}
                                     height={100}
                                     src={imageSrc}
@@ -82,7 +82,7 @@ export default function WorkFolder({ item }: { item: WorkDetails }) {
                                  className="w-full h-auto object-cover rounded-md"
                               />
                            ) : (
-                              <Image
+                              <ImageWithFallback
                                  width={400}
                                  height={300}
                                  src={item.main_image_path}
