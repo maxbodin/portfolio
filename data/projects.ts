@@ -74,6 +74,16 @@ export const projectsItems: WorkDetails[] = [
       date: '2024',
    },
    {
+      description: 'Web application displaying Olympic Games rankings, medal counts, and event results 🏅.\n' +
+         'Features a user-friendly interface with search and filter options, historical data access, and a mobile-friendly design.\n' +
+         'The project was never completed and remains a work in progress.',
+      main_image_path: '',
+      github: 'https://github.com/maxbodin/jo',
+      skills: [],
+      title: 'jo',
+      date: '2024',
+   },
+   {
       description: 'Update of the game Island Survivors, initially created during the GMTK 2023 Game Jam.',
       main_image_path: '/videos/island_survivors_v2.webm',
       link: 'https://makzime.itch.io/island-survivors-chaos-upgrade',

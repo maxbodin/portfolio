@@ -34,6 +34,16 @@ export const educationItems: WorkDetails[] = [
             ],
          },
          {
+            description: 'Series of Scala 3 practical assignments completed at IMT Atlantique, covering functional programming, object-oriented design, and concurrent algorithms.\n' +
+               'The exercises progressively introduce Scala 3 fundamentals: immutable data structures and case classes (TP1 — a `Rational` number system with GCD simplification), OOP patterns with traits and inheritance (TP2), higher-order functions, tail recursion and call-by-name parameters (TP3), and enum implementations in both OO and FP styles (TP4).\n' +
+               'The final assessment, **AmazingMaze**, is a full binary-tree maze explorer implementing three traversal strategies: simple recursion returning a functional trace, mutable accumulation via `ListBuffer`, and a concurrent depth-first traversal using an explicit work stack and a three-phase state machine (`UnExplored` → `PartiallyExplored` → `Explored`), serving as a foundation for work-stealing scheduler patterns.',
+            main_image_path: '',
+            github: 'https://github.com/maxbodin/IMT-FIL-A2-SCALA-TP',
+            skills: [Skill.SCALA],
+            title: 'IMT-FIL-A2-SCALA-TP',
+            date: '2026',
+         },
+         {
             title: 'IMT-FIL-A2-pokedex',
             github: 'https://github.com/maxbodin/IMT-FIL-A2-pokedex',
             description: 'Developed as a lab assignment for IMT Atlantique, this Flutter Pokedex utilizes the PokebuildAPI with a focus on optimized data handling, type-safe JSON sanitization, and dynamic UI.',
@@ -52,6 +62,18 @@ export const educationItems: WorkDetails[] = [
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-mewtwo_details.webp?raw=true',
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-type_filter_results.webp?raw=true',
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-type_filters.webp?raw=true',
+            ],
+         },
+         {
+            title: 'IMT-FIL-A2-spacex_app',
+            github: 'https://github.com/maxbodin/IMT-FIL-A2-spacex_app',
+            description: 'Developed as a lab assignment for IMT Atlantique, this Flutter application lets space enthusiasts explore the full history of SpaceX launches. Browse past and upcoming missions, dive into technical details about rockets, payloads, and launchpads, and save your favorite launches for quick access.',
+            date: '2026',
+            skills: [Skill.FLUTTER],
+            images_path: [
+               'https://github.com/maxbodin/IMT-FIL-A2-spacex_app/raw/main/screenshots/homelist.png?raw=true',
+               'https://github.com/maxbodin/IMT-FIL-A2-spacex_app/raw/main/screenshots/favorites.png?raw=true',
+               'https://github.com/maxbodin/IMT-FIL-A2-spacex_app/raw/main/screenshots/gallery_details_1.png?raw=true'
             ],
          },
          {
