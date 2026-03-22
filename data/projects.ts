@@ -35,6 +35,32 @@ export const projectsItems: WorkDetails[] = [
       date: '2025',
    },
    {
+      description: 'Taxi racing game developed in 3 days for the 2025 GMTK Game Jam on the theme "Loop".\n\n' +
+         'You play as a getaway driver picking up bank heist crews in a specific memorized order, while outrunning increasingly aggressive police cars.\n\n' +
+         'Built from scratch in Unity, the game features procedurally generated tracks from splines with custom mesh building logic, a NavMesh-based police AI, a nitro timing mini-game with slow-motion effect, a dynamic wave-based heist system, and custom 3D assets modeled in Blender.',
+      images_path: [
+         'https://img.itch.zone/aW1nLzIyNTUyNjA1LnBuZw==/original/IqEhyL.png',
+         'https://img.itch.zone/aW1nLzIyNTUzMzM0LnBuZw==/original/17DjsE.png',
+         'https://img.itch.zone/aW1nLzIyNTUzNDMxLnBuZw==/original/XDqD1O.png',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5Ni5naWY=/original/Dqy6Co.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5NS5naWY=/original/EtO1FR.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5My5naWY=/original/SEGnx7.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5NC5naWY=/original/wxPV62.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5OS5naWY=/original/065ruS.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5OC5naWY=/original/YLXr%2BL.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTg1MC5naWY=/original/sXojwJ.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTg1MS5naWY=/original/NxRjtz.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTc5OC5naWY=/original/YLXr%2BL.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTg1MC5naWY=/original/sXojwJ.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTg1MS5naWY=/original/NxRjtz.gif',
+         'https://img.itch.zone/aW1hZ2UvMzc1OTMxMC8yMjU4NTg1Mi5naWY=/original/%2B6j7RJ.gif',
+      ],
+      link: 'https://makzime.itch.io/taxilooper',
+      skills: [Skill.UNITY, Skill.BLENDER, Skill.C_SHARP],
+      title: 'Taxi Looper 🚕',
+      date: '2025',
+   },
+   {
       title: 'Sticker Ligne Verte',
       date: '2025',
       description: 'A series of stickers designed for the Ligne Verte tourist trail, featuring iconic landmarks of Nantes: the Cathedral, the Great Elephant of the Machines de l\'île, Graslin Theatre, the Yellow Titan Crane, and the LU Tower.',
@@ -81,6 +107,15 @@ export const projectsItems: WorkDetails[] = [
       github: 'https://github.com/maxbodin/jo',
       skills: [],
       title: 'jo',
+      date: '2024',
+   },
+   {
+      description: 'Interactive map built with Leaflet that tracks the bus stops my friend Bastien and I have visited in La Rochelle. As we aim to explore all the bus stops in the city, the map highlights our journey and progress.',
+      main_image_path: '/images/opti/projects/bus-stop-explorer.webp',
+      github: 'https://github.com/maxbodin/bus-stop-explorer',
+      link:'https://bus-stop-explorer.maximebodin.com/',
+      skills: [Skill.JAVASCRIPT],
+      title: 'Bus Stop Explorer 🚌',
       date: '2024',
    },
    {

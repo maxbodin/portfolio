@@ -71,6 +71,11 @@ export enum Skill {
    ZOD = "Zod",
    OPEN_API = "OpenAPI",
    VITE = "Vite",
+   GRAPHQL = "GraphQL",
+   DJANGO = "Django",
+   FLASK = "Flask",
+   MICROSERVICES = "Microservices",
+   DISTRIBUTED_SYSTEMS = "Distributed Systems",
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -146,6 +151,11 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.ZOD]: "#3E67B1",
    [Skill.OPEN_API]: "#85EA2D",
    [Skill.VITE]: "#646CFF",
+   [Skill.GRAPHQL]: "#E10098",
+   [Skill.DJANGO]: "#092E20",
+   [Skill.FLASK]: "#000000",
+   [Skill.MICROSERVICES]: "#0066CC",
+   [Skill.DISTRIBUTED_SYSTEMS]: "#FF6B6B",
 }
 
 /**

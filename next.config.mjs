@@ -10,15 +10,25 @@ const nextConfig = {
          {
             protocol: 'https',
             hostname: 'avatars.githubusercontent.com',
+            pathname: '/**',
          },
          {
             protocol: 'https',
             hostname: 'raw.githubusercontent.com',
+            pathname: '/**',
          },
          {
             protocol: 'https',
             hostname: 'github.com',
+            pathname: '/**',
+         },
+         {
+            protocol: 'https',
+            hostname: 'img.itch.zone',
+            pathname: '/**',
          },
       ],
-   }
+   },
 }
+
+export default nextConfig

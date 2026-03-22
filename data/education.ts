@@ -36,7 +36,7 @@ export const educationItems: WorkDetails[] = [
          {
             description: 'Series of Scala 3 practical assignments completed at IMT Atlantique, covering functional programming, object-oriented design, and concurrent algorithms.\n' +
                'The exercises progressively introduce Scala 3 fundamentals: immutable data structures and case classes (TP1 — a `Rational` number system with GCD simplification), OOP patterns with traits and inheritance (TP2), higher-order functions, tail recursion and call-by-name parameters (TP3), and enum implementations in both OO and FP styles (TP4).\n' +
-               'The final assessment, **AmazingMaze**, is a full binary-tree maze explorer implementing three traversal strategies: simple recursion returning a functional trace, mutable accumulation via `ListBuffer`, and a concurrent depth-first traversal using an explicit work stack and a three-phase state machine (`UnExplored` → `PartiallyExplored` → `Explored`), serving as a foundation for work-stealing scheduler patterns.',
+               'The final assessment, AmazingMaze, is a full binary-tree maze explorer implementing three traversal strategies: simple recursion returning a functional trace, mutable accumulation via `ListBuffer`, and a concurrent depth-first traversal using an explicit work stack and a three-phase state machine (`UnExplored` → `PartiallyExplored` → `Explored`), serving as a foundation for work-stealing scheduler patterns.',
             main_image_path: '',
             github: 'https://github.com/maxbodin/IMT-FIL-A2-SCALA-TP',
             skills: [Skill.SCALA],
@@ -82,6 +82,13 @@ export const educationItems: WorkDetails[] = [
             description: 'Lab assignment at IMT Atlantique involving the implementation of graph data structures and classical graph algorithms, including Dijkstra’s shortest path algorithm and Prim’s minimum spanning tree algorithm.',
             date: '2025',
             skills: [Skill.JAVA, Skill.ALGO_PROG],
+         },
+         {
+            title: 'IMT-FIL-A1-UE-AD-MIXTE',
+            github: 'https://github.com/maxbodin/IMT-FIL-A1-UE-AD-MIXTE',
+            description: 'Cinema Management Microservices\nEducational project implementing a distributed architecture with four microservices for cinema operations.\nFeatures REST API (User service), GraphQL (Movie catalog), and gRPC (Showtime & Booking services). Includes a Django web interface for full system integration.\nMade for learning microservices architecture, API design patterns, and inter-service communication in Python.',
+            date: '2024',
+            skills: [Skill.PYTHON, Skill.GRPC, Skill.GRAPHQL, Skill.REST_API, Skill.DJANGO, Skill.FLASK, Skill.MICROSERVICES, Skill.DISTRIBUTED_SYSTEMS],
          },
       ],
    },
