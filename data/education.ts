@@ -5,6 +5,38 @@ export const educationItems: WorkDetails[] = [
    {
       date: '2024-2027',
       description:
+         'Curriculum Summary\n' +
+         '\tYear 1\n' +
+         '\t\tDiscrete Mathematics\n' +
+         '\t\tNumerical Methods\n' +
+         '\t\tAlgorithms & Graph Theory\n' +
+         '\t\tSoftware Design\n' +
+         '\t\tUI / HMI\n' +
+         '\t\tDistributed Architectures\n' +
+         '\t\tAdvanced Programming\n' +
+         '\t\tSoftware Quality & Agile Development\n' +
+         '\t\tBusiness & Organizational Fundamentals\n\n' +
+         '\tYear 2\n' +
+         '\t\tProbability & Statistics\n' +
+         '\t\tPhysical Systems Modeling\n' +
+         '\t\tMobile Application Development\n' +
+         '\t\tProgramming Languages\n' +
+         '\t\tFormal Methods\n' +
+         '\t\tDevOps\n' +
+         '\t\tOperating Systems\n' +
+         '\t\tOrganizational Management\n' +
+         '\t\tInternational Internship\n\n' +
+         '\tYear 3\n' +
+         '\t\tResearch Methods & Innovation\n' +
+         '\t\tMachine Learning\n' +
+         '\t\tCloud Infrastructure\n' +
+         '\t\tLanguage Engineering\n' +
+         '\t\tBig Data\n' +
+         '\t\tInternet of Things (IoT) & Energy Systems\n' +
+         '\t\tCognitive Ergonomics\n' +
+         '\t\tDigital Strategy for Organizations\n' +
+         '\t\tLegal, Economic & Social Aspects of Digital Technology\n' +
+         '\t\tFinal Engineering Project (Thesis)\n\n' +
          'Activities and associations: Member of the communications division of the arts council (Bureau Des Arts - BDA).',
       main_image_path: '/images/imt.png',
       link: 'https://www.imt-atlantique.fr/fr/formation/ingenieur-apprentissage/ingenierie-logicielle',
@@ -13,8 +45,9 @@ export const educationItems: WorkDetails[] = [
       related_works: [
          {
             title: 'IMT-FIL-A2-Renardo-Rscan',
-            description: 'This project was carried out for the startup Renardo. Working as part of a team, we designed and developed a mobile application for real-time visualization of electromagnetic fields captured by a proprietary electromagnetic imaging sensor intended for industrial non-destructive inspection. The application connects to the sensor via USB, performs signal pre-processing, interpolates sensor data, and fuses the resulting electromagnetic field visualization with the smartphone camera feed. The app supports photo capture and real-time visualization. The project will be showcased at VivaTech 2026.',
+            description: 'This project was carried out for the startup Renardo.\n\nWorking as part of a team, we designed and developed a mobile application for real-time visualization of electromagnetic fields captured by a proprietary electromagnetic imaging sensor intended for industrial non-destructive inspection.\n\nThe application connects to the sensor via USB, performs signal pre-processing, interpolates sensor data, and fuses the resulting electromagnetic field visualization with the smartphone camera feed.\nThe app supports photo capture and real-time visualization.\n\nThe project will be showcased at VivaTech 2026.',
             date: '2026',
+            link: 'https://www.renardo-tech.fr',
             skills: [
                Skill.KOTLIN,
                Skill.TRAV_EQUIP,
@@ -24,7 +57,7 @@ export const educationItems: WorkDetails[] = [
          {
             title: 'IMT-FIL-A2-KOTLIN-MEALAPP',
             github: 'https://github.com/maxbodin/IMT-FIL-A2-KOTLIN-MEALAPP',
-            description: 'Technical lab assignment at IMT Atlantique demonstrating modern Android development practices. The project uses Clean Architecture, MVI (Model-View-Intent), and Jetpack Compose to fetch and display meal categories and meals from a REST API, ensuring scalability and unidirectional data flow.',
+            description: 'Technical lab assignment at IMT Atlantique demonstrating modern Android development practices.\nThe project uses Clean Architecture, MVI (Model-View-Intent), and Jetpack Compose to fetch and display meal categories and meals from a REST API, ensuring scalability and unidirectional data flow.',
             date: '2026',
             skills: [Skill.KOTLIN, Skill.MVI],
             images_path: [
