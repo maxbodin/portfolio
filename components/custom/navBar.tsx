@@ -23,6 +23,10 @@ export default function NavBar() {
                   </NavigationMenuLink>
                </NavigationMenuItem>
                <NavigationMenuItem>
+                  <NavigationMenuLink href="#education" className={navigationMenuTriggerStyle()}>Education 🎓
+                  </NavigationMenuLink>
+               </NavigationMenuItem>
+               <NavigationMenuItem>
                   <NavigationMenuLink href="#projects" className={navigationMenuTriggerStyle()}>Projects 💡
                   </NavigationMenuLink>
                </NavigationMenuItem>
@@ -32,10 +36,6 @@ export default function NavBar() {
                </NavigationMenuItem>
                <NavigationMenuItem>
                   <NavigationMenuLink href="#events" className={navigationMenuTriggerStyle()}>Events 🏆
-                  </NavigationMenuLink>
-               </NavigationMenuItem>
-               <NavigationMenuItem>
-                  <NavigationMenuLink href="#education" className={navigationMenuTriggerStyle()}>Education 🎓
                   </NavigationMenuLink>
                </NavigationMenuItem>
             </NavigationMenuList>
