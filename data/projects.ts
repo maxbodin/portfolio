@@ -28,7 +28,7 @@ export const projectsItems: WorkDetails[] = [
    {
       description: 'Minimalist gallery for my film photography. Built with Next.js and Vercel Blob.',
       github: 'https://github.com/maxbodin/argentique',
-      main_image_path: '/images/argentique.png',
+      main_image_path: '/images/opti/projects/argentique.webp',
       link: 'https://argentique.maximebodin.com/',
       skills: [Skill.NEXT_JS, Skill.TAILWIND, Skill.SHADCN_UI],
       title: 'Argentique',
@@ -59,6 +59,23 @@ export const projectsItems: WorkDetails[] = [
       skills: [Skill.UNITY, Skill.BLENDER, Skill.C_SHARP],
       title: 'Taxi Looper 🚕',
       date: '2025',
+   },
+   {
+       title: 'BDA - Event Visuals',
+       description: '3D visuals created in Blender and projected in the student house for tonus nights and cabaret events organized by IMT Atlantique\'s Bureau des Arts.',
+      date: '2025',
+      images_path: [
+         '/images/opti/projects/bda-cybertonus.webp',
+         '/images/opti/projects/bda-cabaret-casino.webp',
+         '/images/opti/projects/bda-cabaret-circus.webp',
+         '/images/opti/projects/bda-cabatonus.webp',
+         '/images/opti/projects/bda-affiche.webp',
+         '/images/opti/projects/bda-gigagauletonus.webp',
+         '/images/opti/projects/bda-cabaret-summer.webp',
+         '/videos/opti/projects/cabaret-summer-visuel-vp9.webm',
+         '/images/opti/projects/bda-cabaret-abyss.webp',
+      ],
+      skills: [Skill.BLENDER],
    },
    {
       title: 'Sticker Ligne Verte',

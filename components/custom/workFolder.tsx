@@ -45,16 +45,24 @@ export default function WorkFolder({ item }: { item: WorkDetails }) {
                   <div className="p-4 pt-2 flex flex-col gap-4">
                      <Carousel>
                         <CarouselContent>
-                           {item.images_path?.map((imageSrc, index) => (
+                           {item.images_path?.map((mediaSrc, index) => (
                               <CarouselItem key={index} className="basis-1/2 md:basis-1/4">
-                                 <ImageWithFallback
-                                    width={200}
-                                    height={100}
-                                    src={imageSrc}
-                                    title={item.title}
-                                    alt={item.title}
-                                    className="w-full h-48 object-contain rounded-md"
-                                 />
+                                 {isVideo(mediaSrc) ? (
+                                    <Video
+                                       src={mediaSrc}
+                                       title={item.title}
+                                       className="w-full h-48 object-contain rounded-md"
+                                    />
+                                 ) : (
+                                    <ImageWithFallback
+                                       width={200}
+                                       height={100}
+                                       src={mediaSrc}
+                                       title={item.title}
+                                       alt={item.title}
+                                       className="w-full h-48 object-contain rounded-md"
+                                    />
+                                 )}
                               </CarouselItem>
                            ))}
                         </CarouselContent>
