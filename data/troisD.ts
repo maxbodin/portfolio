@@ -42,13 +42,6 @@ export const troisDItems: WorkDetails[] = [
       date: '2025',
    },
    {
-      description: 'Affiche réalisée avec Blender et affichée dans la maison des élèves dans le cadre du Cabaret Abyss du BDA de l\'IMT Atlantique',
-      main_image_path: '/images/cabaret-abyss.png',
-      skills: [Skill.BLENDER],
-      title: 'Affiche Cabaret Abyss',
-      date: '2025',
-   },
-   {
       description: 'Visuel 3D réalisé avec Blender et projeté dans la maison des élèves dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
       main_image_path: '/videos/3d/cabaret-moulin-rouge-visuel-vp9.webm',
       low_quality_path: '/videos/3d/cabaret-moulin-rouge-visuel-vp9_low.mp4',
@@ -65,14 +58,6 @@ export const troisDItems: WorkDetails[] = [
       thumbnail_path: '/videos/3d/cabaret-moulin-rouge-lineup-h265_thumb.jpg',
       skills: [Skill.BLENDER],
       title: 'Line-up Cabaret Moulin Rouge',
-      date: '2025',
-   },
-   {
-      description: 'Affiche réalisée avec Blender et affichée dans la maison des élèves dans le cadre du Cabaret Moulin Rouge du BDA de l\'IMT Atlantique',
-      main_image_path: '/images/cabaret-moulin-rouge-affiche.webp',
-      skills: [Skill.BLENDER],
-      space_only: true,
-      title: 'Affiche Cabaret Moulin Rouge',
       date: '2025',
    },
    {

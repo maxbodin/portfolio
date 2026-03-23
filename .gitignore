@@ -4,6 +4,9 @@
 /public/videos/3d/originals
 /public/images/originals
 
+/public/images/to-opti
+/public/videos/to-opti
+
 # dependencies
 /node_modules
 /.pnp
@@ -38,3 +41,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.idea
