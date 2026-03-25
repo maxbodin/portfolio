@@ -15,7 +15,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-between pt-8">
          <div className="z-10 w-full max-w-7xl items-center justify-between lg:flex">
             <NavBar />
-            <div className="flex flex-col w-full px-8 lg:px-20">
+            <div className="flex flex-col w-full md:px-8 px-4 lg:px-20">
                <Whoami />
                <Experiences />
                <YearlyWorksFolders items={educationItems} title={'Education 🎓'} anchor={'education'} />

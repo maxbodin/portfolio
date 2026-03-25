@@ -24,6 +24,7 @@ type CarouselContextProps = {
    api: ReturnType<typeof useEmblaCarousel>[1]
    scrollPrev: () => void
    scrollNext: () => void
+   navigationVersion: number
    canScrollPrev: boolean
    canScrollNext: boolean
 } & CarouselProps
@@ -38,6 +39,21 @@ function useCarousel() {
    }
 
    return context
+}
+
+function composeCarouselButtonClickHandler(
+   userOnClick: React.MouseEventHandler<HTMLButtonElement> | undefined,
+   navigate: () => void,
+): React.MouseEventHandler<HTMLButtonElement> {
+   return (event) => {
+      userOnClick?.(event)
+
+      if (event.defaultPrevented) {
+         return
+      }
+
+      navigate()
+   }
 }
 
 const Carousel = React.forwardRef<
@@ -65,6 +81,11 @@ const Carousel = React.forwardRef<
       )
       const [canScrollPrev, setCanScrollPrev] = React.useState(false)
       const [canScrollNext, setCanScrollNext] = React.useState(false)
+      const [navigationVersion, setNavigationVersion] = React.useState(0)
+
+      const notifyNavigation = React.useCallback(() => {
+         setNavigationVersion((current) => current + 1)
+      }, [])
 
       const onSelect = React.useCallback((api: CarouselApi) => {
          if (!api) {
@@ -76,12 +97,22 @@ const Carousel = React.forwardRef<
       }, [])
 
       const scrollPrev = React.useCallback(() => {
-         api?.scrollPrev()
-      }, [api])
+         if (!api) {
+            return
+         }
+
+         api.scrollPrev()
+         notifyNavigation()
+      }, [api, notifyNavigation])
 
       const scrollNext = React.useCallback(() => {
-         api?.scrollNext()
-      }, [api])
+         if (!api) {
+            return
+         }
+
+         api.scrollNext()
+         notifyNavigation()
+      }, [api, notifyNavigation])
 
       const handleKeyDown = React.useCallback(
          (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -128,6 +159,7 @@ const Carousel = React.forwardRef<
                   orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
                scrollPrev,
                scrollNext,
+               navigationVersion,
                canScrollPrev,
                canScrollNext,
             }}
@@ -195,8 +227,12 @@ CarouselItem.displayName = 'CarouselItem'
 const CarouselPrevious = React.forwardRef<
    HTMLButtonElement,
    React.ComponentProps<typeof Button>
->(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
+>(({ className, variant = 'outline', size = 'icon', onClick, ...props }, ref) => {
    const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+   const handleClick = React.useMemo(
+      () => composeCarouselButtonClickHandler(onClick, scrollPrev),
+      [onClick, scrollPrev],
+   )
 
    return (
       <Button
@@ -211,7 +247,7 @@ const CarouselPrevious = React.forwardRef<
             className,
          )}
          disabled={!canScrollPrev}
-         onClick={scrollPrev}
+         onClick={handleClick}
          {...props}
       >
          <ArrowLeft className="h-4 w-4" />
@@ -224,8 +260,12 @@ CarouselPrevious.displayName = 'CarouselPrevious'
 const CarouselNext = React.forwardRef<
    HTMLButtonElement,
    React.ComponentProps<typeof Button>
->(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
+>(({ className, variant = 'outline', size = 'icon', onClick, ...props }, ref) => {
    const { orientation, scrollNext, canScrollNext } = useCarousel()
+   const handleClick = React.useMemo(
+      () => composeCarouselButtonClickHandler(onClick, scrollNext),
+      [onClick, scrollNext],
+   )
 
    return (
       <Button
@@ -240,7 +280,7 @@ const CarouselNext = React.forwardRef<
             className,
          )}
          disabled={!canScrollNext}
-         onClick={scrollNext}
+         onClick={handleClick}
          {...props}
       >
          <ArrowRight className="h-4 w-4" />
@@ -252,6 +292,7 @@ CarouselNext.displayName = 'CarouselNext'
 
 export {
    type CarouselApi,
+   useCarousel,
    Carousel,
    CarouselContent,
    CarouselItem,

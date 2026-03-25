@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { GithubIcon, SquareArrowOutUpRight } from 'lucide-react'
 import Link from 'next/link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { useCarousel } from '@/components/ui/carousel'
 import { WorkDetails } from '@/interfaces/workDetails'
 import SkillsBadgeList from '@/components/custom/skillsBadgeList'
 import { isVideo } from '@/app/space/Work'
@@ -14,6 +15,7 @@ import ImageWithFallback from '@/components/custom/imageWithFallback'
 
 export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
    const [hovered, setHovered] = useState<boolean>(false)
+   const { navigationVersion } = useCarousel()
 
    return (
       <div
@@ -53,7 +55,7 @@ export default function CarouselItemWithHover({ item }: { item: WorkDetails }) {
                      )}
                   </>
                )}
-               <Accordion type="single" collapsible className="px-8 w-full">
+               <Accordion key={navigationVersion} type="single" collapsible className="md:px-8 px-2 w-full">
                   <AccordionItem value={item.title}>
                      <AccordionTrigger>
                         <div className="flex flex-col">
