@@ -41,7 +41,7 @@ export const educationItems: WorkDetails[] = [
       main_image_path: '/images/imt.png',
       link: 'https://www.imt-atlantique.fr/fr/formation/ingenieur-apprentissage/ingenierie-logicielle',
       skills: [],
-      title: 'Engineering Degree in Computer Science from École Nationale Supérieure Mines-Télécom Atlantique (IMT Atlantique)',
+      title: 'Engineering Degree in Computer Science from École Nationale Supérieure Mines-Télécom Atlantique (IMT Atlantique), France',
       related_works: [
          {
             title: 'IMT-FIL-A2-Renardo-Rscan',
@@ -127,10 +127,33 @@ export const educationItems: WorkDetails[] = [
    },
    {
       date: '2021-2024',
-      description: 'Specialization in "Application development: Architecture design, Development, and Validation".',
+      description: 'Specialization in "Application development: Architecture design, Development, and Validation".\n\n' +
+      'Program Objectives:\n' +
+      '- Develop software applications\n' +
+      '- Optimize computer applications\n' +
+      '- Administer complex communicating information systems\n' +
+      '- Manage data and information systems\n' +
+      '- Lead and manage projects\n' +
+      '- Work effectively within an IT team\n\n' +
+      'Curriculum Summary:\n' +
+      '- Software development (algorithms, programming, user interfaces, web, systems, mobile development)\n' +
+      '- Software quality assurance and testing\n' +
+      '- Systems and network architecture (operating systems, services, virtualization)\n' +
+      '- Database management systems\n' +
+      '- Requirements gathering and UML modeling\n' +
+      '- Project management: core component of the program emphasizing teamwork, collaborative tools, Agile methodologies, and a DevOps approach\n' +
+      '- Mathematics and fundamental computing tools\n' +
+      '- Information systems management\n' +
+      '- Organizational management and sustainable economics\n' +
+      '- Contract and digital law\n' +
+      '- Cryptography and cybersecurity\n' +
+      '- Artificial Intelligence techniques\n' +
+      '- Data optimization and decision-support systems\n' +
+      '- IT project team management\n' +
+      '- English and professional communication',
       main_image_path: '/images/iut-but-info.webp',
       link: 'https://www.iut-larochelle.fr/formations/departement-informatique/parcours-a-realisation-dapplications-conception-developpement-validation/',
       skills: [],
-      title: 'University Bachelor of Technology (BUT) in Computer Science, IUT La Rochelle',
+      title: 'University Bachelor of Technology (BUT) in Computer Science, IUT La Rochelle, France',
    },
 ]
