@@ -36,7 +36,7 @@
     "three": "^0.177.0"
   },
   "devDependencies": {
-    "@types/node": "^20.19.37",
+    "@types/node": "^20.19.39",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",
     "@types/three": "^0.177.0",
@@ -47,8 +47,8 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "postcss": "^8.5.8",
-    "prettier": "^3.8.1",
+    "postcss": "^8.5.9",
+    "prettier": "^3.8.2",
     "tailwindcss": "^3.4.19",
     "typescript": "^5.9.3",
     "typescript-eslint": "^7.18.0"
