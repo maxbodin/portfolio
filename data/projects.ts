@@ -26,6 +26,29 @@ export const projectsItems: WorkDetails[] = [
       github : "https://github.com/maxbodin/magic-eraser-ui",
    },
    {
+      title: "PsyTests Graph Generator",
+      description:
+         "Custom Flask tool for generating psychometric subtest reporting, built for a psychologist after requirements gathering." +
+         "\nStrict JSON validation + server-side PNG charts (Matplotlib/NumPy)." +
+         "\nVanilla JS frontend: dynamic section/test editing, instant base64 preview, one-click download via a dedicated endpoint.",
+      date: "2026",
+      skills: [
+         Skill.PYTHON,
+         Skill.FLASK,
+         Skill.REST_API,
+         Skill.JAVASCRIPT,
+         Skill.HTML,
+         Skill.CSS,
+         Skill.DEV_WEB,
+         Skill.SEC,
+         Skill.MATPLOTLIB,
+         Skill.NUMPY,
+      ],
+      main_image_path: "",
+      link: "https://psytests.maximebodin.com",
+      github: "https://github.com/maxbodin/psytests",
+   },
+   {
       description: 'Minimalist gallery for my film photography. Built with Next.js and Vercel Blob.',
       github: 'https://github.com/maxbodin/argentique',
       main_image_path: '/images/opti/projects/argentique.webp',

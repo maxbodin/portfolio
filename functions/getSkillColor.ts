@@ -76,6 +76,8 @@ export enum Skill {
    FLASK = "Flask",
    MICROSERVICES = "Microservices",
    DISTRIBUTED_SYSTEMS = "Distributed Systems",
+   MATPLOTLIB = "Matplotlib",
+   NUMPY = "NumPy",
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -156,6 +158,8 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.FLASK]: "#000000",
    [Skill.MICROSERVICES]: "#0066CC",
    [Skill.DISTRIBUTED_SYSTEMS]: "#FF6B6B",
+   [Skill.MATPLOTLIB]: "#11557C",
+   [Skill.NUMPY]: "#4D77CF",
 }
 
 /**
