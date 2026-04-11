@@ -78,6 +78,21 @@ export enum Skill {
    DISTRIBUTED_SYSTEMS = "Distributed Systems",
    MATPLOTLIB = "Matplotlib",
    NUMPY = "NumPy",
+   SUPABASE = "Supabase",
+   POSTGRESQL = "PostgreSQL",
+   NEXT_INTL = "next-intl",
+   RECHARTS = "Recharts",
+   RADIX_UI = "Radix UI",
+   VERCEL = "Vercel",
+   VERCEL_ANALYTICS = "Vercel Analytics",
+   FRAMER_MOTION = "Framer Motion",
+   DATE_FNS = "date-fns",
+   LUCIDE = "Lucide Icons",
+   OPEN_LIBRARY_API = "Open Library API",
+   APP_ROUTER = "Next.js App Router",
+   SERVER_ACTIONS = "Next.js Server Actions",
+   NEXT_MIDDLEWARE = "Next.js Middleware",
+   SSR = "Server-Side Rendering",
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -160,6 +175,21 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.DISTRIBUTED_SYSTEMS]: "#FF6B6B",
    [Skill.MATPLOTLIB]: "#11557C",
    [Skill.NUMPY]: "#4D77CF",
+   [Skill.SUPABASE]: "#3ECF8E",
+   [Skill.POSTGRESQL]: "#336791",
+   [Skill.NEXT_INTL]: "#0EA5E9",
+   [Skill.RECHARTS]: "#FF7300",
+   [Skill.RADIX_UI]: "#111111",
+   [Skill.VERCEL]: "#000000",
+   [Skill.VERCEL_ANALYTICS]: "#1F2937",
+   [Skill.FRAMER_MOTION]: "#0055FF",
+   [Skill.DATE_FNS]: "#D97706",
+   [Skill.LUCIDE]: "#F97316",
+   [Skill.OPEN_LIBRARY_API]: "#E44C30",
+   [Skill.APP_ROUTER]: "#111827",
+   [Skill.SERVER_ACTIONS]: "#14B8A6",
+   [Skill.NEXT_MIDDLEWARE]: "#8B5CF6",
+   [Skill.SSR]: "#2563EB",
 }
 
 /**
