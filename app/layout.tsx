@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import React from 'react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
 import PageWrapper from '@/components/custom/pageWrapper'
 import { Libre_Barcode_39 } from 'next/font/google'
 import localFont from 'next/font/local'
@@ -39,6 +40,7 @@ export default function RootLayout({
          {children}
       </PageWrapper>
       <SpeedInsights />
+      <Analytics />
       </body>
       </html>
    )
