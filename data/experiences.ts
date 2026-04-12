@@ -13,7 +13,7 @@ export const experiencesItems: WorkDetails[] = [
          'Refactored legacy modules using object oriented design principles, reducing technical debt and improving maintainability.\n\n',
       main_image_path: '/images/nextlane.webp',
       link: 'https://www.nextlane.com/fr/',
-      skills: [Skill.PHP, Skill.JAVASCRIPT, Skill.SQL, Skill.AGILE, Skill.SDK_AWS, Skill.GESTION_PROJ, Skill.GITLAB],
+      skills: [Skill.PHP, Skill.JAVASCRIPT, Skill.SQL, Skill.REST_API, Skill.SEC, Skill.POO, Skill.DEV_WEB, Skill.AGILE, Skill.SDK_AWS, Skill.TRAV_EQUIP, Skill.COM, Skill.GESTION_PROJ, Skill.GITLAB],
       title: 'Full-Stack Developer Apprentice',
    },
    {
@@ -25,7 +25,7 @@ export const experiencesItems: WorkDetails[] = [
          'Led the initial project phase for a new tool, from gathering stakeholder requirements and defining user needs to creating the core architectural design\n\n',
       main_image_path: '/images/enedis-logo.webp',
       link: 'https://www.enedis.fr',
-      skills: [Skill.ANGULAR, Skill.TYPESCRIPT, Skill.EXPRESS, Skill.SQL, Skill.SDK_AWS, Skill.PYTHON, Skill.SELENIUM, Skill.IA, Skill.RAG, Skill.REL_CLIENT, Skill.GESTION_PROJ, Skill.GITLAB],
+      skills: [Skill.ANGULAR, Skill.TYPESCRIPT, Skill.JAVASCRIPT, Skill.EXPRESS, Skill.DEV_WEB, Skill.SQL, Skill.SDK_AWS, Skill.PYTHON, Skill.SELENIUM, Skill.MULTITHREADING, Skill.CSV, Skill.TDD, Skill.IA, Skill.RAG, Skill.REL_CLIENT, Skill.GESTION_PROJ, Skill.GITLAB],
       title: 'Full-Stack Developer Apprentice',
    },
    {
@@ -39,7 +39,7 @@ export const experiencesItems: WorkDetails[] = [
          '- Built a comprehensive testing suite with unit and integration tests, boosting code coverage from 0% to 95% and drastically reducing production bugs.\n\n',
       main_image_path: '/images/enedis-logo.webp',
       link: 'https://www.enedis.fr',
-      skills: [Skill.ANGULAR, Skill.TYPESCRIPT, Skill.EXPRESS, Skill.SQL, Skill.AGILE, Skill.TDD, Skill.JEST, Skill.MOCHA, Skill.ISTANBUL],
+      skills: [Skill.ANGULAR, Skill.TYPESCRIPT, Skill.JAVASCRIPT, Skill.EXPRESS, Skill.DEV_WEB, Skill.SQL, Skill.SEC, Skill.AGILE, Skill.TDD, Skill.JEST, Skill.MOCHA, Skill.ISTANBUL],
       title: 'Web Developer Intern',
    },
 ]

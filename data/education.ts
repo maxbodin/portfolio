@@ -40,7 +40,7 @@ export const educationItems: WorkDetails[] = [
          'Activities and associations: Member of the communications division of the arts council (Bureau Des Arts - BDA).',
       main_image_path: '/images/imt.png',
       link: 'https://www.imt-atlantique.fr/fr/formation/ingenieur-apprentissage/ingenierie-logicielle',
-      skills: [],
+      skills: [Skill.ALGO_PROG, Skill.POO, Skill.AGILE, Skill.DEVOPS, Skill.OPERATING_SYSTEMS, Skill.BIG_DATA, Skill.DISTRIBUTED_SYSTEMS, Skill.FLUTTER, Skill.IA, Skill.GESTION_PROJ, Skill.TRAV_EQUIP, Skill.COM],
       title: 'Engineering Degree in Computer Science from École Nationale Supérieure Mines-Télécom Atlantique (IMT Atlantique), France',
       related_works: [
          {
@@ -51,6 +51,7 @@ export const educationItems: WorkDetails[] = [
             skills: [
                Skill.KOTLIN,
                Skill.TRAV_EQUIP,
+               Skill.ALGO_PROG,
             ],
             main_image_path: '/images/opti/IMT-FIL-A2-Renardo-Rscan.webp',
          },
@@ -59,7 +60,7 @@ export const educationItems: WorkDetails[] = [
             github: 'https://github.com/maxbodin/IMT-FIL-A2-KOTLIN-MEALAPP',
             description: 'Technical lab assignment at IMT Atlantique demonstrating modern Android development practices.\nThe project uses Clean Architecture, MVI (Model-View-Intent), and Jetpack Compose to fetch and display meal categories and meals from a REST API, ensuring scalability and unidirectional data flow.',
             date: '2026',
-            skills: [Skill.KOTLIN, Skill.MVI],
+            skills: [Skill.KOTLIN, Skill.MVI, Skill.CLEAN_ARCHITECTURE, Skill.JETPACK_COMPOSE, Skill.REST_API],
             images_path: [
                'https://github.com/maxbodin/IMT-FIL-A2-KOTLIN-MEALAPP/blob/main/screenshots/IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_categories.webp?raw=true',
                'https://github.com/maxbodin/IMT-FIL-A2-KOTLIN-MEALAPP/blob/main/screenshots/IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_details.webp?raw=true',
@@ -72,7 +73,7 @@ export const educationItems: WorkDetails[] = [
                'The final assessment, AmazingMaze, is a full binary-tree maze explorer implementing three traversal strategies: simple recursion returning a functional trace, mutable accumulation via `ListBuffer`, and a concurrent depth-first traversal using an explicit work stack and a three-phase state machine (`UnExplored` → `PartiallyExplored` → `Explored`), serving as a foundation for work-stealing scheduler patterns.',
             main_image_path: '',
             github: 'https://github.com/maxbodin/IMT-FIL-A2-SCALA-TP',
-            skills: [Skill.SCALA],
+            skills: [Skill.SCALA, Skill.ALGO_PROG, Skill.POO],
             title: 'IMT-FIL-A2-SCALA-TP',
             date: '2026',
          },
@@ -81,7 +82,7 @@ export const educationItems: WorkDetails[] = [
             github: 'https://github.com/maxbodin/IMT-FIL-A2-pokedex',
             description: 'Developed as a lab assignment for IMT Atlantique, this Flutter Pokedex utilizes the PokebuildAPI with a focus on optimized data handling, type-safe JSON sanitization, and dynamic UI.',
             date: '2026',
-            skills: [Skill.FLUTTER],
+            skills: [Skill.FLUTTER, Skill.REST_API],
             images_path: [
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-dracaufeu_details.webp?raw=true',
                'https://github.com/maxbodin/IMT-FIL-A2-pokedex/blob/main/screenshots/IMT-FIL-A2-pokedex-draco_search.webp?raw=true',
@@ -121,7 +122,7 @@ export const educationItems: WorkDetails[] = [
             github: 'https://github.com/maxbodin/IMT-FIL-A1-UE-AD-MIXTE',
             description: 'Cinema Management Microservices\nEducational project implementing a distributed architecture with four microservices for cinema operations.\nFeatures REST API (User service), GraphQL (Movie catalog), and gRPC (Showtime & Booking services). Includes a Django web interface for full system integration.\nMade for learning microservices architecture, API design patterns, and inter-service communication in Python.',
             date: '2024',
-            skills: [Skill.PYTHON, Skill.GRPC, Skill.GRAPHQL, Skill.REST_API, Skill.DJANGO, Skill.FLASK, Skill.MICROSERVICES, Skill.DISTRIBUTED_SYSTEMS],
+            skills: [Skill.PYTHON, Skill.GRPC, Skill.GRAPHQL, Skill.REST_API, Skill.DJANGO, Skill.FLASK, Skill.DEV_WEB, Skill.MICROSERVICES, Skill.DISTRIBUTED_SYSTEMS],
          },
       ],
    },
@@ -153,7 +154,7 @@ export const educationItems: WorkDetails[] = [
       '- English and professional communication',
       main_image_path: '/images/iut-but-info.webp',
       link: 'https://www.iut-larochelle.fr/formations/departement-informatique/parcours-a-realisation-dapplications-conception-developpement-validation/',
-      skills: [],
+      skills: [Skill.ALGO_PROG, Skill.POO, Skill.DEV_WEB, Skill.SQL, Skill.AGILE, Skill.DEVOPS, Skill.UML, Skill.DOCKER, Skill.GESTION_PROJ, Skill.TRAV_EQUIP, Skill.SEC, Skill.IA, Skill.COM],
       title: 'University Bachelor of Technology (BUT) in Computer Science, IUT La Rochelle, France',
    },
 ]

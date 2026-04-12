@@ -1,4 +1,5 @@
 import { WorkDetails } from '@/interfaces/workDetails'
+import { Skill } from '@/functions/getSkillColor'
 
 export const certificationsItems: WorkDetails[] = [
    {
@@ -16,7 +17,7 @@ export const certificationsItems: WorkDetails[] = [
          '- Discover new hybrid approaches like NewSQL and Hadoop-type Big Data architectures',
       main_image_path: '/images/eni.webp',
       link: 'https://www.eni-service.fr/formation/formation-les-fondamentaux-du-nosql/',
-      skills: [],
+      skills: [Skill.SQL, Skill.NOSQL, Skill.NEWSQL, Skill.BIG_DATA, Skill.DISTRIBUTED_SYSTEMS],
       title: 'Certification in NoSQL Fundamentals, ENI IT School',
    },
    {
@@ -30,7 +31,7 @@ export const certificationsItems: WorkDetails[] = [
          'D5: Know working methodologies for implementing responsible digital practices',
       main_image_path: '/images/certificationNR.webp',
       link: 'https://ecocertification.univ-lr.fr/',
-      skills: [],
+      skills: [Skill.SEC, Skill.RESPONSIBLE_DIGITAL],
       title: 'Responsible Digital Knowledge Certificate',
    },
 ]
