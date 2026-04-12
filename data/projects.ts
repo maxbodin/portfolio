@@ -142,11 +142,30 @@ export const projectsItems: WorkDetails[] = [
       skills: [Skill.GRAPHIC_DESIGN],
    },
    {
-      description: 'Earth3D is an open-source 3D data visualization tool designed to display any type of geospatial data on a virtual globe, with the long-term goal of serving as an open alternative to Google Earth. The project is still under development.',
+      description:
+         'Earth3D is an open-source, web-based geospatial and astronomical visualization platform built with Next.js and Three.js.\n\n' +
+         'It delivers a real-time multi-scene experience (3D globe, planar map, and solar system), integrates live aircraft and vessel data (OpenSky + AIS stream over WebSocket), and combines Mapbox tiles, OpenStreetMap/Nominatim geocoding, OpenRouteService search/reverse geocoding, and Flickr imagery through server-side services and a secure tile proxy.\n\n' +
+         'The project is currently in active beta, with a long-term vision to become an open alternative to Google Earth.',
       github: 'https://github.com/maxbodin/earth3d',
       main_image_path: '/images/earth3D_001.webp',
       link: 'https://earth3d.vercel.app/',
-      skills: [Skill.NEXT_JS, Skill.REACT, Skill.TYPESCRIPT, Skill.BUN, Skill.THREE_JS, Skill.TAILWIND, Skill.SHADCN_UI, Skill.VERCEL],
+      skills: [
+         Skill.NEXT_JS,
+         Skill.REACT,
+         Skill.TYPESCRIPT,
+         Skill.BUN,
+         Skill.THREE_JS,
+         Skill.TAILWIND,
+         Skill.SHADCN_UI,
+         Skill.MAPBOX,
+         Skill.OPENSTREETMAP,
+         Skill.OPENROUTESERVICE,
+         Skill.WEBSOCKET,
+         Skill.AIS,
+         Skill.FLICKR_API,
+         Skill.GSAP,
+         Skill.VERCEL,
+      ],
       title: 'Earth3D',
       date: '2024',
    },
