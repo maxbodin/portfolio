@@ -1,5 +1,5 @@
 'use client'
-import * as React from 'react'
+import { useCallback } from 'react'
 import Link from 'next/link'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
@@ -11,12 +11,36 @@ import { isVideo } from '@/app/space/Work'
 import ImageWithFallback from '@/components/custom/imageWithFallback'
 import Video from '@/components/custom/video'
 
-export default function WorkFolder({ item }: { item: WorkDetails }) {
+type WorkFolderProps = {
+   item: WorkDetails
+   folderId?: string
+   openItemIds?: Set<string>
+   onOpenItemChangeAction?: (folderId: string, isOpen: boolean) => void
+}
+
+export default function WorkFolder({ item, folderId, openItemIds, onOpenItemChangeAction }: WorkFolderProps) {
    const hasGallery = item.images_path && item.images_path.length > 0
+   const resolvedFolderId = folderId ?? item.title
+   const isControlled = Boolean(openItemIds && onOpenItemChangeAction)
+   const isOpen = isControlled ? openItemIds?.has(resolvedFolderId) ?? false : false
+
+   const handleOpenChange = useCallback((value: string) => {
+      if (!onOpenItemChangeAction) {
+         return
+      }
+
+      onOpenItemChangeAction(resolvedFolderId, value === resolvedFolderId)
+   }, [onOpenItemChangeAction, resolvedFolderId])
 
    return (
-      <Accordion type="single" collapsible className="w-full">
-         <AccordionItem value={item.title}>
+      <Accordion
+         type="single"
+         collapsible
+         className="w-full"
+         value={isControlled ? (isOpen ? resolvedFolderId : undefined) : undefined}
+         onValueChange={isControlled ? handleOpenChange : undefined}
+      >
+         <AccordionItem value={resolvedFolderId}>
             <AccordionTrigger className="pl-4">
                <div className="flex items-center justify-between w-full">
                   <span className="text-left font-semibold">{item.title}</span>
@@ -116,7 +140,13 @@ export default function WorkFolder({ item }: { item: WorkDetails }) {
                         </h3>
                         <div className="space-y-4">
                            {item.related_works.map((item: WorkDetails, index: number) => (
-                              <WorkFolder key={`${item.title}-${index}`} item={item} />
+                              <WorkFolder
+                                 key={`${item.title}-${index}`}
+                                 item={item}
+                                 folderId={`${resolvedFolderId}/related-${index}`}
+                                 openItemIds={openItemIds}
+                                 onOpenItemChangeAction={onOpenItemChangeAction}
+                              />
                            ))}
                         </div>
                      </div>
