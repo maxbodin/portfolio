@@ -122,6 +122,14 @@ export const troisDItems: WorkDetails[] = [
       date: '2025',
    },
    {
+      description: 'TouchDesigner visual of blob tracking over videos.',
+      main_image_path: '/videos/opti/3d/td-nathan-blob.webm',
+      skills: [Skill.TOUCHDESIGNER, Skill.ALGO_PROG],
+      space_only: false,
+      title: 'Blob Tracking Visual',
+      date: '2025',
+   },
+   {
       description: '3D visual created with Blender for IMT Atlantique BDA\'s Cabaret Summer event.',
       main_image_path: '/videos/3d/cabaret-summer-borne-h265.mp4',
       low_quality_path: '/videos/3d/cabaret-summer-borne-h265_low.mp4',
