@@ -3,6 +3,15 @@ import { Skill } from '@/functions/getSkillColor'
 
 export const troisDItems: WorkDetails[] = [
    {
+      description: 'Real-time liquid glass shapes made in TouchDesigner and controlled with MediaPipe hand tracking (made by @blankensmithing and @domscott.art).\n'+
+         'Glass shader inspired by @g3n0m4 tutorial.',
+      main_image_path: '/videos/opti/3d/td-liquid-glass.webm',
+      skills: [Skill.TOUCHDESIGNER, Skill.MEDIAPIPE],
+      space_only: false,
+      title: 'Real-time liquid glass shapes',
+      date: '2026',
+   },
+   {
       description: 'Real-time strange attractors (Lorenz, Aizawa, Thomas, Rossler, and Dadras) rendered with POP GLSL in TouchDesigner. Parameters are updated live with a MIDI controller. Sound is generated in VCV Rack and controlled live with the same MIDI controller.',
       main_image_path: '/videos/opti/3d/td-strange-attractors.webm',
       skills: [Skill.TOUCHDESIGNER, Skill.GLSL, Skill.ALGO_PROG, Skill.MIDI, Skill.VCV_RACK],
