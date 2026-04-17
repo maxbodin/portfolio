@@ -118,6 +118,9 @@ export enum Skill {
    SERVER_ACTIONS = "Next.js Server Actions",
    NEXT_MIDDLEWARE = "Next.js Middleware",
    SSR = "Server-Side Rendering",
+   HUGGINGFACE = "Hugging Face",
+   CHROMADB = "ChromaDB",
+   LANGCHAIN = "LangChain",
 }
 
 const colorMapping: { [key in Skill]: string } = {
@@ -240,6 +243,9 @@ const colorMapping: { [key in Skill]: string } = {
    [Skill.SERVER_ACTIONS]: "#14B8A6",
    [Skill.NEXT_MIDDLEWARE]: "#8B5CF6",
    [Skill.SSR]: "#2563EB",
+   [Skill.HUGGINGFACE]: "#FFD21E",
+   [Skill.CHROMADB]: "#FFFFFF",
+   [Skill.LANGCHAIN]: "#1C3144",
 }
 
 /**

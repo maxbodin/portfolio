@@ -182,7 +182,7 @@ export const projectsItems: WorkDetails[] = [
          'The project would benefit from a full cleanup and modernization using current RAG and LLM tooling.',
       main_image_path: '',
       github: 'https://github.com/maxbodin/ragelec',
-      skills: [Skill.IA, Skill.RAG, Skill.NEXT_JS, Skill.REACT, Skill.TYPESCRIPT, Skill.BUN],
+      skills: [Skill.IA, Skill.RAG, Skill.NEXT_JS, Skill.REACT, Skill.TYPESCRIPT, Skill.BUN, Skill.HUGGINGFACE, Skill.CHROMADB, Skill.LANGCHAIN],
       title: 'RagÉlec ⚡',
       date: '2024',
    },
